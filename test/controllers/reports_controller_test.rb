@@ -3,6 +3,11 @@ require 'test_helper'
 class ReportsControllerTest < ActionController::TestCase
   setup do
     @report = reports(:one)
+    @update = {
+      company:  'Russneft',
+      period:   2009,
+      revenues: 12000
+    }
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class ReportsControllerTest < ActionController::TestCase
 
   test "should create report" do
     assert_difference('Report.count') do
-      post :create, report: { company: @report.company, period: @report.period, revenues: @report.revenues }
+      post :create, report: @update
     end
 
     assert_redirected_to report_path(assigns(:report))
@@ -35,7 +40,7 @@ class ReportsControllerTest < ActionController::TestCase
   end
 
   test "should update report" do
-    patch :update, id: @report, report: { company: @report.company, period: @report.period, revenues: @report.revenues }
+    patch :update, id: @report, report: @update
     assert_redirected_to report_path(assigns(:report))
   end
 
