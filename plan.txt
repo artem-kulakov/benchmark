@@ -1,8 +1,10 @@
-company
-year
-revenues
-
-postgres
 sass
+haml
 
 textmate: autocomplete
+
+postgres
+
+принцип:
+	очень быстрая разработка (мгновенная реакция на запросы аудитории)
+	очень простой дизайн
