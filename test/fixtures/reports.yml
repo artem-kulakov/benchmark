@@ -3,9 +3,24 @@
 one:
   company: MyString
   period: MyString
-  revenues: 
+  revenues: 30000
 
 two:
   company: MyString
   period: MyString
-  revenues: 
+  revenues: 40000
+
+gazprom:
+  company: Gazprom
+  period: 2008
+  revenues: 109000
+
+novatek:
+  company: Novatek
+  period: 2007
+  revenues: 59000
+
+slavneft:
+  company: Slavneft
+  period: 2006
+  revenues: -1
