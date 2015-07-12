@@ -1,10 +1,24 @@
+PUSH TO BITBUCKET
+
 sass
 haml
 
 textmate: autocomplete
 
+bootstrap?
 postgres
 
 принцип:
 	очень быстрая разработка (мгновенная реакция на запросы аудитории)
 	очень простой дизайн
+
+--------------------------------------------------------------------
+
+Reports
+	company
+	period
+	revenues
+
+Industries
+	industry
+	company
