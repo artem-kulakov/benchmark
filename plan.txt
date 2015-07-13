@@ -1,7 +1,4 @@
-PUSH TO BITBUCKET
-
 sass
-haml
 
 textmate: autocomplete
 
