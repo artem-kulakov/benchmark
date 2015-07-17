@@ -1,7 +1,3 @@
-sass
-
-textmate: autocomplete
-
 bootstrap?
 postgres
 

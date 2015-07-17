@@ -2,6 +2,7 @@
 	- @reports.each do |report|
 		- cache ['entry', report] do
 			%p.entry
+				= report.industry
 				= report.company
 				= report.period
 				= report.revenues
