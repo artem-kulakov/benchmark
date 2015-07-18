@@ -44,5 +44,6 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-# Use HAML
+# Use HAML as default
 gem 'haml', '~> 4.0'
+gem 'haml-rails'
