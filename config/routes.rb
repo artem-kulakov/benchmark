@@ -1,4 +1,6 @@
 Benchmark::Application.routes.draw do
+  resources :companies
+
   resources :industries
 
   # The priority is based upon order of creation: first created -> highest priority.
