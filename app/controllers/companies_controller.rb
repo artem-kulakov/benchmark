@@ -1,6 +1,10 @@
 class CompaniesController < ApplicationController
   before_action :set_company, only: [:show, :edit, :update, :destroy]
 
+  def initialize
+    @industries = Industry.order(:title)
+  end
+
   # GET /companies
   # GET /companies.json
   def index
