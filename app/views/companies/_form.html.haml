@@ -11,6 +11,6 @@
     = f.text_field :title
   .field
     = f.label :industry
-    = f.text_field :industry
+    = f.select :industry_id, options_from_collection_for_select(Industry.order(:title), :id, :title, @company.industry_id)
   .actions
     = f.submit 'Save'

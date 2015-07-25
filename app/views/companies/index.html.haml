@@ -8,10 +8,10 @@
     %th
     %th
 
-  - @companies.each do |company|
+  - @foo.each do |company|
     %tr
       %td= company.title
-      %td= company.industry
+      %td= company.industry.title
       %td= link_to 'Show', company
       %td= link_to 'Edit', edit_company_path(company)
       %td= link_to 'Destroy', company, :method => :delete, :data => { :confirm => 'Are you sure?' }

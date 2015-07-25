@@ -5,7 +5,7 @@
   = @company.title
 %p
   %b Industry:
-  = @company.industry
+  = Industry.find(@company.industry_id).title
 
 = link_to 'Edit', edit_company_path(@company)
 \|
