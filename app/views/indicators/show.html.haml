@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @indicator.title
+
+= link_to 'Edit', edit_indicator_path(@indicator)
+\|
+= link_to 'Back', indicators_path

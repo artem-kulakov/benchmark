@@ -1,4 +1,6 @@
 Benchmark::Application.routes.draw do
+  resources :indicators
+
   resources :periods
 
   resources :companies
