@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Indicator:
+  = @value.indicator
+%p
+  %b Report:
+  = @value.report
+%p
+  %b Value:
+  = @value.value
+
+= link_to 'Edit', edit_value_path(@value)
+\|
+= link_to 'Back', values_path

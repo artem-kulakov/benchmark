@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726134447) do
+ActiveRecord::Schema.define(version: 20150726140513) do
 
   create_table "companies", force: true do |t|
     t.string   "title"
@@ -59,5 +59,16 @@ ActiveRecord::Schema.define(version: 20150726134447) do
 
   add_index "reports", ["company_id"], name: "index_reports_on_company_id"
   add_index "reports", ["period_id"], name: "index_reports_on_period_id"
+
+  create_table "values", force: true do |t|
+    t.integer  "indicator_id"
+    t.integer  "report_id"
+    t.integer  "value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "values", ["indicator_id"], name: "index_values_on_indicator_id"
+  add_index "values", ["report_id"], name: "index_values_on_report_id"
 
 end

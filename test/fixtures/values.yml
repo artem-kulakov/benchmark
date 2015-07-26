@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  indicator_id: 
+  report_id: 
+  value: 1
+
+two:
+  indicator_id: 
+  report_id: 
+  value: 1
