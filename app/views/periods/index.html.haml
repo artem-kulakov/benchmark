@@ -1,0 +1,19 @@
+%h1 Listing periods
+
+%table
+  %tr
+    %th Title
+    %th
+    %th
+    %th
+
+  - @periods.each do |period|
+    %tr
+      %td= period.title
+      %td= link_to 'Show', period
+      %td= link_to 'Edit', edit_period_path(period)
+      %td= link_to 'Destroy', period, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Period', new_period_path

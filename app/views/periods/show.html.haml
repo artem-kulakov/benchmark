@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @period.title
+
+= link_to 'Edit', edit_period_path(@period)
+\|
+= link_to 'Back', periods_path
