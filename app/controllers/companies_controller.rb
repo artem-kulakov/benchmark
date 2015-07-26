@@ -4,22 +4,25 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.all
-    @foo = Company.joins(:industry).all
+    @companies = Company.joins(:industry).order(:title)
+    @industries = Industry.order(:title)
   end
 
   # GET /companies/1
   # GET /companies/1.json
   def show
+    @industry = Industry.find(@company.industry_id)
   end
 
   # GET /companies/new
   def new
     @company = Company.new
+    @industries = Industry.order(:title)
   end
 
   # GET /companies/1/edit
   def edit
+    @industries = Industry.order(:title)
   end
 
   # POST /companies
