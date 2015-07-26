@@ -2,10 +2,10 @@
 
 %p
   %b Industry:
-  = @industry_indicator.industry
+  = @industry_indicator.industry.title
 %p
   %b Indicator:
-  = @industry_indicator.indicator
+  = @industry_indicator.indicator.title
 
 = link_to 'Edit', edit_industry_indicator_path(@industry_indicator)
 \|

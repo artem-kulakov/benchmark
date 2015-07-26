@@ -10,8 +10,8 @@
 
   - @industry_indicators.each do |industry_indicator|
     %tr
-      %td= industry_indicator.industry
-      %td= industry_indicator.indicator
+      %td= industry_indicator.industry.title
+      %td= industry_indicator.indicator.title
       %td= link_to 'Show', industry_indicator
       %td= link_to 'Edit', edit_industry_indicator_path(industry_indicator)
       %td= link_to 'Destroy', industry_indicator, :method => :delete, :data => { :confirm => 'Are you sure?' }

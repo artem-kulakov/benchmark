@@ -15,10 +15,14 @@ class IndustryIndicatorsController < ApplicationController
   # GET /industry_indicators/new
   def new
     @industry_indicator = IndustryIndicator.new
+    @industries = Industry.order(:title)
+    @indicators = Indicator.order(:title)
   end
 
   # GET /industry_indicators/1/edit
   def edit
+    @industries = Industry.order(:title)
+    @indicators = Indicator.order(:title)
   end
 
   # POST /industry_indicators

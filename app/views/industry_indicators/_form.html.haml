@@ -8,9 +8,9 @@
 
   .field
     = f.label :industry
-    = f.text_field :industry
+    = f.select :industry_id, options_from_collection_for_select(@industries, :id, :title, @industry_indicator.industry_id)
   .field
     = f.label :indicator
-    = f.text_field :indicator
+    = f.select :indicator_id, options_from_collection_for_select(@indicators, :id, :title, @industry_indicator.indicator_id)
   .actions
     = f.submit 'Save'
