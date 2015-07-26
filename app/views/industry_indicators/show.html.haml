@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Industry:
+  = @industry_indicator.industry
+%p
+  %b Indicator:
+  = @industry_indicator.indicator
+
+= link_to 'Edit', edit_industry_indicator_path(@industry_indicator)
+\|
+= link_to 'Back', industry_indicators_path

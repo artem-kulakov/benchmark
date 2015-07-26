@@ -1,0 +1,2 @@
+module IndustryIndicatorsHelper
+end

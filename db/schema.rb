@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726063947) do
+ActiveRecord::Schema.define(version: 20150726064659) do
 
   create_table "companies", force: true do |t|
     t.string   "title"
@@ -33,6 +33,16 @@ ActiveRecord::Schema.define(version: 20150726063947) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "industry_indicators", force: true do |t|
+    t.integer  "industry_id"
+    t.integer  "indicator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "industry_indicators", ["indicator_id"], name: "index_industry_indicators_on_indicator_id"
+  add_index "industry_indicators", ["industry_id"], name: "index_industry_indicators_on_industry_id"
 
   create_table "periods", force: true do |t|
     t.string   "title"
