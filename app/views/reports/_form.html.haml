@@ -8,9 +8,9 @@
 
   .field
     = f.label :company
-    = f.text_field :company
+    = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id)
   .field
     = f.label :period
-    = f.text_field :period
+    = f.select :period_id, options_from_collection_for_select(@periods, :id, :title, @report.period_id)
   .actions
     = f.submit 'Save'

@@ -2,10 +2,10 @@
 
 %p
   %b Company:
-  = @report.company
+  = @report.company.title
 %p
   %b Period:
-  = @report.period
+  = @report.period.title
 
 = link_to 'Edit', edit_report_path(@report)
 \|

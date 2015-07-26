@@ -15,10 +15,14 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
+    @companies = Company.order(:title)
+    @periods = Period.order(:title)
   end
 
   # GET /reports/1/edit
   def edit
+    @companies = Company.order(:title)
+    @periods = Period.order(:title)
   end
 
   # POST /reports
