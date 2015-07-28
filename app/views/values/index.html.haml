@@ -2,8 +2,9 @@
 
 %table
   %tr
+    %th Company
+    %th Period
     %th Indicator
-    %th Report
     %th Value
     %th
     %th
@@ -11,8 +12,9 @@
 
   - @values.each do |value|
     %tr
-      %td= value.indicator
-      %td= value.report
+      %td= value.company.title
+      %td= value.period.title
+      %td= value.indicator.title
       %td= value.value
       %td= link_to 'Show', value
       %td= link_to 'Edit', edit_value_path(value)

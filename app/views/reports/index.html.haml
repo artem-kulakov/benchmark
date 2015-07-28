@@ -4,6 +4,11 @@
   %tr
     %th Company
     %th Period
+    %th Industry
+    
+    - @industry.indicators.each do |indicator|
+      %th= indicator.title
+    
     %th
     %th
     %th
@@ -12,6 +17,11 @@
     %tr
       %td= report.company.title
       %td= report.period.title
+      %td= report.industry.title
+      
+      - report.values.each do |value|
+        %td= value.value
+
       %td= link_to 'Show', report
       %td= link_to 'Edit', edit_report_path(report)
       %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
