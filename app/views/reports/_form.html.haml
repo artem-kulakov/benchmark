@@ -12,5 +12,13 @@
   .field
     = f.label :period
     = f.select :period_id, options_from_collection_for_select(@periods, :id, :title, @report.period_id)
+
+  - @report.indicators.each do |i|
+    .field
+      = i.title
+      = f.fields_for :values do |v|
+        - if i.id == v.object.indicator_id
+          = v.text_field :value
+
   .actions
     = f.submit 'Save'
