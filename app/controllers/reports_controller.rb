@@ -20,8 +20,11 @@ class ReportsController < ApplicationController
     @periods = Period.order(:title)
 
     @indicators = Industry.find(1).indicators
+    
+    @titles = []
     @indicators.each do |indicator|
       @report.values.new(indicator_id: indicator.id)
+      @titles.push indicator.title
     end
   end
 

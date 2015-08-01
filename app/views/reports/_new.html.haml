@@ -15,7 +15,7 @@
 
   = f.fields_for :values do |v|
     .field
-      = @indicators.find(v.object.indicator_id).title
+      = @titles.shift
       = v.text_field :value
       = v.hidden_field :indicator_id
 
