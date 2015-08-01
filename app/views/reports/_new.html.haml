@@ -17,8 +17,8 @@
     .field
       = i.title
       = f.fields_for :values do |v|
-        - if i.id == v.object.indicator_id
-          = v.text_field :value
+        = v.text_field :value
+        = v.hidden_field :indicator_id, :value => i.id
 
   .actions
     = f.submit 'Save'
