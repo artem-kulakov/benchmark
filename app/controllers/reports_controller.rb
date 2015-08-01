@@ -18,12 +18,16 @@ class ReportsController < ApplicationController
     @report = Report.new
     @companies = Company.order(:title)
     @periods = Period.order(:title)
+
+    1.times { @report.values.new }
+    @indicators = Industry.find(1).indicators
   end
 
   # GET /reports/1/edit
   def edit
     @companies = Company.order(:title)
     @periods = Period.order(:title)
+    @indicators = Industry.find(1).indicators
   end
 
   # POST /reports
