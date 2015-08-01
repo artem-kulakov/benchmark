@@ -19,8 +19,10 @@ class ReportsController < ApplicationController
     @companies = Company.order(:title)
     @periods = Period.order(:title)
 
-    1.times { @report.values.new }
     @indicators = Industry.find(1).indicators
+    @indicators.each do |indicator|
+      @report.values.new(indicator_id: indicator.id)
+    end
   end
 
   # GET /reports/1/edit
