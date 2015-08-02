@@ -5,7 +5,7 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     @reports = Report.all
-    @industry = Industry.find(1)
+    @indicators = Industry.find(1).indicators
   end
 
   # GET /reports/1

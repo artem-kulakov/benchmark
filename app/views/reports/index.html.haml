@@ -6,7 +6,7 @@
     %th Period
     %th Industry
     
-    - @industry.indicators.each do |indicator|
+    - @indicators.each do |indicator|
       %th= indicator.title
     
     %th
@@ -19,8 +19,8 @@
       %td= report.period.title
       %td= report.industry.title
       
-      - report.values.each do |value|
-        %td= value.value
+      - @indicators.each do |indicator|
+        %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
 
       %td= link_to 'Show', report
       %td= link_to 'Edit', edit_report_path(report)
