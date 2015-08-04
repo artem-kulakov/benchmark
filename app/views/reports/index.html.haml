@@ -1,10 +1,18 @@
 %h1 Listing reports
 
+= form_tag reports_path, method: 'get', class: 'industry' do
+  
+  = select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()'
+  
+  = select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()'
+  
+  = submit_tag 'submit'
+  = javascript_tag "$('.industry input').hide()"
+
+
 %table
   %tr
     %th Company
-    %th Period
-    %th Industry
     
     - @indicators.each do |indicator|
       %th= indicator.title
@@ -16,8 +24,6 @@
   - @reports.each do |report|
     %tr
       %td= report.company.title
-      %td= report.period.title
-      %td= report.industry.title
       
       - @indicators.each do |indicator|
         %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop

@@ -4,8 +4,30 @@ class ReportsController < ApplicationController
   # GET /reports
   # GET /reports.json
   def index
-    @reports = Report.all
-    @indicators = Industry.find(1).indicators
+    
+    # Set industry id
+    if params[:industry]
+      industry_id = params[:industry]
+    else
+      industry_id = 1
+    end
+    
+    @industries = Industry.order(:title)
+    @industry = Industry.find(industry_id)
+    
+    # Set period id
+    if params[:period]
+      period_id = params[:period]
+    else
+      period_id = 1
+    end
+    
+    @periods = Period.order(:title)
+    @period = Period.find(period_id)
+    
+    @reports = Report.joins(:company).where(companies: {industry_id: industry_id}, period_id: period_id)
+    @indicators = Industry.find(industry_id).indicators
+    
   end
 
   # GET /reports/1
