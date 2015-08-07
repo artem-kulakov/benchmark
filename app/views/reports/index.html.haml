@@ -1,5 +1,7 @@
 %h1 Listing reports
 
+%p#notice= notice
+
 = form_tag reports_path, method: 'get', class: 'industry' do
   
   = select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()'
@@ -29,9 +31,12 @@
         %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
 
       %td= link_to 'Show', report
-      %td= link_to 'Edit', edit_report_path(report)
+      %td= link_to 'Edit', edit_report_path(report, )
       %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Report', new_report_path
+= link_to 'New Report', new_report_path(industry: @industry.id, period: @period.id)
+%br
+%br
+= link_to 'Companies', companies_path(industry: @industry.id)

@@ -6,12 +6,8 @@
         - @report.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :company
-    = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id)
-  .field
-    = f.label :period
-    = f.select :period_id, options_from_collection_for_select(@periods, :id, :title, @report.period_id)
+  %h2
+    = @report.company.title + ', ' + @period.title
 
   - @indicators.each do |i|
     .field

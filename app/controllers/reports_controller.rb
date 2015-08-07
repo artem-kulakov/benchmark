@@ -38,18 +38,23 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
-    @companies = Company.order(:title)
+    @companies = Company.where(industry_id: params[:industry]).order(:title)
     @periods = Period.order(:title)
 
     @report.values.new
-    @indicators = Industry.find(1).indicators
+    @indicators = Industry.find(params[:industry]).indicators
+    
+    @industry = Industry.find(params[:industry])
+    @period = Period.find(params[:period])
   end
 
   # GET /reports/1/edit
   def edit
     @companies = Company.order(:title)
     @periods = Period.order(:title)
-    @indicators = Industry.find(1).indicators
+    @indicators = @report.indicators
+    @industry = @report.industry
+    @period = @report.period
   end
 
   # POST /reports
@@ -59,7 +64,7 @@ class ReportsController < ApplicationController
 
     respond_to do |format|
       if @report.save
-        format.html { redirect_to @report, notice: 'Report was successfully created.' }
+        format.html { redirect_to action: 'index', industry: @report.industry.id, period: @report.period.id }
         format.json { render action: 'show', status: :created, location: @report }
       else
         format.html { render action: 'new' }
@@ -73,7 +78,7 @@ class ReportsController < ApplicationController
   def update
     respond_to do |format|
       if @report.update(report_params)
-        format.html { redirect_to @report, notice: 'Report was successfully updated.' }
+        format.html { redirect_to action: 'index', industry: @report.industry.id, period: @report.period.id }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

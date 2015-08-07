@@ -11,7 +11,7 @@
     = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id)
   .field
     = f.label :period
-    = f.select :period_id, options_from_collection_for_select(@periods, :id, :title, @report.period_id)
+    = f.select :period_id, options_from_collection_for_select(@periods, :id, :title, params[:period])
 
   - @indicators.each do |i|
     .field
