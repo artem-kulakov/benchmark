@@ -38,5 +38,10 @@
 
 = link_to 'New Report', new_report_path(industry: @industry.id, period: @period.id)
 %br
+= link_to 'New Industry', new_industry_path
 %br
-= link_to 'Companies', companies_path(industry: @industry.id)
+= link_to 'New Company', new_company_path
+%br
+= link_to 'New Period', new_period_path
+%br
+= link_to 'New Indicator', new_indicator_path(industry: @industry.id)
