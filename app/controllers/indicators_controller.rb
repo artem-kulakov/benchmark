@@ -28,7 +28,7 @@ class IndicatorsController < ApplicationController
 
     respond_to do |format|
       if @indicator.save
-        format.html { redirect_to @indicator, notice: 'Indicator was successfully created.' }
+        format.html { redirect_to controller: 'reports', action: 'index', industry: @indicator.industry_id }
         format.json { render action: 'show', status: :created, location: @indicator }
       else
         format.html { render action: 'new' }
@@ -69,6 +69,6 @@ class IndicatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def indicator_params
-      params.require(:indicator).permit(:title)
+      params.require(:indicator).permit(:title, :industry_id)
     end
 end

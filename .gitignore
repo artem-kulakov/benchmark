@@ -17,6 +17,3 @@
 
 # Ignore DS_store
 .DS_Store
-
-# Ignore plan.txt
-/plan.txt

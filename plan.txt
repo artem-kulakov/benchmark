@@ -1,0 +1,39 @@
+new indicator for corporate
+  common and specific
+find 'industry_indicator'
+try all new: what to change?
+  order of indicators
+  unique industry/company/period/indicator/report(company, period)
+
+
+
+один пользователь (я)
+только годы (без кварталов)
+только рубли и только в миллионах
+только россия
+только финансовые показатели
+только значения (без формул)
+без источников, комментариев и timestamp
+только IFRS
+
+
+--------------------------------------------------------------------
+
+bootstrap?
+postgres
+
+принцип:
+	очень быстрая разработка (мгновенная реакция на запросы аудитории)
+	очень простой дизайн
+
+--------------------------------------------------------------------
+
+git reset --hard HEAD
+git clean -fd
+
+--------------------------------------------------------------------
+
+# Rails
+
+# Add new column to an existing table
+rails generate migration add_industry_to_indicator industry:belongs_to

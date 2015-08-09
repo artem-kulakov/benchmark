@@ -53,6 +53,13 @@ class ReportsController < ApplicationController
     @companies = Company.order(:title)
     @periods = Period.order(:title)
     @indicators = @report.indicators
+    
+    @indicators.each do |indicator|
+      if @report.values.where(indicator_id: indicator.id).empty?
+        @report.values.new(indicator_id: indicator.id)
+      end
+    end
+    
     @industry = @report.industry
     @period = @report.period
   end
