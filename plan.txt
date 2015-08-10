@@ -1,9 +1,13 @@
-new indicator for corporate
-  common and specific
+Вычистить industry_indicator из приложения
 find 'industry_indicator'
 try all new: what to change?
   order of indicators
   unique industry/company/period/indicator/report(company, period)
+
+new indicator
+  correct industry and period after Submit
+Indicator
+  0, 2 or corp, bank?
 
 
 

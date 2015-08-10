@@ -7,7 +7,11 @@ class ReportsController < ApplicationController
     
     # Set industry id
     if params[:industry]
-      industry_id = params[:industry]
+      if params[:industry] == "0"
+        industry_id = 1
+      else
+        industry_id = params[:industry]
+      end
     else
       industry_id = 1
     end
@@ -26,7 +30,12 @@ class ReportsController < ApplicationController
     @period = Period.find(period_id)
     
     @reports = Report.joins(:company).where(companies: {industry_id: industry_id}, period_id: period_id)
-    @indicators = Industry.find(industry_id).indicators
+    
+    if industry_id == "2"
+      @indicators = Indicator.where(industry_id: industry_id)
+    else
+      @indicators = Indicator.where(industry_id: [industry_id, 0])
+    end
     
   end
 
@@ -42,7 +51,14 @@ class ReportsController < ApplicationController
     @periods = Period.order(:title)
 
     @report.values.new
-    @indicators = Industry.find(params[:industry]).indicators
+    
+    industry_id = params[:industry]
+    
+    if industry_id == "2"
+      @indicators = Indicator.where(industry_id: industry_id)
+    else
+      @indicators = Indicator.where(industry_id: [industry_id, 0])
+    end
     
     @industry = Industry.find(params[:industry])
     @period = Period.find(params[:period])
@@ -52,7 +68,15 @@ class ReportsController < ApplicationController
   def edit
     @companies = Company.order(:title)
     @periods = Period.order(:title)
-    @indicators = @report.indicators
+    
+    @industry = @report.industry
+    industry_id = @industry.id
+
+    if industry_id.to_s == 2.to_s
+      @indicators = Indicator.where(industry_id: industry_id)
+    else
+      @indicators = Indicator.where(industry_id: [industry_id, 0])
+    end
     
     @indicators.each do |indicator|
       if @report.values.where(indicator_id: indicator.id).empty?
@@ -60,7 +84,6 @@ class ReportsController < ApplicationController
       end
     end
     
-    @industry = @report.industry
     @period = @report.period
   end
 
