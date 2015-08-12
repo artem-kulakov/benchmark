@@ -29,10 +29,11 @@ class CompaniesController < ApplicationController
   # POST /companies.json
   def create
     @company = Company.new(company_params)
+    flash.keep
 
     respond_to do |format|
       if @company.save
-        format.html { redirect_to @company, notice: 'Company was successfully created.' }
+        format.html { redirect_to reports_path, notice: 'Company was successfully created.' }
         format.json { render action: 'show', status: :created, location: @company }
       else
         format.html { render action: 'new' }

@@ -1,20 +1,25 @@
-industry & period to session
-company/new: remove <select>; New company for ... industry
-reports/new: remove <select> for period
+# session changed to flash
+# reports/new: remove <select> for period
+
+commit
 order of indicators
 unique industry/company/period/indicator/report(company, period)
-back to reports/index
-page title
+backs to reports/index
+human page titles
+all /new: focus on text field
+
 
 
 try again: what to change?
 
-
+reports/index: refactor 'set industry/period id'
 new indicator
   correct industry and period after Submit
 Indicator
   0, 2 or corp, bank?
 Вычистить industry_indicator из приложения
+reports: merge _new and _edit (back to default scheme)
+new company: move flash.keep to controller
 
 
 
@@ -41,6 +46,9 @@ postgres
 
 git reset --hard HEAD
 git clean -fd
+
+# Discard the last commit
+git reset HEAD~
 
 --------------------------------------------------------------------
 
