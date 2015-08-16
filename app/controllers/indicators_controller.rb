@@ -4,9 +4,15 @@ class IndicatorsController < ApplicationController
   # GET /indicators
   # GET /indicators.json
   def index
-    @indicators = Indicator.all
+    if params[:industry].to_i == 2
+      @indicators = Indicator.where(industry_id: params[:industry])
+    else
+      @indicators = Indicator.where(industry_id: [params[:industry], 0])
+    end
+    
+    @industry = Industry.find(params[:industry])
   end
-
+  
   # GET /indicators/1
   # GET /indicators/1.json
   def show
@@ -69,6 +75,6 @@ class IndicatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def indicator_params
-      params.require(:indicator).permit(:title, :industry_id)
+      params.require(:indicator).permit(:title, :industry_id, :order)
     end
 end

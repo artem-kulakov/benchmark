@@ -1,12 +1,25 @@
-# session changed to flash
-# reports/new: remove <select> for period
+# заменить flash на query string (flash сбоит)
+# order of indicators:
+#   adapt for banking
+#   create order field in DB
 
-commit
-order of indicators
+
+railscast - нет (мудрено, фактически пойду вслепую)
+
+
+
+order of indicators:
+  text_field for order
+  button 'reorder' changes 'order' field in DB
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
 human page titles
 all /new: focus on text field
+navigation links to preserve industry and period
+short names in query string
+заменить flash на query string (flash сбоит)
+navigation: ?industry&period
+move <select> industry and period to application view
 
 
 
