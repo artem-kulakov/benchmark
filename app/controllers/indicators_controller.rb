@@ -69,10 +69,7 @@ class IndicatorsController < ApplicationController
 
   # PUT /indicators/all
   def update_all
-    params["indicator"].keys.each do |id|
-      @indicator = Indicator.find(id.to_i)
-      @indicator.update_attributes(params["indicator"][id])
-    end
+    Indicator.update(params['indicator'].keys, params['indicator'].values)
     redirect_to(indicators_url)
   end
 
