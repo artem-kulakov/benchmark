@@ -12,32 +12,20 @@ class ReportsController < ApplicationController
       else
         industry_id = params[:industry]
       end
-    elsif flash[:industry]
-        if flash[:industry] == "0"
-          industry_id = 1
-        else
-          industry_id = flash[:industry]
-        end
     else
       industry_id = 1
     end
 
-    flash[:industry] = industry_id
-    
     @industries = Industry.order(:title)
     @industry = Industry.find(industry_id)
     
     # Set period id
     if params[:period]
       period_id = params[:period]
-    elsif flash[:period]
-      period_id = flash[:period]
     else
       period_id = 1
     end
 
-    flash[:period] = period_id
-    
     @periods = Period.order(:title)
     @period = Period.find(period_id)
     

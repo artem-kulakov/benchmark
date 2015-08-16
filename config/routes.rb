@@ -5,6 +5,9 @@ Benchmark::Application.routes.draw do
 
   resources :industry_indicators
 
+  match 'indicators/all/edit' => 'indicators#edit_all', :as => :edit_all, :via => :get
+  match 'indicators/all' => 'indicators#update_all', :as => :update_all, :via => :put
+
   resources :indicators
 
   resources :periods

@@ -4,13 +4,8 @@ class IndicatorsController < ApplicationController
   # GET /indicators
   # GET /indicators.json
   def index
-    if params[:industry].to_i == 2
-      @indicators = Indicator.where(industry_id: params[:industry])
-    else
-      @indicators = Indicator.where(industry_id: [params[:industry], 0])
-    end
-    
-    @industry = Industry.find(params[:industry])
+    @indicators = Indicator.all    
+    @industry = Industry.find(1)
   end
   
   # GET /indicators/1
@@ -65,6 +60,20 @@ class IndicatorsController < ApplicationController
       format.html { redirect_to indicators_url }
       format.json { head :no_content }
     end
+  end
+
+  # GET /indicators/all/edit
+  def edit_all
+    @indicators = Indicator.all
+  end
+
+  # PUT /indicators/all
+  def update_all
+    params["indicator"].keys.each do |id|
+      @indicator = Indicator.find(id.to_i)
+      @indicator.update_attributes(params["indicator"][id])
+    end
+    redirect_to(indicators_url)
   end
 
   private

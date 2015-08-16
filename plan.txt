@@ -1,13 +1,3 @@
-# заменить flash на query string (flash сбоит)
-# order of indicators:
-#   adapt for banking
-#   create order field in DB
-
-
-railscast - нет (мудрено, фактически пойду вслепую)
-
-
-
 order of indicators:
   text_field for order
   button 'reorder' changes 'order' field in DB
