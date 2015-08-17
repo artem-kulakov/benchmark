@@ -1,3 +1,4 @@
+remove users from schema
 order of indicators:
   text_field for order
   button 'reorder' changes 'order' field in DB

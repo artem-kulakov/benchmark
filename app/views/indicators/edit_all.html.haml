@@ -1,0 +1,19 @@
+%h1 Editing indicators
+
+= form_for :indicator, :url => update_all_path(industry: params[:industry]), :html => { :method => :put } do
+
+  %table
+    %tr
+      %th Title
+      %th Order
+      
+    - @indicators.each do |indicator|
+      = fields_for "indicator[]", indicator do |indicator_fields|
+        %tr
+          %td= indicator.title
+          %td= indicator_fields.text_field :sequence
+
+  .actions
+    = submit_tag
+
+= link_to 'Back', indicators_path

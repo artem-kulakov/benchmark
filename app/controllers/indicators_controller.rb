@@ -4,8 +4,8 @@ class IndicatorsController < ApplicationController
   # GET /indicators
   # GET /indicators.json
   def index
-    @indicators = Indicator.all    
-    @industry = Industry.find(1)
+    @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    @industry = Industry.find(params[:industry])
   end
   
   # GET /indicators/1
@@ -64,13 +64,14 @@ class IndicatorsController < ApplicationController
 
   # GET /indicators/all/edit
   def edit_all
-    @indicators = Indicator.all
+    @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    @industry = Industry.find(params[:industry])
   end
 
   # PUT /indicators/all
   def update_all
     Indicator.update(params['indicator'].keys, params['indicator'].values)
-    redirect_to(indicators_url)
+    redirect_to action: 'index', industry: params[:industry]
   end
 
   private
@@ -81,6 +82,6 @@ class IndicatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def indicator_params
-      params.require(:indicator).permit(:title, :industry_id, :order)
+      params.require(:indicator).permit(:title, :industry_id, :sequence)
     end
 end
