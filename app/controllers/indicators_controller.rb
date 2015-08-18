@@ -4,7 +4,12 @@ class IndicatorsController < ApplicationController
   # GET /indicators
   # GET /indicators.json
   def index
-    @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    if params[:industry].to_i == 2
+      @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    else
+      @indicators = Indicator.where(industry_id: [params[:industry], 0]).order(:sequence)
+    end    
+    
     @industry = Industry.find(params[:industry])
   end
   
@@ -64,7 +69,12 @@ class IndicatorsController < ApplicationController
 
   # GET /indicators/all/edit
   def edit_all
-    @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    if params[:industry].to_i == 2
+      @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    else
+      @indicators = Indicator.where(industry_id: [params[:industry], 0]).order(:sequence)
+    end
+    
     @industry = Industry.find(params[:industry])
   end
 

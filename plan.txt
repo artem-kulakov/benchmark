@@ -1,7 +1,8 @@
-remove users from schema
-order of indicators:
-  text_field for order
-  button 'reorder' changes 'order' field in DB
+# indicator/edit_all: common indicators implemented
+# reports: order of indicators done
+
+зачистить базу данных; seed db?
+bootstrap indicators/edit_all, jquery sortable
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
 human page titles
@@ -11,6 +12,7 @@ short names in query string
 заменить flash на query string (flash сбоит)
 navigation: ?industry&period
 move <select> industry and period to application view
+remove users from schema
 
 
 

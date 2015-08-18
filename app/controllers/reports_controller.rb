@@ -32,9 +32,9 @@ class ReportsController < ApplicationController
     @reports = Report.joins(:company).where(companies: {industry_id: industry_id}, period_id: period_id)
     
     if industry_id == "2"
-      @indicators = Indicator.where(industry_id: industry_id)
+      @indicators = Indicator.where(industry_id: industry_id).order(:sequence)
     else
-      @indicators = Indicator.where(industry_id: [industry_id, 0])
+      @indicators = Indicator.where(industry_id: [industry_id, 0]).order(:sequence)
     end
     
   end
