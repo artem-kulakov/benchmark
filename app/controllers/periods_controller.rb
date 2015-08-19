@@ -28,7 +28,7 @@ class PeriodsController < ApplicationController
 
     respond_to do |format|
       if @period.save
-        format.html { redirect_to @period, notice: 'Period was successfully created.' }
+        format.html { redirect_to periods_path, notice: 'Period was successfully created.' }
         format.json { render action: 'show', status: :created, location: @period }
       else
         format.html { render action: 'new' }

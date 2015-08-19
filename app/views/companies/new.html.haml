@@ -1,6 +1,4 @@
-%h1= "New company for #{Industry.find(flash[:industry]).title} industry"
-
-- flash.keep
+%h1= "New company for #{Industry.find(params[:industry]).title} industry"
 
 = render 'form'
 

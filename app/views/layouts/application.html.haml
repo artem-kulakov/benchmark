@@ -11,8 +11,8 @@
 
   .navi
   %br
-  = link_to 'Reports', reports_path
+  = link_to 'Reports', reports_path(industry: params[:industry])
   = link_to 'Industries', industries_path
-  = link_to 'Companies', companies_path
-  = link_to 'Indicators', indicators_path(industry: @industry.id)
+  = link_to 'Companies', companies_path(industry: params[:industry])
+  = link_to 'Indicators', indicators_path(industry: params[:industry])
   = link_to 'Periods', periods_path

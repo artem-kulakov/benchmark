@@ -64,14 +64,6 @@ ActiveRecord::Schema.define(version: 20150816140447) do
   add_index "reports", ["company_id"], name: "index_reports_on_company_id"
   add_index "reports", ["period_id"], name: "index_reports_on_period_id"
 
-  create_table "users", force: true do |t|
-    t.string   "first_name"
-    t.string   "last_name"
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "values", force: true do |t|
     t.integer  "indicator_id"
     t.integer  "report_id"

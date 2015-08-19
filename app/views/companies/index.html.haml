@@ -1,4 +1,4 @@
-%h1 Listing companies
+%h1= "Companies of #{@industry.title} industry"
 
 %table
   %tr
@@ -11,11 +11,10 @@
   - @companies.each do |company|
     %tr
       %td= company.title
-      %td= company.industry.title
       %td= link_to 'Show', company
       %td= link_to 'Edit', edit_company_path(company)
       %td= link_to 'Destroy', company, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Company', new_company_path
+= link_to 'New Company', new_company_path(industry: params[:industry])

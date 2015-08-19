@@ -13,7 +13,7 @@ class ReportsController < ApplicationController
         industry_id = params[:industry]
       end
     else
-      industry_id = 1
+      params[:industry] = industry_id = 1
     end
 
     @industries = Industry.order(:title)
@@ -23,7 +23,7 @@ class ReportsController < ApplicationController
     if params[:period]
       period_id = params[:period]
     else
-      period_id = 1
+      period_id = 2
     end
 
     @periods = Period.order(:title)
