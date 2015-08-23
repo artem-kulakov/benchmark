@@ -1,19 +1,16 @@
-%h1 Editing indicators
+.page-header
+  %h3 Order of #{@industry.title} indicators
 
 = form_for :indicator, :url => update_all_path(industry: params[:industry]), :html => { :method => :put } do
 
-  %table
-    %tr
-      %th Title
-      %th Order
-      
+  %ul.sortable.list-group
     - @indicators.each do |indicator|
       = fields_for "indicator[]", indicator do |indicator_fields|
-        %tr
-          %td= indicator.title
-          %td= indicator_fields.text_field :sequence
+        %li.list-group-item
+          = indicator.title
+          = indicator_fields.hidden_field :sequence, class: :sequence
 
   .actions
-    = submit_tag :Save
+    = submit_tag :Save, class: "btn btn-success reorder"
 
 = link_to 'Back', indicators_path

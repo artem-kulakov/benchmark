@@ -1,4 +1,4 @@
-bootstrap indicators/edit_all, jquery sortable
+formula
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
 human page titles
