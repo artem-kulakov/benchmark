@@ -1,4 +1,6 @@
 Benchmark::Application.routes.draw do
+  resources :formulas
+
   resources :values
 
   resources :reports

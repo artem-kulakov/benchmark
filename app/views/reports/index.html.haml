@@ -13,7 +13,7 @@
   = javascript_tag "$('.industry input').hide()"
 
 
-%table
+%table.table
   %tr
     %th Company
     
@@ -28,8 +28,13 @@
     %tr
       %td= report.company.title
       
+      - indicators_values = Hash[*report.values.collect {|it| [it.indicator_id.to_s, it.value]}.flatten]
+      
       - @indicators.each do |indicator|
-        %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
+        - if indicator.formula
+          %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d)(?=\])|(?:[\[\]])/, indicators_values))
+        - else
+          %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
 
       %td= link_to 'Show', report
       %td= link_to 'Edit', edit_report_path(report, )
@@ -53,3 +58,5 @@
 = link_to 'New Company', new_company_path(industry: params[:industry])
 %br
 = link_to 'New Period', new_period_path
+
+/%p= @indicators_titles.inspect

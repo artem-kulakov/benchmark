@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Indicator:
+  = @formula.indicator
+%p
+  %b Formula:
+  = @formula.notation
+
+= link_to 'Edit', edit_formula_path(@formula)
+\|
+= link_to 'Back', formulas_path

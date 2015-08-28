@@ -1,0 +1,21 @@
+%h1 Listing formulas
+
+%table
+  %tr
+    %th Indicator
+    %th Formula
+    %th
+    %th
+    %th
+
+  - @formulas.each do |formula|
+    %tr
+      %td= formula.indicator
+      %td= formula.notation
+      %td= link_to 'Show', formula
+      %td= link_to 'Edit', edit_formula_path(formula)
+      %td= link_to 'Destroy', formula, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Formula', new_formula_path

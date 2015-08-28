@@ -7,9 +7,9 @@ ready = ->
   $( ".sortable" ).disableSelection()
 
   $('.reorder').click ->
-    for n, index in $('.sequence')
+    for element, index in $('.sequence')
       do ->
-        n.value = index
+        element.value = index
 
 $(document).ready(ready)
 $(document).on('page:load', ready)

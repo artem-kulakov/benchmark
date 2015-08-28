@@ -11,6 +11,8 @@
   - @indicators.each do |indicator|
     %tr
       %td= indicator.title
+      - if indicator.formula
+        %td= indicator.formula.notation
       %td= link_to 'Show', indicator
       %td= link_to 'Edit', edit_indicator_path(indicator)
       %td= link_to 'Destroy', indicator, :method => :delete, :data => { :confirm => 'Are you sure?' }

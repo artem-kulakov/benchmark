@@ -37,6 +37,8 @@ class ReportsController < ApplicationController
       @indicators = Indicator.where(industry_id: [industry_id, 0]).order(:sequence)
     end
     
+    @indicators_titles = Hash[*Indicator.where(industry_id: [industry_id, 0]).collect {|it| [it.id.to_s, it.title]}.flatten]
+    
   end
 
   # GET /reports/1

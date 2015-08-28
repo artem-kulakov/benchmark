@@ -7,4 +7,5 @@ class Report < ActiveRecord::Base
   
   has_one :industry, through: :company
   has_many :indicators, through: :industry
+  has_many :formulas, through: :indicators
 end

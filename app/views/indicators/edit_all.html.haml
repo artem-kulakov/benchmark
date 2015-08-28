@@ -7,6 +7,7 @@
     - @indicators.each do |indicator|
       = fields_for "indicator[]", indicator do |indicator_fields|
         %li.list-group-item
+          %span.glyphicon.glyphicon-sort
           = indicator.title
           = indicator_fields.hidden_field :sequence, class: :sequence
 

@@ -21,6 +21,7 @@ class IndicatorsController < ApplicationController
   # GET /indicators/new
   def new
     @indicator = Indicator.new
+    @indicator.build_formula
   end
 
   # GET /indicators/1/edit
@@ -92,6 +93,6 @@ class IndicatorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def indicator_params
-      params.require(:indicator).permit(:title, :industry_id, :sequence)
+      params.require(:indicator).permit(:title, :industry_id, :sequence, formula_attributes: [:id, :notation])
     end
 end

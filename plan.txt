@@ -1,4 +1,6 @@
 formula
+  formula input
+  security
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
 human page titles
@@ -9,6 +11,8 @@ short names in query string
 navigation: ?industry&period
 move <select> industry and period to application view
 remove autoinput from numbers textfields
+glyphicons
+выделить формулы цветом
 
 try again: what to change?
 
