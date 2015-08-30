@@ -50,11 +50,11 @@
   = link_to "New indicator (common)", new_indicator_path(industry: 0)
 
 %br
-= link_to "New indicator (specific for #{@industry.title})", new_indicator_path(industry: @industry.id)
+= link_to "New indicator (specific for #{@industry.title})", new_indicator_path
 %br
 %br
 = link_to 'New Industry', new_industry_path
 %br
-= link_to 'New Company', new_company_path(industry: session[:industry])
+= link_to 'New Company', new_company_path
 %br
 = link_to 'New Period', new_period_path

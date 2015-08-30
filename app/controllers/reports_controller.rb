@@ -33,7 +33,7 @@ class ReportsController < ApplicationController
     elsif session[:period]
       period_id = session[:period]
     else
-      session[:period] = period_id = 2
+      session[:period] = period_id = 1
     end
     
     session[:period] = period_id

@@ -1,8 +1,9 @@
-Вычистить industry_indicator из приложения
 try again: what's next or what to change?
   новый индикатор в конец
   избавиться от query string
   select onchange: избавиться от query string
+  companies/index & new: select industry
+  new indicator: по умолчанию нет поля "формула" и в таблицу formula ничего не пишется
 users?
 
 
