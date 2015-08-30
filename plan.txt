@@ -2,6 +2,7 @@
 try again: what's next or what to change?
   новый индикатор в конец
   избавиться от query string
+  select onchange: избавиться от query string
 users?
 
 
@@ -67,6 +68,8 @@ git clean -fd
 # Discard the last commit
 git reset HEAD~
 
+# After deletion of few files
+git add -u
 --------------------------------------------------------------------
 
 # Rails
