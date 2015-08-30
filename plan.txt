@@ -1,3 +1,10 @@
+Вычистить industry_indicator из приложения
+try again: what's next or what to change?
+  новый индикатор в конец
+  избавиться от query string
+users?
+
+
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
 human page titles
@@ -22,14 +29,12 @@ formula
 numbers format
 formula deleted together with parent and child indicators
 
-try again: what's next or what to change?
 
 reports/index: refactor 'set industry/period id'
 new indicator
   correct industry and period after Submit
 Indicator
   0, 2 or corp, bank?
-Вычистить industry_indicator из приложения
 reports: merge _new and _edit (back to default scheme)
 new company: move flash.keep to controller
 

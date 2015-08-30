@@ -4,8 +4,8 @@ class CompaniesController < ApplicationController
   # GET /companies
   # GET /companies.json
   def index
-    @companies = Company.where(industry_id: params[:industry]).order(:title)
-    @industry = Industry.find(params[:industry])
+    @companies = Company.where(industry_id: session[:industry]).order(:title)
+    @industry = Industry.find(session[:industry])
   end
 
   # GET /companies/1
@@ -68,7 +68,7 @@ class CompaniesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_company
-      @company = Company.find(params[:id])
+      @company = Company.find(session[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -3,14 +3,14 @@
 
 %p#notice= notice
 
-= form_tag reports_path, method: 'get', class: 'industry' do
+= form_tag reports_path, method: 'get', class: 'selector' do
   
   = select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()'
   
   = select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()'
   
   = submit_tag 'submit'
-  = javascript_tag "$('.industry input').hide()"
+  = javascript_tag "$('.selector input').hide()"
 
 
 %table.table
@@ -55,8 +55,6 @@
 %br
 = link_to 'New Industry', new_industry_path
 %br
-= link_to 'New Company', new_company_path(industry: params[:industry])
+= link_to 'New Company', new_company_path(industry: session[:industry])
 %br
 = link_to 'New Period', new_period_path
-
-/%p= @indicators_titles.inspect

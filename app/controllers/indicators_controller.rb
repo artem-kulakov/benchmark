@@ -4,13 +4,13 @@ class IndicatorsController < ApplicationController
   # GET /indicators
   # GET /indicators.json
   def index
-    if params[:industry].to_i == 2
-      @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    if session[:industry].to_i == 2
+      @indicators = Indicator.where(industry_id: session[:industry]).order(:sequence)
     else
-      @indicators = Indicator.where(industry_id: [params[:industry], 0]).order(:sequence)
+      @indicators = Indicator.where(industry_id: [session[:industry], 0]).order(:sequence)
     end    
     
-    @industry = Industry.find(params[:industry])
+    @industry = Industry.find(session[:industry])
   end
   
   # GET /indicators/1
@@ -22,7 +22,7 @@ class IndicatorsController < ApplicationController
   def new
     @indicator = Indicator.new
     @indicator.build_formula
-    @indicators = Indicator.where(industry_id: params[:industry])
+    @indicators = Indicator.where(industry_id: session[:industry])
   end
 
   # GET /indicators/1/edit
@@ -71,25 +71,25 @@ class IndicatorsController < ApplicationController
 
   # GET /indicators/all/edit
   def edit_all
-    if params[:industry].to_i == 2
-      @indicators = Indicator.where(industry_id: params[:industry]).order(:sequence)
+    if session[:industry].to_i == 2
+      @indicators = Indicator.where(industry_id: session[:industry]).order(:sequence)
     else
-      @indicators = Indicator.where(industry_id: [params[:industry], 0]).order(:sequence)
+      @indicators = Indicator.where(industry_id: [session[:industry], 0]).order(:sequence)
     end
     
-    @industry = Industry.find(params[:industry])
+    @industry = Industry.find(session[:industry])
   end
 
   # PUT /indicators/all
   def update_all
     Indicator.update(params['indicator'].keys, params['indicator'].values)
-    redirect_to action: 'index', industry: params[:industry]
+    redirect_to action: 'index', industry: session[:industry]
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_indicator
-      @indicator = Indicator.find(params[:id])
+      @indicator = Indicator.find(session[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

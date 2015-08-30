@@ -1,7 +1,7 @@
 .page-header
   %h3 Order of #{@industry.title} indicators
 
-= form_for :indicator, :url => update_all_path(industry: params[:industry]), :html => { :method => :put } do
+= form_for :indicator, :url => update_all_path(industry: session[:industry]), :html => { :method => :put } do
 
   %ul.sortable.list-group
     - @indicators.each do |indicator|

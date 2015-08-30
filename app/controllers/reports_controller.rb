@@ -12,9 +12,17 @@ class ReportsController < ApplicationController
       else
         industry_id = params[:industry]
       end
+    elsif session[:industry]
+        if session[:industry] == "0"
+          industry_id = 1
+        else
+          industry_id = session[:industry]
+        end
     else
-      params[:industry] = industry_id = 1
+      industry_id = 1
     end
+    
+    session[:industry] = industry_id
 
     @industries = Industry.order(:title)
     @industry = Industry.find(industry_id)
@@ -22,9 +30,13 @@ class ReportsController < ApplicationController
     # Set period id
     if params[:period]
       period_id = params[:period]
+    elsif session[:period]
+      period_id = session[:period]
     else
-      period_id = 2
+      session[:period] = period_id = 2
     end
+    
+    session[:period] = period_id
 
     @periods = Period.order(:title)
     @period = Period.find(period_id)
@@ -49,12 +61,12 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
-    @companies = Company.where(industry_id: params[:industry]).order(:title)
+    @companies = Company.where(industry_id: session[:industry]).order(:title)
     @periods = Period.order(:title)
 
     @report.values.new
     
-    industry_id = params[:industry]
+    industry_id = session[:industry]
     
     if industry_id == "2"
       @indicators = Indicator.where(industry_id: industry_id)
@@ -62,8 +74,8 @@ class ReportsController < ApplicationController
       @indicators = Indicator.where(industry_id: [industry_id, 0])
     end
     
-    @industry = Industry.find(params[:industry])
-    @period = Period.find(params[:period])
+    @industry = Industry.find(session[:industry])
+    @period = Period.find(session[:period])
   end
 
   # GET /reports/1/edit
@@ -132,7 +144,7 @@ class ReportsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report
-      @report = Report.find(params[:id])
+      @report = Report.find(session[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

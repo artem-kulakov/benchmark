@@ -14,7 +14,7 @@
       = ff.label :formula
       = ff.text_field :notation, class: :notation
     
-    = f.hidden_field :industry_id, :value => params[:industry]
+    = f.hidden_field :industry_id, :value => session[:industry]
   
   .actions
     = f.submit 'Save'
