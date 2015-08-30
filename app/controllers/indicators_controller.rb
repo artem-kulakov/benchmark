@@ -22,6 +22,7 @@ class IndicatorsController < ApplicationController
   def new
     @indicator = Indicator.new
     @indicator.build_formula
+    @indicators = Indicator.where(industry_id: params[:industry])
   end
 
   # GET /indicators/1/edit

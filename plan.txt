@@ -1,6 +1,3 @@
-formula
-  formula input
-  security
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
 human page titles
@@ -13,8 +10,19 @@ move <select> industry and period to application view
 remove autoinput from numbers textfields
 glyphicons
 выделить формулы цветом
+individual controllers' sass files do not work
+formula
+  formula input by clicking indicators names
+    integer/integer
+    autoformula based on title
+    формула с испорченными пользователем именами
+    nested formula
+    circular formula
+  security
+numbers format
+formula deleted together with parent and child indicators
 
-try again: what to change?
+try again: what's next or what to change?
 
 reports/index: refactor 'set industry/period id'
 new indicator

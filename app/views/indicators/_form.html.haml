@@ -12,9 +12,14 @@
   .field
     = f.fields_for :formula do |ff|
       = ff.label :formula
-      = ff.text_field :notation
+      = ff.text_field :notation, class: :notation
     
     = f.hidden_field :industry_id, :value => params[:industry]
   
   .actions
     = f.submit 'Save'
+
+%ul
+  - @indicators.each do |indicator|
+    %li.badge{id: indicator.title, title: indicator.title}
+      = indicator.title
