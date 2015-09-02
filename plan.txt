@@ -1,5 +1,11 @@
-users
+few users
+  босс (это я)
+  классный пользователь
+  пользователь, который ошибается
+для гостя вывод данных введенных пользователем с максимальным рейтингом
+система расчета рейтинга
 
+has1any2one3
 
 unique industry/company/period/indicator/report(company, period)
 backs to reports/index
@@ -30,6 +36,11 @@ select onchange: избавиться от query string
 companies/index & new: select industry
 new indicator: по умолчанию нет поля "формула" и в таблицу formula ничего не пишется
 Кнопка 'cancel' в разных new/edit/reorder
+new report: убрать формулы или обозначить их и позволить вводить значения
+new report: ввод простых формул типа "100+100"
+ограничить доступ пользователей которые еще не вошли во все кроме index/show и даже более
+implement omniauth
+rails generate devise:views и оформить view как хочу
 
 
 reports/index: refactor 'set industry/period id'
