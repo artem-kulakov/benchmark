@@ -13,7 +13,12 @@
     %tr
       %td= industry.title
       %td= link_to 'Show', industry
-      %td= link_to 'Edit', edit_industry_path(industry)
+      
+      - if industry.user_id == current_user.id
+        %td= link_to 'Edit', edit_industry_path(industry)
+      - else
+        %td= link_to 'Correct', new_industry_path(title: industry.title, initial_id: industry.id)
+      
       %td= link_to 'Destroy', industry, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
