@@ -1,7 +1,9 @@
-initial_id
-commit
+# добавить рейтинги
+
+доработать sql query
+  разобраться с MAX
+  
 having count(*) > 1
-добавить рейтинги и доработать sql query
 запретить ввод отрасли без регистрации
 вывод для гостя и наблюдателя
 свои выделить цветом
@@ -103,3 +105,13 @@ git add -u
 rails generate migration add_industry_to_indicator industry:belongs_to
 
 http://gistflow.com/posts/79-how-to-safely-delete-migration-in-rails
+
+---------------------
+
+# PG
+
+user
+user
+
+8-9 сентября 2015 года установил PG в /Library/... и все
+См. почту от 9-10 сентября
