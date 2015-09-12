@@ -5,10 +5,10 @@ class IndustriesController < ApplicationController
   # GET /industries.json
   def index
     @industries = Industry.own(current_user.id)
-    @foo = Industry.find_by_sql("SELECT *
-      FROM industries
-      GROUP BY initial_id
-      HAVING MAX(user_id) = 2")
+    # @foo = Industry.find_by_sql("SELECT *
+    #   FROM industries
+    #   GROUP BY initial_id
+    #   HAVING MAX(user_id) = 2")
   end
 
   # GET /industries/1
@@ -19,6 +19,7 @@ class IndustriesController < ApplicationController
   # GET /industries/new
   def new
     @industry = Industry.new
+    @industry.industry_titles.new
   end
 
   # GET /industries/1/edit
@@ -32,16 +33,8 @@ class IndustriesController < ApplicationController
 
     respond_to do |format|
       if @industry.save
-        
-        # Copy industry id to initial_id column
-        unless @industry.initial_id
-          @industry.initial_id = @industry.id
-          @industry.save
-        end
-        
         format.html { redirect_to industries_path, notice: 'Industry was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @industry }
-        
+        format.json { render action: 'show', status: :created, location: @industry }        
       else
         format.html { render action: 'new' }
         format.json { render json: @industry.errors, status: :unprocessable_entity }
@@ -81,6 +74,6 @@ class IndustriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def industry_params
-      params.require(:industry).permit(:title, :user_id, :initial_id)
+      params.require(:industry).permit(industry_titles_attributes: [:id, :title, :user_id])
     end
 end

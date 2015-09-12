@@ -11,13 +11,13 @@
 
   - @industries.each do |industry|
     %tr
-      %td= industry.title
+      %td= industry.industry_titles.first.title
       %td= link_to 'Show', industry
       
-      - if industry.user_id == current_user.id
+      - if industry.industry_titles.first.user_id == current_user.id
         %td= link_to 'Edit', edit_industry_path(industry)
       - else
-        %td= link_to 'Correct', new_industry_path(title: industry.title, initial_id: industry.id)
+        %td= link_to 'Correct', new_industry_path(title: industry.industry_titles.first.title, industry_id: industry.id)
       
       %td= link_to 'Destroy', industry, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
@@ -25,5 +25,5 @@
 
 = link_to 'New Industry', new_industry_path
 
-- @foo.each do |industry|
-  %p= industry.inspect
+/ - @foo.each do |industry|
+/   %p= industry.inspect

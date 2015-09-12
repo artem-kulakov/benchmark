@@ -1,4 +1,15 @@
 # добавить рейтинги
+# industry titles model
+# delete three migrations
+# настроить ввод в таблицу industry_titles
+
+edit/correct of own/others industries
+добавить рейтинги пользователям
+вывод своих или с максимальным рейтингом
+SQL query
+почистить контроллер, модель и пр.
+  'first' in index
+
 
 доработать sql query
   разобраться с MAX
