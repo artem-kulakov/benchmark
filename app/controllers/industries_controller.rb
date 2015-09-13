@@ -4,11 +4,7 @@ class IndustriesController < ApplicationController
   # GET /industries
   # GET /industries.json
   def index
-    @industries = Industry.own(current_user.id)
-    # @foo = Industry.find_by_sql("SELECT *
-    #   FROM industries
-    #   GROUP BY initial_id
-    #   HAVING MAX(user_id) = 2")
+    @industries = Industry.all
   end
 
   # GET /industries/1

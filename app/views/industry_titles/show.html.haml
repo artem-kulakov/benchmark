@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Title:
+  = @industry_title.title
+%p
+  %b Industry:
+  = @industry_title.industry
+%p
+  %b User:
+  = @industry_title.user
+
+= link_to 'Edit', edit_industry_title_path(@industry_title)
+\|
+= link_to 'Back', industry_titles_path

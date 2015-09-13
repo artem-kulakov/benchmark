@@ -8,8 +8,8 @@
 
   .field
     = f.label :title
-    = f.fields_for :industry_titles do |ff|
-      = ff.text_field :title#, :value => params[:title]
+    = f.fields_for :industry_titles, @industry.industry_titles.where(user_id: current_user.id) do |ff|
+      = ff.text_field :title
       = ff.hidden_field :user_id, :value => current_user.id
   .actions
     = f.submit 'Save'
