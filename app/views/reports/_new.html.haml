@@ -17,6 +17,7 @@
       = f.fields_for :values do |v|
         = v.text_field :value
         = v.hidden_field :indicator_id, :value => i.id
+        = v.hidden_field :user_id, :value => current_user.id
 
   .actions
     = f.submit 'Save'

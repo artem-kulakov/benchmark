@@ -3,14 +3,14 @@
 
 %p#notice= notice
 
-= form_tag reports_path, method: 'get', class: 'selector' do
-  
-  = select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()'
-  
-  = select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()'
-  
-  = submit_tag 'submit'
-  = javascript_tag "$('.selector input').hide()"
+/ = form_tag reports_path, method: 'get', class: 'selector' do
+/
+/   = select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()'
+/
+/   = select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()'
+/
+/   = submit_tag 'submit'
+/   = javascript_tag "$('.selector input').hide()"
 
 
 %table.table
@@ -31,13 +31,18 @@
       - indicators_values = Hash[*report.values.collect {|it| [it.indicator_id.to_s, it.value]}.flatten]
       
       - @indicators.each do |indicator|
-        - if indicator.formula
-          %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
-        - else
-          %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
+        / - if indicator.formula
+        /   %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
+        / - else
+        %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
 
       %td= link_to 'Show', report
-      %td= link_to 'Edit', edit_report_path(report, )
+      
+      - if report.values.first.user.id == current_user.id
+        %td= link_to 'Edit', edit_report_path(report)
+      - else
+        %td= link_to 'Correct', new_value_path(report: report.id, industry: session[:industry])
+      
       %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
@@ -50,7 +55,7 @@
   = link_to "New indicator (common)", new_indicator_path(industry: 0)
 
 %br
-= link_to "New indicator (specific for #{@industry.title})", new_indicator_path
+/ = link_to "New indicator (specific for #{@industry.title})", new_indicator_path
 %br
 %br
 = link_to 'New Industry', new_industry_path

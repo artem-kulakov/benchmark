@@ -14,7 +14,10 @@ class ValuesController < ApplicationController
 
   # GET /values/new
   def new
-    @value = Value.new
+    # @value = Value.new
+    @indicators = Indicator.where(industry_id: [params[:industry], 0]).order(:sequence)
+    @report = Report.find(params[:report])
+    @values = @report.values.new
   end
 
   # GET /values/1/edit
@@ -24,7 +27,7 @@ class ValuesController < ApplicationController
   # POST /values
   # POST /values.json
   def create
-    @value = Value.new(value_params)
+    2.times {@value = Value.new(value_params)}
 
     respond_to do |format|
       if @value.save
@@ -69,6 +72,8 @@ class ValuesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def value_params
-      params.require(:value).permit(:indicator_id, :report_id, :value)
+      @values.each do |value|
+        params.require(:value).permit(:indicator_id, :report_id, :value, :user_id)
+      end
     end
 end

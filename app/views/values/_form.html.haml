@@ -1,19 +1,34 @@
-= form_for @value do |f|
-  - if @value.errors.any?
-    #error_explanation
-      %h2= "#{pluralize(@value.errors.count, "error")} prohibited this value from being saved:"
-      %ul
-        - @value.errors.full_messages.each do |msg|
-          %li= msg
+/ = form_tag 'foo' do |f|
+= form_tag url_for(:controller => 'values', :action => 'create'), :method => 'post' do |f|
+  / - if @values.errors.any?
+  /   #error_explanation
+  /     %h2= "#{pluralize(@values.errors.count, "error")} prohibited this value from being saved:"
+  /     %ul
+  /       - @values.errors.full_messages.each do |msg|
+  /         %li= msg
 
-  .field
-    = f.label :report
-    = f.text_field :report_id
-  .field
-    = f.label :indicator
-    = f.text_field :indicator_id
-  .field
-    = f.label :value
-    = f.number_field :value
+  / .field
+  /   = f.label :report
+  /   = f.text_field :report_id
+  / .field
+  /   = f.label :indicator
+  /   = f.text_field :indicator_id
+  / .field
+  /   = f.label :value
+  /   = f.number_field :value
+    
+  - @indicators.each do |indicator|
+    / - if indicator.formula
+    /   %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
+    / - else
+    .field
+      = indicator.title
+      = text_field_tag 'value[][value]', @report.values.where(indicator_id: indicator.id).pluck(:value).pop
+      = hidden_field_tag 'value[][indicator_id]', indicator.id
+      = hidden_field_tag 'value[][report_id]', @report.id
+      = hidden_field_tag 'value[][user_id]', current_user.id
+  
   .actions
-    = f.submit 'Save'
+    = submit_tag 'Save'
+
+= current_user.id

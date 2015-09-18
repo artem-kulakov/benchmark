@@ -6,6 +6,8 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     
+    # Value.last.delete
+    
     # Set industry id
     if params[:industry]
       if params[:industry] == "0"
@@ -20,12 +22,12 @@ class ReportsController < ApplicationController
           industry_id = session[:industry]
         end
     else
-      industry_id = 1
+      industry_id = 7
     end
     
     session[:industry] = industry_id
 
-    @industries = Industry.order(:title)
+    @industries = Industry.joins(:industry_titles).order(:title)
     @industry = Industry.find(industry_id)
     
     # Set period id
@@ -150,6 +152,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :period_id, values_attributes: [:id, :indicator_id, :value])
+      params.require(:report).permit(:company_id, :period_id, values_attributes: [:id, :indicator_id, :value, :user_id])
     end
 end
