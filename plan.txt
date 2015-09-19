@@ -1,3 +1,11 @@
+reports_controller
+  новый метод
+reports#_new
+  новый view?
+report#index
+  правильный amend/edit
+
+
 Multi-user reports
   Correct
     times (number of indicators) values.new

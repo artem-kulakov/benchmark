@@ -14,10 +14,16 @@
   - @indicators.each do |i|
     .field
       = i.title
-      = f.fields_for :values do |v|
-        = v.text_field :value
+      = f.fields_for :values, @new_values do |v|
+        = v.text_field :value, :value => @report.values.where(indicator_id: i.id).pluck(:value).pop
         = v.hidden_field :indicator_id, :value => i.id
         = v.hidden_field :user_id, :value => current_user.id
 
   .actions
     = f.submit 'Save'
+
+/ - @indicators.each do |i|
+/   %p= i.inspect
+
+/ - @report.values.each do |rv|
+/   %p= rv.inspect

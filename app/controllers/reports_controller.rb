@@ -7,6 +7,7 @@ class ReportsController < ApplicationController
   def index
     
     # Value.last.delete
+    # Report.last.delete
     
     # Set industry id
     if params[:industry]
@@ -63,11 +64,11 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    @report = Report.new
+    @report = Report.find(params[:report])#new
     @companies = Company.where(industry_id: session[:industry]).order(:title)
     @periods = Period.order(:title)
 
-    @report.values.new
+    @new_values = @report.values.new
     
     industry_id = session[:industry]
     
