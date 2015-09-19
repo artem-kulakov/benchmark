@@ -1,5 +1,5 @@
 class ReportsController < ApplicationController
-  before_action :set_report, only: [:show, :edit, :update, :destroy]
+  before_action :set_report, only: [:show, :amend, :edit, :update, :destroy]
   before_action :authenticate_user!, except: [:show, :index]
 
   # GET /reports
@@ -62,9 +62,9 @@ class ReportsController < ApplicationController
   def show
   end
 
-  # GET /reports/new
-  def new
-    @report = Report.find(params[:report])#new
+  # GET /reports/1/amend
+  def amend
+    # @report = Report.find(params[:report])
     @companies = Company.where(industry_id: session[:industry]).order(:title)
     @periods = Period.order(:title)
 

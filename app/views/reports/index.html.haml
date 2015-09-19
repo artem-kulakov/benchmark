@@ -38,10 +38,10 @@
 
       %td= link_to 'Show', report
       
-      - if report.values.first.user.id == current_user.id
+      - if report.values.last.user.id == current_user.id
         %td= link_to 'Edit', edit_report_path(report)
       - else
-        %td= link_to 'Correct', new_report_path(report: report.id, industry: session[:industry])
+        %td= link_to 'Correct', amend_report_path(report)
       
       %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
 

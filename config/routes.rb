@@ -6,6 +6,8 @@ Benchmark::Application.routes.draw do
 
   resources :values
 
+  get 'reports/:id/amend' => 'reports#amend', as: :amend_report
+
   resources :reports
 
   match 'indicators/all/edit' => 'indicators#edit_all', :as => :edit_all, :via => :get

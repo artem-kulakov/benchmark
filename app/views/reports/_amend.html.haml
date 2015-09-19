@@ -1,0 +1,29 @@
+= form_for @report do |f|
+  - if @report.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+      %ul
+        - @report.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :company
+    = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id)
+    = f.hidden_field :period_id, :value => session[:period]
+
+  - @indicators.each do |i|
+    .field
+      = i.title
+      = f.fields_for :values, @new_values do |v|
+        = v.text_field :value, :value => @report.values.where(indicator_id: i.id).pluck(:value).pop
+        = v.hidden_field :indicator_id, :value => i.id
+        = v.hidden_field :user_id, :value => current_user.id
+
+  .actions
+    = f.submit 'Save'
+
+/ - @indicators.each do |i|
+/   %p= i.inspect
+
+/ - @report.values.each do |rv|
+/   %p= rv.inspect
