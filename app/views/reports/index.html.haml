@@ -34,7 +34,8 @@
         / - if indicator.formula
         /   %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
         / - else
-        %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
+        /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
+        %td= report.values.where(indicator_id: indicator.id, user_id: report.users.order("rating DESC").first.id).pluck(:value).pop
 
       %td= link_to 'Show', report
       
