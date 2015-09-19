@@ -1,7 +1,3 @@
-reports_controller
-  новый метод
-reports#_new
-  новый view?
 report#index
   правильный amend/edit
 

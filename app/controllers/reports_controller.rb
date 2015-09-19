@@ -62,6 +62,26 @@ class ReportsController < ApplicationController
   def show
   end
 
+  # GET /reports/new
+  def new
+    @report = Report.new
+    @companies = Company.where(industry_id: session[:industry]).order(:title)
+    @periods = Period.order(:title)
+
+    @report.values.new
+    
+    industry_id = session[:industry]
+    
+    if industry_id == "2"
+      @indicators = Indicator.where(industry_id: industry_id)
+    else
+      @indicators = Indicator.where(industry_id: [industry_id, 0])
+    end
+    
+    @industry = Industry.find(session[:industry])
+    @period = Period.find(session[:period])
+  end
+
   # GET /reports/1/amend
   def amend
     # @report = Report.find(params[:report])
