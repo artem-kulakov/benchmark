@@ -165,6 +165,17 @@ class ReportsController < ApplicationController
     end
   end
 
+  # GET /reports/rate
+  def rate
+    @user = User.find(params[:user])
+    @user.rating += 0.1
+    @user.save
+    
+    respond_to do |format|
+      format.html { redirect_to action: 'index', industry: session[:industry], period: session[:period] }
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_report

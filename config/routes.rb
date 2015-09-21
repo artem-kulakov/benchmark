@@ -7,6 +7,7 @@ Benchmark::Application.routes.draw do
   resources :values
 
   get 'reports/:id/amend' => 'reports#amend', as: :amend_report
+  get 'reports/rate' => 'reports#rate', as: :rate
 
   resources :reports
 
