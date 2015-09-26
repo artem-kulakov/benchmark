@@ -1,6 +1,6 @@
 class Value < ActiveRecord::Base
   belongs_to :indicator
-  belongs_to :report
+  belongs_to :version
   
   has_one :company, through: :report
   has_one :period, through: :report

@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150916180708) do
+ActiveRecord::Schema.define(version: 20150921151452) do
+
+  create_table "approvals", force: true do |t|
+    t.integer  "version_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id"
+  add_index "approvals", ["version_id"], name: "index_approvals_on_version_id"
 
   create_table "companies", force: true do |t|
     t.string   "title"
@@ -94,15 +104,23 @@ ActiveRecord::Schema.define(version: 20150916180708) do
 
   create_table "values", force: true do |t|
     t.integer  "indicator_id"
-    t.integer  "report_id"
+    t.integer  "version_id"
     t.float    "value"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
 
   add_index "values", ["indicator_id"], name: "index_values_on_indicator_id"
-  add_index "values", ["report_id"], name: "index_values_on_report_id"
-  add_index "values", ["user_id"], name: "index_values_on_user_id"
+  add_index "values", ["version_id"], name: "index_values_on_version_id"
+
+  create_table "versions", force: true do |t|
+    t.integer  "report_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "versions", ["report_id"], name: "index_versions_on_report_id"
+  add_index "versions", ["user_id"], name: "index_versions_on_user_id"
 
 end

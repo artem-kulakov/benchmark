@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Version:
+  = @approval.version
+%p
+  %b User:
+  = @approval.user
+
+= link_to 'Edit', edit_approval_path(@approval)
+\|
+= link_to 'Back', approvals_path

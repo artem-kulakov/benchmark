@@ -6,8 +6,9 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     
-    # Value.last.delete
-    # Report.last.delete
+    # Report.delete_all
+    # Version.delete_all
+    # Value.delete_all
     
     # Set industry id
     if params[:industry]
@@ -65,11 +66,12 @@ class ReportsController < ApplicationController
   # GET /reports/new
   def new
     @report = Report.new
+    version = @report.versions.new
+    version.values.new
+    
     @companies = Company.where(industry_id: session[:industry]).order(:title)
     @periods = Period.order(:title)
 
-    @report.values.new
-    
     industry_id = session[:industry]
     
     if industry_id == "2"
@@ -85,11 +87,12 @@ class ReportsController < ApplicationController
   # GET /reports/1/amend
   def amend
     # @report = Report.find(params[:report])
+    @new_version = @report.versions.new
+    @new_values = @new_version.values.new
+    
     @companies = Company.where(industry_id: session[:industry]).order(:title)
     @periods = Period.order(:title)
 
-    @new_values = @report.values.new
-    
     industry_id = session[:industry]
     
     if industry_id == "2"
@@ -171,6 +174,11 @@ class ReportsController < ApplicationController
     @user.rating += 0.1
     @user.save
     
+    @approval = Approval.new
+    @approval.version_id = params[:version]
+    @approval.user_id = current_user.id
+    @approval.save
+    
     respond_to do |format|
       format.html { redirect_to action: 'index', industry: session[:industry], period: session[:period] }
     end
@@ -184,6 +192,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :period_id, values_attributes: [:id, :indicator_id, :value, :user_id])
+      params.require(:report).permit(:company_id, :period_id, versions_attributes: [:id, :user_id, values_attributes: [:id, :indicator_id, :value]])
     end
 end

@@ -10,14 +10,17 @@
     = f.label :company
     = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id)
     = f.hidden_field :period_id, :value => session[:period]
+  
+  .field
+    = f.fields_for :versions do |v|
+      = v.hidden_field :user_id, :value => current_user.id
 
-  - @indicators.each do |i|
-    .field
-      = i.title
-      = f.fields_for :values do |v|
-        = v.text_field :value
-        = v.hidden_field :indicator_id, :value => i.id
-        = v.hidden_field :user_id, :value => current_user.id
+      - @indicators.each do |i|
+        .field
+          = i.title
+          = v.fields_for :values do |val|
+            = val.text_field :value
+            = val.hidden_field :indicator_id, :value => i.id
 
   .actions
     = f.submit 'Save'

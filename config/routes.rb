@@ -1,4 +1,8 @@
 Benchmark::Application.routes.draw do
+  resources :approvals
+
+  resources :versions
+
   resources :industry_titles
 
   devise_for :users

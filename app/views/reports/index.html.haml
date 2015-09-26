@@ -1,5 +1,6 @@
 .page-header
-  %h3 Listing reports
+  = link_to 'New report', new_report_path(industry: @industry.id, period: @period.id), class: "btn btn-success pull-right"
+  %h3 All reports
 
 %p#notice= notice
 
@@ -29,6 +30,9 @@
     %tr
       %td= report.company.title
       
+      - user_id = report.users.order("rating DESC").first.id
+      - version_id = report.versions.where(user_id: user_id).pluck(:id).pop
+      
       - indicators_values = Hash[*report.values.collect {|it| [it.indicator_id.to_s, it.value]}.flatten]
       
       - @indicators.each do |indicator|
@@ -36,21 +40,25 @@
         /   %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
         / - else
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
-        %td= report.values.where(indicator_id: indicator.id, user_id: report.users.order("rating DESC").first.id).pluck(:value).pop
+        %td= report.values.where(indicator_id: indicator.id, version_id: version_id).pluck(:value).pop
 
       %td= link_to 'Show', report
       
-      - if report.values.last.user.id == current_user.id
+      - if report.versions.last.user.id == current_user.id
         %td= link_to 'Edit', edit_report_path(report)
       - else
-        %td= link_to 'Correct', amend_report_path(report)
+        %td= link_to 'Amend', amend_report_path(report)
       
       %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
-      %td= link_to 'Approve', rate_path(user: report.values.last.user.id)
+      
+      - if user_id == current_user.id
+        - # nothing
+      - elsif report.approvals.last
+        - if report.approvals.last.user.id == current_user.id
+          - # nothing
+      - else
+        %td= link_to 'Approve', rate_path(user: user_id, version: version_id)
 
-%br
-
-= link_to 'New Report', new_report_path(industry: @industry.id, period: @period.id)
 %br
 
 - unless @industry.id == 2
