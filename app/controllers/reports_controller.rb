@@ -35,7 +35,6 @@ class ReportsController < ApplicationController
 
     # @industries = Industry.includes(:industry_titles).order('industry_titles.title')
     @industries = [[:oilandgas, 7], [:retail, 8]]
-    @foo = Industry.joins(:industry_titles).all
     @industry = Industry.find(industry_id)
     
     # Set period id

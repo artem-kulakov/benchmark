@@ -3,8 +3,6 @@ Benchmark::Application.routes.draw do
 
   resources :versions
 
-  resources :industry_titles
-
   devise_for :users
   resources :formulas
 

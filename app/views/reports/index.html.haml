@@ -60,6 +60,3 @@
   %li= link_to 'New industry', new_industry_path, class: 'btn btn-primary btn-xs'
   %li= link_to 'New company', new_company_path, class: 'btn btn-primary btn-xs'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-xs'
-
-- Industry.joins(:industry_titles, :users).group('industries.id').maximum(:rating).each do |x, y|
-  %p= Industry.joins(:users => :industry_titles).where("industries.id=#{x} AND users.rating=#{y}").pluck('industry_titles.title').first

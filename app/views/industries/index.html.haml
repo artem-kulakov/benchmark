@@ -11,23 +11,9 @@
 
   - @industries.each do |industry|
     %tr
-      -# Show own title or title of user with highest rating
-      - if industry.industry_titles.where(user_id: current_user.id).pluck(:title).pop
-        - title = industry.industry_titles.where(user_id: current_user.id).pluck(:title).pop
-        %td= title
-        - own_title = true
-      - else
-        - title = industry.industry_titles.where(user_id: industry.users.order("rating DESC").first.id).pluck(:title).pop
-        %td= title
-        - own_title = false
-      
+      %td= industry.title
       %td= link_to 'Show', industry
-      
-      - if own_title
-        %td= link_to 'Edit', edit_industry_path(industry)
-      - else
-        %td= link_to 'Correct', new_industry_title_path(title: title, industry_id: industry.id)
-      
+      %td= link_to 'Edit', edit_industry_path(industry)
       %td= link_to 'Destroy', industry, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br

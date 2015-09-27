@@ -15,7 +15,6 @@ class IndustriesController < ApplicationController
   # GET /industries/new
   def new
     @industry = Industry.new
-    @industry.industry_titles.new
   end
 
   # GET /industries/1/edit
@@ -30,7 +29,7 @@ class IndustriesController < ApplicationController
     respond_to do |format|
       if @industry.save
         format.html { redirect_to industries_path, notice: 'Industry was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @industry }        
+        format.json { render action: 'show', status: :created, location: @industry }
       else
         format.html { render action: 'new' }
         format.json { render json: @industry.errors, status: :unprocessable_entity }
@@ -70,6 +69,6 @@ class IndustriesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def industry_params
-      params.require(:industry).permit(industry_titles_attributes: [:id, :title, :user_id])
+      params.require(:industry).permit(:title)
     end
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150927100118) do
+ActiveRecord::Schema.define(version: 20150927184953) do
 
   create_table "approvals", force: true do |t|
     t.integer  "version_id"
@@ -54,18 +54,8 @@ ActiveRecord::Schema.define(version: 20150927100118) do
   create_table "industries", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "industry_titles", force: true do |t|
     t.string   "title"
-    t.integer  "industry_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
-
-  add_index "industry_titles", ["industry_id"], name: "index_industry_titles_on_industry_id"
-  add_index "industry_titles", ["user_id"], name: "index_industry_titles_on_user_id"
 
   create_table "periods", force: true do |t|
     t.string   "title"
