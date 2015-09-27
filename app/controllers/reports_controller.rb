@@ -10,8 +10,8 @@ class ReportsController < ApplicationController
     # Version.delete_all
     # Value.delete_all
     
-    # @foo = User.find(3)
-    # @foo.rating = 900
+    # @foo = Industry.find(8)
+    # @foo.title = 'Retail'
     # @foo.save
     
     # Set industry id
@@ -33,8 +33,7 @@ class ReportsController < ApplicationController
     
     session[:industry] = industry_id
 
-    # @industries = Industry.includes(:industry_titles).order('industry_titles.title')
-    @industries = [[:oilandgas, 7], [:retail, 8]]
+    @industries = Industry.order(:title)
     @industry = Industry.find(industry_id)
     
     # Set period id
