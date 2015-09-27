@@ -10,6 +10,10 @@ class ReportsController < ApplicationController
     # Version.delete_all
     # Value.delete_all
     
+    # @foo = User.find(3)
+    # @foo.rating = 900
+    # @foo.save
+    
     # Set industry id
     if params[:industry]
       if params[:industry] == "0"
@@ -29,7 +33,9 @@ class ReportsController < ApplicationController
     
     session[:industry] = industry_id
 
-    @industries = Industry.joins(:industry_titles).order(:title)
+    # @industries = Industry.includes(:industry_titles).order('industry_titles.title')
+    @industries = [[:oilandgas, 7], [:retail, 8]]
+    @foo = Industry.joins(:industry_titles).all
     @industry = Industry.find(industry_id)
     
     # Set period id

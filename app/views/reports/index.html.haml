@@ -2,16 +2,14 @@
   = link_to 'New report', new_report_path(industry: @industry.id, period: @period.id), class: "btn btn-success pull-right"
   %h3 All reports
 
-%p#notice= notice
+= form_tag reports_path, method: 'get', class: 'selector' do
 
-/ = form_tag reports_path, method: 'get', class: 'selector' do
-/
-/   = select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()'
-/
-/   = select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()'
-/
-/   = submit_tag 'submit'
-/   = javascript_tag "$('.selector input').hide()"
+  = select_tag :industry, options_for_select(@industries, @industry.id), onchange: 'this.form.submit()'
+
+  = select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()'
+
+  = submit_tag 'submit'
+  = javascript_tag "$('.selector input').hide()"
 
 
 %table.table
@@ -21,8 +19,6 @@
     - @indicators.each do |indicator|
       %th= indicator.title
     
-    %th
-    %th
     %th
     %th
 
@@ -42,35 +38,28 @@
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
         %td= report.values.where(indicator_id: indicator.id, version_id: version_id).pluck(:value).pop
 
-      %td= link_to 'Show', report
-      
-      - if report.versions.last.user.id == current_user.id
-        %td= link_to 'Edit', edit_report_path(report)
-      - else
-        %td= link_to 'Amend', amend_report_path(report)
-      
-      %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
-      
       - if user_id == current_user.id
-        - # nothing
+        %td.text-center= link_to 'Approve', rate_path(user: user_id, version: version_id), class: 'btn btn-success btn-xs disabled'
       - elsif report.approvals.last
         - if report.approvals.last.user.id == current_user.id
-          - # nothing
+          %td.text-center= link_to 'Approved', rate_path(user: user_id, version: version_id), class: 'btn btn-success btn-xs disabled'
       - else
-        %td= link_to 'Approve', rate_path(user: user_id, version: version_id)
+        %td.text-center= link_to 'Approve', rate_path(user: user_id, version: version_id), class: 'btn btn-success btn-xs'
 
-%br
+      - if report.versions.last.user.id == current_user.id
+        %td.text-center= link_to 'Edit', edit_report_path(report), class: 'btn btn-warning btn-xs'
+      - else
+        %td.text-center= link_to 'Amend', amend_report_path(report), class: 'btn btn-warning btn-xs'
+      
+      / %td= link_to 'Destroy', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      
+%ul.list-inline
+  - unless @industry.id == 2
+    %li= link_to "New indicator (common)", new_indicator_path(industry: 0), class: 'btn btn-primary btn-xs'
+  / %li= link_to "New indicator (specific for #{@industry.title})", new_indicator_path
+  %li= link_to 'New industry', new_industry_path, class: 'btn btn-primary btn-xs'
+  %li= link_to 'New company', new_company_path, class: 'btn btn-primary btn-xs'
+  %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-xs'
 
-- unless @industry.id == 2
-  %br
-  = link_to "New indicator (common)", new_indicator_path(industry: 0)
-
-%br
-/ = link_to "New indicator (specific for #{@industry.title})", new_indicator_path
-%br
-%br
-= link_to 'New Industry', new_industry_path
-%br
-= link_to 'New Company', new_company_path
-%br
-= link_to 'New Period', new_period_path
+- Industry.joins(:industry_titles, :users).group('industries.id').maximum(:rating).each do |x, y|
+  %p= Industry.joins(:users => :industry_titles).where("industries.id=#{x} AND users.rating=#{y}").pluck('industry_titles.title').first
