@@ -50,7 +50,8 @@ gem 'haml', '~> 4.0'
 gem 'haml-rails'
 
 # Use Bootstrap
-gem 'bootstrap-sass', '~> 3.3.5'
+# gem 'bootstrap-sass', '~> 3.3.5'
+gem 'sprockets-rails', '~> 2.1.4'
 
 # Use Devise authentication
 gem 'devise'
