@@ -1,14 +1,13 @@
 index в финальном виде
-  то что закомментировано
-  свои отчеты выделить цветом
   bootstrap
     три полоски в навбар
     глификоны
     css tree
     глификон вместо "Approve", "Edit", "Amend", "Sign out"
     Числовые колонки выровнять по правому краю
-    
-refactoring and commenting
+    sticky footer
+  то что закомментировано
+  refactoring and commenting
 
 
 
