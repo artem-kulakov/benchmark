@@ -2,7 +2,11 @@ index в финальном виде
   bootstrap
     три полоски в навбар
     глификон вместо "Approve", "Edit", "Amend", "Sign out"
-    Числовые колонки выровнять по правому краю
+      glyphicon glyphicon-ok
+      glyphicon glyphicon-edit
+      glyphicon glyphicon-check
+      glyphicon glyphicon-ok-sign
+      glyphicon glyphicon-ok-circle
   то что закомментировано
   refactoring and commenting
 

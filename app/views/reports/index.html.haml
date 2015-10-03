@@ -15,7 +15,7 @@
     %th Company
     
     - @indicators.each do |indicator|
-      %th= indicator.title
+      %th.text-right= indicator.title
     
     %th
     %th
@@ -34,20 +34,33 @@
         /   %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
         / - else
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
-        %td= report.values.where(indicator_id: indicator.id, version_id: version_id).pluck(:value).pop
-
+        %td.text-right= report.values.where(indicator_id: indicator.id, version_id: version_id).pluck(:value).pop
+      
+      
+      /# Approval button
       - if user_id == current_user.id
-        %td.text-center= link_to 'Approve', rate_path(user: user_id, version: version_id), class: 'btn btn-success btn-xs disabled'
+        - path = rate_path(user: user_id, version: version_id)
       - elsif report.approvals.last
         - if report.approvals.last.user.id == current_user.id
-          %td.text-center= link_to 'Approved', rate_path(user: user_id, version: version_id), class: 'btn btn-success btn-xs disabled'
+          - path = rate_path(user: user_id, version: version_id)
       - else
-        %td.text-center= link_to 'Approve', rate_path(user: user_id, version: version_id), class: 'btn btn-success btn-xs'
-
+        - path = rate_path(user: user_id, version: version_id)
+      
+      %td.text-center
+        = link_to path do
+          %span.glyphicon.glyphicon-check
+      
+      
+      /# Edit button
       - if report.versions.last.user.id == current_user.id
-        %td.text-center= link_to 'Edit', edit_report_path(report), class: 'btn btn-warning btn-xs'
+        - path = edit_report_path(report)
       - else
-        %td.text-center= link_to 'Amend', amend_report_path(report), class: 'btn btn-warning btn-xs'
+        - path = amend_report_path(report)
+      
+      %td.text-center
+        =link_to path do
+          %span.glyphicon.glyphicon-edit
+      
       
 %ul.list-inline
   - unless @industry.id == 2
