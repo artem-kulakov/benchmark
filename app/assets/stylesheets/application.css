@@ -13,6 +13,9 @@
  *= require bootstrap.min
  */
 
+
+/* Bootstrap glyphicons
+-------------------------------------------------- */
 @font-face {
   font-family: 'Glyphicons Halflings';
   src: url('/assets/glyphicons-halflings-regular.eot');

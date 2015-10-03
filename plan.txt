@@ -1,11 +1,8 @@
 index в финальном виде
   bootstrap
     три полоски в навбар
-    глификоны
-    css tree
     глификон вместо "Approve", "Edit", "Amend", "Sign out"
     Числовые колонки выровнять по правому краю
-    sticky footer
   то что закомментировано
   refactoring and commenting
 
