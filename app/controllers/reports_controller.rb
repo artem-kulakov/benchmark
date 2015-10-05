@@ -10,6 +10,8 @@ class ReportsController < ApplicationController
     # Version.delete_all
     # Value.delete_all
     
+    # Approval.find(4).delete
+    
     # @foo = Industry.find(8)
     # @foo.title = 'Retail'
     # @foo.save

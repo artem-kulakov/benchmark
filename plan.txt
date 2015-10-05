@@ -1,17 +1,30 @@
-свои отчеты выделить цветом
+Tooltips removed
+Author
+Checked by
+Check refactored
+
+кто-нибудь одобрил?
+
+  чей     кто одобрил   глиф    кликабельный?   цвет      tooltip
+  
+  мой     кто-то        галка   нет             серый     Confirmed
+  мой     никто         пустой  нет             серый     Not confirmed
+  чужой   я             галка   нет             серый     Confirmed
+  чужой   кто-то        галка   да              зеленый   Confirm
+  чужой   никто         пустой  да              зеленый   Confirm
 
 
+переименовать user_id в author_id
+path и алгоритм рейтингования пользователей и отчетов
+установить взаимосвязь между Approve and Edit
+переименовать Approval в Check
+ники для пользователей
 
+сортировка таблицы отчетов
 
 index в финальном виде
   bootstrap
     три полоски в навбар
-    глификон вместо "Approve", "Edit", "Amend", "Sign out"
-      glyphicon glyphicon-ok
-      glyphicon glyphicon-edit
-      glyphicon glyphicon-check
-      glyphicon glyphicon-ok-sign
-      glyphicon glyphicon-ok-circle
   то что закомментировано
   refactoring and commenting
 
@@ -19,7 +32,6 @@ index в финальном виде
 
 кнопка становится неактивной
   inactive button mechanism
-  обозначить "свои" отчеты цветом, а то уже сам начинаю путаться
   adopt reports#edit/rate/etc
   
 

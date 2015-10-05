@@ -17,8 +17,10 @@
     - @indicators.each do |indicator|
       %th.text-right= indicator.title
     
-    %th
-    %th
+    %th Author
+    %th Checked by
+    %th.text-center Check
+    %th.text-center Edit
 
   - @reports.each do |report|
     %tr
@@ -37,24 +39,40 @@
         %td.text-right= report.values.where(indicator_id: indicator.id, version_id: version_id).pluck(:value).pop
       
       
-      /# Approval button
+      -# Author (highlighted if is user)
       - if user_id == current_user.id
-        - path      = rate_path(user: user_id, version: version_id)
-        - glyphicon = 'glyphicon-unchecked'
-        - title     = 'Mark as confirmed'
-      - elsif report.approvals.last
-        - if report.approvals.last.user.id == current_user.id
-          - path      = rate_path(user: user_id, version: version_id)
-          - glyphicon = 'glyphicon-check'
-          - title     = 'Confirmed'
+        %td.text-primary= report.users.last.email
       - else
-        - path      = rate_path(user: user_id, version: version_id)
-        - glyphicon = 'glyphicon-unchecked'
-        - title     = 'Mark as confirmed'
+        %td= report.users.last.email
       
+      
+      -# Checked by (highlighted if is user)
+      - if report.approvals.any?
+        - if report.approvals.last.user.id == current_user.id
+          %td.text-primary= report.approvals.last.user.email
+        - else
+          %td= report.approvals.last.user.email
+      - else
+        %td -
+      
+      
+      -# Check
+      - path = rate_path(user: user_id, version: version_id)
+      
+      -# Glyphicon 'check' if the report was confirmed by someone
+      - if report.approvals.any?
+        - glyphicon = 'glyphicon-check'
+      - else
+        - glyphicon = 'glyphicon-unchecked'
+      
+      -# td
       %td.text-center
-        = link_to path, 'data-toggle' => 'tooltip', title: title do
-          %span{ class: "glyphicon #{glyphicon}" }
+        -# Disabled link if user is maker or checker of report
+        - if user_id == current_user.id || (report.approvals.any? && report.approvals.last.user.id == current_user.id)
+          %span{ class: "glyphicon #{glyphicon} text-muted" }
+        - else
+          = link_to path do
+            %span{ class: "glyphicon #{glyphicon}" }
       
       
       /# Edit button
@@ -64,9 +82,8 @@
         - path = amend_report_path(report)
       
       %td.text-center
-        =link_to path, 'data-toggle' => 'tooltip', title: 'Edit report' do
+        =link_to path do
           %span.glyphicon.glyphicon-edit
-      
       
 %ul.list-inline
   - unless @industry.id == 2
