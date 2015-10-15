@@ -176,10 +176,12 @@ class ReportsController < ApplicationController
 
   # GET /reports/rate
   def rate
+    # Change author's rate
     @user = User.find(params[:user])
-    @user.rating += 0.1
+    @user.rating = @user.rating + (1000 - @user.rating) * 0.1
     @user.save
     
+    # Create new approval
     @approval = Approval.new
     @approval.version_id = params[:version]
     @approval.user_id = current_user.id

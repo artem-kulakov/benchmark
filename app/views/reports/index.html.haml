@@ -26,8 +26,8 @@
     %tr
       %td= report.company.title
       
-      - user_id = report.users.order("rating DESC").first.id
-      - version_id = report.versions.where(user_id: user_id).pluck(:id).pop
+      - author_id = report.users.order("rating DESC").first.id
+      - version_id = report.versions.where(user_id: author_id).pluck(:id).pop
       
       - indicators_values = Hash[*report.values.collect {|it| [it.indicator_id.to_s, it.value]}.flatten]
       
@@ -40,7 +40,7 @@
       
       
       -# Author (highlighted if is user)
-      - if user_id == current_user.id
+      - if author_id == current_user.id
         %td.text-primary= report.users.last.email
       - else
         %td= report.users.last.email
@@ -57,7 +57,7 @@
       
       
       -# Check
-      - path = rate_path(user: user_id, version: version_id)
+      - path = rate_path(user: author_id, version: version_id)
       
       -# Glyphicon 'check' if the report was confirmed by someone
       - if report.approvals.any?
@@ -68,14 +68,14 @@
       -# td
       %td.text-center
         -# Disabled link if user is maker or checker of report
-        - if user_id == current_user.id || (report.approvals.any? && report.approvals.last.user.id == current_user.id)
+        - if author_id == current_user.id || (report.approvals.any? && report.approvals.last.user.id == current_user.id)
           %span{ class: "glyphicon #{glyphicon} text-muted" }
         - else
           = link_to path do
             %span{ class: "glyphicon #{glyphicon}" }
       
       
-      /# Edit button
+      -# Edit button
       - if report.versions.last.user.id == current_user.id
         - path = edit_report_path(report)
       - else
