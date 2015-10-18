@@ -18,17 +18,9 @@ class ReportsController < ApplicationController
     
     # Set industry id
     if params[:industry]
-      if params[:industry] == "0"
-        industry_id = 1
-      else
-        industry_id = params[:industry]
-      end
+      industry_id = params[:industry]
     elsif session[:industry]
-        if session[:industry] == "0"
-          industry_id = 1
-        else
-          industry_id = session[:industry]
-        end
+      industry_id = session[:industry]
     else
       industry_id = 7
     end
@@ -44,7 +36,7 @@ class ReportsController < ApplicationController
     elsif session[:period]
       period_id = session[:period]
     else
-      session[:period] = period_id = 1
+      period_id = 1
     end
     
     session[:period] = period_id
@@ -54,11 +46,7 @@ class ReportsController < ApplicationController
     
     @reports = Report.joins(:company).where(companies: {industry_id: industry_id}, period_id: period_id)
     
-    if industry_id == "2"
-      @indicators = Indicator.where(industry_id: industry_id).order(:sequence)
-    else
-      @indicators = Indicator.where(industry_id: [industry_id, 0]).order(:sequence)
-    end
+    @indicators = Indicator.where(industry_id: [industry_id, 0]).order(:sequence)
     
     @indicators_titles = Hash[*Indicator.where(industry_id: [industry_id, 0]).collect {|it| [it.id.to_s, it.title]}.flatten]
     
@@ -80,11 +68,7 @@ class ReportsController < ApplicationController
 
     industry_id = session[:industry]
     
-    if industry_id == "2"
-      @indicators = Indicator.where(industry_id: industry_id)
-    else
-      @indicators = Indicator.where(industry_id: [industry_id, 0])
-    end
+    @indicators = Indicator.where(industry_id: [industry_id, 0])
     
     @industry = Industry.find(session[:industry])
     @period = Period.find(session[:period])
@@ -101,11 +85,7 @@ class ReportsController < ApplicationController
 
     industry_id = session[:industry]
     
-    if industry_id == "2"
-      @indicators = Indicator.where(industry_id: industry_id)
-    else
-      @indicators = Indicator.where(industry_id: [industry_id, 0])
-    end
+    @indicators = Indicator.where(industry_id: [industry_id, 0])
     
     @industry = Industry.find(session[:industry])
     @period = Period.find(session[:period])
@@ -119,11 +99,7 @@ class ReportsController < ApplicationController
     @industry = @report.industry
     industry_id = @industry.id
 
-    if industry_id.to_s == 2.to_s
-      @indicators = Indicator.where(industry_id: industry_id)
-    else
-      @indicators = Indicator.where(industry_id: [industry_id, 0])
-    end
+    @indicators = Indicator.where(industry_id: [industry_id, 0])
     
     @indicators.each do |indicator|
       if @report.values.where(indicator_id: indicator.id).empty?

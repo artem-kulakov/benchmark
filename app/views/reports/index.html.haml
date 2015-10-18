@@ -88,9 +88,7 @@
 
 -# 'New indicator/industry/etc' buttons
 %ul.list-inline
-  - unless @industry.id == 2
-    %li= link_to "New indicator (common)", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
-  / %li= link_to "New indicator (specific for #{@industry.title})", new_indicator_path
   %li= link_to 'New industry', new_industry_path, class: 'btn btn-primary btn-sm'
   %li= link_to 'New company', new_company_path, class: 'btn btn-primary btn-sm'
+  %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
