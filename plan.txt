@@ -1,4 +1,11 @@
+убрать все следы банков
+зачистить New industry/company/etc
+
 refactoring
+  not done yet
+    one dot only
+    find, order
+  
 commenting
 
 
