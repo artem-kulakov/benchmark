@@ -34,9 +34,9 @@ class Report < ActiveRecord::Base
     values.where(indicator_id: indicator.id, version_id: self.version_id).pluck(:value).pop
   end
   
-  # User's email
-  def author_email
-    users.last.email
+  # User's name
+  def author_name
+    users.last.name
   end
   
   # Checker's id
@@ -44,8 +44,16 @@ class Report < ActiveRecord::Base
     approvals.last.user.id
   end
   
-  # Checker's email
-  def checker_email
-    approvals.last.user.email
+  # Checker's name
+  def checker_name
+    approvals.last.user.name
+  end
+  
+  # Rate of report completeness
+  def completeness
+    foo = values.where(version_id: self.version_id).pluck(:value)
+    not_nil = foo.count { |c| not c.nil? }
+    total = foo.count
+    not_nil.to_f / total
   end
 end

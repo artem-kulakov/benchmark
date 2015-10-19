@@ -1,15 +1,13 @@
-зачистить New industry/company/etc
-
-refactoring
-  not done yet
-    one dot only
-    find, order
-  
-commenting
+сделать так, чтобы самому было удобно
+делать серьезные ключевые процессы
+-------------------------------------
 
 
+rating based on partial new report
+rating based on edit
 
 
+кнопка reorder indicators в верхнее выпадающее меню
 переименовать Approval в Check
 ники для пользователей
 

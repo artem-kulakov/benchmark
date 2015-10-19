@@ -15,6 +15,10 @@ class ReportsController < ApplicationController
     # @foo = Industry.find(8)
     # @foo.title = 'Retail'
     # @foo.save
+
+    # @foo = User.find(3)
+    # @foo.name = 'Good'
+    # @foo.save
     
     # Set industry id
     if params[:industry]
@@ -154,7 +158,7 @@ class ReportsController < ApplicationController
   def rate
     # Change author's rate
     @user = User.find(params[:user])
-    @user.rating = @user.rating + (1000 - @user.rating) * 0.1
+    @user.rating += (1000 - @user.rating) * 0.1 * params[:completeness].to_f
     @user.save
     
     # Create new approval

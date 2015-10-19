@@ -21,8 +21,8 @@
     %th Company
     - @indicators.each do |indicator|
       %th.text-right= indicator.title
-    %th Author
-    %th Checked by
+    %th Maker
+    %th Checker
     %th.text-center Check
     %th.text-center Edit
 
@@ -42,22 +42,22 @@
       
       -# Author (highlighted if he is user)
       - if report.author_id == current_user.id
-        %td.text-primary= report.author_email
+        %td.text-primary= report.author_name
       - else
-        %td= report.author_email
+        %td= report.author_name
       
       -# Checker (highlighted if he is user)
       - if report.approvals.any?
         - if report.checker_id == current_user.id
-          %td.text-primary= report.checker_email
+          %td.text-primary= report.checker_name
         - else
-          %td= report.checker_email
+          %td= report.checker_name
       - else
         %td -
       
       
       -# 'Check' button
-      - path = rate_path(user: report.author_id, version: report.version_id)
+      - path = rate_path(user: report.author_id, version: report.version_id, completeness: report.completeness)
       
       -# Glyphicon 'check' if the report was confirmed by someone
       - if report.approvals.any?
@@ -85,7 +85,7 @@
         =link_to path do
           %span.glyphicon.glyphicon-edit
       
-
+      
 -# 'New indicator/industry/etc' buttons
 %ul.list-inline
   %li= link_to 'New industry', new_industry_path, class: 'btn btn-primary btn-sm'
