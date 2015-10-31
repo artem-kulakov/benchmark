@@ -3,7 +3,54 @@
 -------------------------------------
 
 
-rating based on partial new report
+Create:
+new report and new version
+maker = current user
+version rating = current user rating
+
+
+
+Check:
+# allowed if maker's rating won't be higher than checker's rating
+
+checker = current user
+version rating = checker's rating
+
+maker's rating = +10% less penalty for incompleteness
+
+
+
+Amend:
+# allowed if editor's rating is at least +10% higher than maker's rating
+
+create new version
+maker = current user
+version rating = current user's rating
+
+previous maker rating =
+  rating got by checking less penalty for deviation
+  or
+  +10% less penatly for deviation
+
+
+
+
+получить новые данные
+
+@flashes={:hi=>{"0"=>{"indicator_id"=>"1", "value"=>"2110.0"}, "1"=>{"indicator_id"=>"3", "value"=>""}, "2"=>{"indicator_id"=>"2", "value"=>"211.0"}, "3"=>{"indicator_id"=>"4", "value"=>""}, "4"=>{"indicator_id"=>"5", "value"=>""}}}
+
+@flashes={:hi=>[{"indicator_id"=>"1", "value"=>"2310.0"}, {"indicator_id"=>"3", "value"=>""}, {"indicator_id"=>"2", "value"=>"231"}, {"indicator_id"=>"4", "value"=>""}, {"indicator_id"=>"5", "value"=>""}]}
+
+@flashes={:hi=>[["1", "2410.0"], ["3", ""], ["2", "241"], ["4", ""], ["5", ""]]}
+
+@flashes={:hi=>{"1"=>"2510.0", "3"=>"", "2"=>"251.0", "4"=>"", "5"=>""}}
+
+
+одобрение - правка
+правка
+
+
+
 rating based on edit
 
 

@@ -1,5 +1,47 @@
-/ %h1= "New report for #{@industry.title} industry, #{@period.title}"
+.page-header
+  %h3 Editing report
+  %p= "#{@report.company_title}, #{@report.period_title}"
 
-= render 'amend'
+= form_for @report, html: {class: "form-horizontal"} do |f|
+  - if @report.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
+      %ul
+        - @report.errors.full_messages.each do |msg|
+          %li= msg
 
-= link_to 'Back', reports_path(industry: @industry.id, period: @period.id)
+  = f.fields_for :versions, @new_version do |v|
+    = v.hidden_field :user_id, :value => current_user.id
+
+    - @indicators.each do |i|
+      .form-group
+        = v.label "", i.title, class: "col-sm-2 control-label"
+        = v.fields_for :values, @new_values do |val|
+          .col-sm-2
+            = val.text_field :value, :value => @report.values.where(indicator_id: i.id).pluck(:value).pop, class: "form-control"
+            = val.hidden_field :indicator_id, :value => i.id
+
+  .form-group
+    .col-sm-offset-2.col-sm-2
+      %ul.list-inline
+        %li= f.submit 'Save', class: "btn btn-success"
+        %li= link_to 'Cancel', reports_path(industry: @industry.id, period: @period.id), class: "btn btn-default"
+
+%p= "Old is #{@old}"
+%p= "New is #{@new}"
+
+    
+-# Comparing @old and @new
+- a = []
+- @old.each do |i, v|
+  - unless @new["#{i}"] == nil or v == nil
+    - a << (@new["#{i}"].to_f / v - 1).abs * 100
+
+- average = a.sum.to_f / a.size
+%p= "Average = #{average}%"
+
+- if average <= 10
+  - rating = 100 * (1 - average / 10)
+- else
+  - rating = 0
+%p= "Rating is #{rating}"

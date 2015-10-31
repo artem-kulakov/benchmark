@@ -19,6 +19,10 @@ class Report < ActiveRecord::Base
     company.title
   end
   
+  def period_title
+    period.title
+  end
+  
   # The most rated author of this report
   def author_id
     users.order("rating DESC").first.id
