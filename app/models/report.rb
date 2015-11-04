@@ -19,6 +19,10 @@ class Report < ActiveRecord::Base
     company.title
   end
   
+  def industry_title
+    industry.title
+  end
+  
   def period_title
     period.title
   end

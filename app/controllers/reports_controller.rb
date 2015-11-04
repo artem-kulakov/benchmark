@@ -17,7 +17,7 @@ class ReportsController < ApplicationController
     # @foo.save
 
     # @foo = User.find(3)
-    # @foo.name = 'Good'
+    # @foo.rating = 0
     # @foo.save
     
     # Set industry id
@@ -63,6 +63,7 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
+    # Create new report, version and values
     @report = Report.new
     version = @report.versions.new
     version.values.new
@@ -139,6 +140,9 @@ class ReportsController < ApplicationController
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
+    
+    # For rating
+    
   end
 
   # PATCH/PUT /reports/1

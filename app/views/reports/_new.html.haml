@@ -1,4 +1,7 @@
-= form_for @report do |f|
+.page-header
+  %h3 New report
+
+= form_for @report, html: {class: "form-horizontal"} do |f|
   - if @report.errors.any?
     #error_explanation
       %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
@@ -6,21 +9,26 @@
         - @report.errors.full_messages.each do |msg|
           %li= msg
 
-  .field
-    = f.label :company
-    = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id)
-    = f.hidden_field :period_id, :value => session[:period]
+  .form-group
+    = f.label :company, class: "col-sm-2 control-label"
+    .col-sm-2
+      /= text_field_tag 'request', 5, class: 'form-control'
+      = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id), {}, {class: "form-control"}
+      = f.hidden_field :period_id, :value => session[:period]
   
-  .field
-    = f.fields_for :versions do |v|
-      = v.hidden_field :user_id, :value => current_user.id
+  = f.fields_for :versions do |v|
+    = v.hidden_field :user_id, :value => current_user.id
 
-      - @indicators.each do |i|
-        .field
-          = i.title
-          = v.fields_for :values do |val|
-            = val.text_field :value
+    - @indicators.each do |i|
+      .form-group
+        = v.label "", i.title, class: "col-sm-2 control-label"
+        = v.fields_for :values do |val|
+          .col-sm-2
+            = val.text_field :value, class: "form-control"
             = val.hidden_field :indicator_id, :value => i.id
 
-  .actions
-    = f.submit 'Save'
+  .form-group
+    .col-sm-offset-2.col-sm-2
+      %ul.list-inline
+        %li= f.submit 'Save', class: "btn btn-success"
+        %li= link_to 'Cancel', reports_path(industry: @industry.id, period: @period.id), class: "btn btn-default"
