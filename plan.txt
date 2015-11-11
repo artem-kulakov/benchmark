@@ -1,35 +1,29 @@
+пароль 12345678
+
 сделать так, чтобы самому было удобно
 делать серьезные ключевые процессы
 -------------------------------------
 
 
-Create:
-maker = current user
-version rating = current user rating
-
-
-
 Check:
-# allowed if maker's rating won't be higher than checker's rating
 
-checker = current user
-version rating = checker's rating
-
-maker's rating = +10% less penalty for incompleteness
+почему для чекера чек остался зеленым и активным?
+refactor this in index: allowed if maker's rating won't be higher than checker's rating
+удалить Approval отовсюду
+переименовать поля таблиц и прочее
 
 
 
 Amend:
-# allowed if editor's rating is at least +10% higher than maker's rating
 
-create new version
-maker = current user
-version rating = current user's rating
+new not to be hardcoded
 
 previous maker rating =
   rating got by checking less penalty for deviation
   or
   +10% less penatly for deviation
+
+# allowed if editor's rating is at least +10% higher than maker's rating
 
 
 

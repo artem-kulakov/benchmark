@@ -32,6 +32,16 @@ class Report < ActiveRecord::Base
     users.order("rating DESC").first.id
   end
   
+  # Rating of the most rated maker of this report
+  def maker_rating
+    users.order("rating DESC").first.rating
+  end
+  
+  # Best (most rated) version
+  def best_version
+    versions.order(:rating).last
+  end
+  
   # Report version id
   def version_id
     versions.where(user_id: self.author_id).pluck(:id).pop
@@ -47,14 +57,14 @@ class Report < ActiveRecord::Base
     users.last.name
   end
   
-  # Checker's id
-  def checker_id
-    approvals.last.user.id
-  end
-  
   # Checker's name
   def checker_name
-    approvals.last.user.name
+    best_version.checker
+  end
+  
+  # Maker's reward
+  def maker_reward
+    best_version.maker_reward
   end
   
   # Rate of report completeness
@@ -63,5 +73,10 @@ class Report < ActiveRecord::Base
     not_nil = foo.count { |c| not c.nil? }
     total = foo.count
     not_nil.to_f / total
+  end
+  
+  # Checker's id
+  def checker_id
+    versions.order(:rating).last.checker
   end
 end

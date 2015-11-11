@@ -6,18 +6,8 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     
-    # Report.delete_all
-    # Version.delete_all
-    # Value.delete_all
-    
-    # Approval.find(4).delete
-    
-    # @foo = Industry.find(8)
-    # @foo.title = 'Retail'
-    # @foo.save
-
-    # @foo = User.find(3)
-    # @foo.rating = 0
+    # @foo = User.find(2)
+    # @foo.rating = 1000
     # @foo.save
     
     # Set industry id
@@ -26,7 +16,7 @@ class ReportsController < ApplicationController
     elsif session[:industry]
       industry_id = session[:industry]
     else
-      industry_id = 7
+      industry_id = 1
     end
     
     session[:industry] = industry_id
@@ -53,7 +43,6 @@ class ReportsController < ApplicationController
     @indicators = Indicator.where(industry_id: [industry_id, 0]).order(:sequence)
     
     @indicators_titles = Hash[*Indicator.where(industry_id: [industry_id, 0]).collect {|it| [it.id.to_s, it.title]}.flatten]
-    
   end
 
   # GET /reports/1
@@ -81,10 +70,9 @@ class ReportsController < ApplicationController
 
   # GET /reports/1/amend
   def amend
-    # Create new report version for amended values
+    # Create new version
     @new_version = @report.versions.new
     @new_values = @new_version.values.new
-    
     
     @companies = Company.where(industry_id: session[:industry]).order(:title)
     @periods = Period.order(:title)
@@ -97,14 +85,14 @@ class ReportsController < ApplicationController
     @period = Period.find(session[:period])
     
     # For maker's rating
-    @i = @report.versions.find(@report.version_id).values.pluck(:indicator_id)
-    @v = @report.versions.find(@report.version_id).values.pluck(:value)
-    @old = Hash[@i.zip @v]
+    i = @report.versions.find(@report.version_id).values.pluck(:indicator_id)
+    v = @report.versions.find(@report.version_id).values.pluck(:value)
+    @old = Hash[i.zip v]
     flash[:maker] = @report.author_id
     flash[:old] = @old
     
     # Test data
-    @new = {"1"=>"2400", "3"=>"", "2"=>"251", "4"=>"", "5"=>""}
+    @new = {"1"=>"1700", "2"=>"170"}
   end
 
   # GET /reports/1/edit
@@ -140,9 +128,6 @@ class ReportsController < ApplicationController
         format.json { render json: @report.errors, status: :unprocessable_entity }
       end
     end
-    
-    # For rating
-    
   end
 
   # PATCH/PUT /reports/1
@@ -161,15 +146,46 @@ class ReportsController < ApplicationController
     # If report was amended
     if flash[:maker]
       @user = User.find(flash[:maker])
-      @user.rating += 10
+      @user.rating -= flash[:penalty].to_i
       @user.save
       
       # New values
-      a = []
-      report_params['versions_attributes']['0']['values_attributes'].each do |k, v|
-        a << v.values
+      val = []
+      
+      report_params['versions_attributes']['0']['values_attributes'].each do |i, v|
+        val << v.values
       end
-      flash[:hi] = Hash[a]
+      
+      new_values = Hash[val]
+      
+      
+      # Old values
+      i = @report.versions.find(params[:parent_version_id]).values.pluck(:indicator_id)
+      v = @report.versions.find(params[:parent_version_id]).values.pluck(:value)
+      old = Hash[i.zip v]
+      
+      # Comparing old and new values
+      a = []
+      old.each do |i, v|
+        unless new_values["#{i}"] == nil or v == nil
+          a << (new_values["#{i}"].to_f / v - 1).abs * 100
+        end
+      end
+
+      average = a.sum.to_f / a.size
+      
+      reward = Version.find(params[:parent_version_id]).maker_reward
+      
+      if average <= 10
+        penalty = reward.to_i * average ** 2 / 10 ** 2
+      else
+        penalty = 0
+      end
+      
+      А теперь отнять штраф из рейтинга
+      и сделать историю изменения рейтингов?
+
+      flash[:penalty] = "Average = #{average}. Penalty = #{penalty}"
     end
   end
 
@@ -183,19 +199,22 @@ class ReportsController < ApplicationController
     end
   end
 
-  # GET /reports/rate
-  def rate
-    # Change author's rate
-    @user = User.find(params[:user])
-    @user.rating += (1000 - @user.rating) * 0.1 * params[:completeness].to_f
-    @user.save
+  # GET /reports/check
+  def check
+    # Change maker's rating
+    maker = User.find(params[:user])
+    maker_reward = (1000 - maker.rating) * 0.1 * params[:completeness].to_f
+    maker.rating += maker_reward
+    maker.save
     
-    # Create new approval
-    @approval = Approval.new
-    @approval.version_id = params[:version]
-    @approval.user_id = current_user.id
-    @approval.save
-    
+    # Add checker's id, change rating to checker's rating
+    version = Version.find(params[:version])
+    version.checker = current_user.id
+    version.rating = current_user.rating
+    version.maker_reward = maker_reward
+    version.save
+
+    # Render index page
     respond_to do |format|
       format.html { redirect_to action: 'index', industry: session[:industry], period: session[:period] }
     end
@@ -209,6 +228,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :period_id, versions_attributes: [:id, :user_id, values_attributes: [:id, :indicator_id, :value]])
+      params.require(:report).permit(:company_id, :period_id, :parent_version_id, versions_attributes: [:id, :user_id, :rating, values_attributes: [:id, :indicator_id, :value]])
     end
 end

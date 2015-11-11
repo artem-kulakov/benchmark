@@ -18,6 +18,7 @@
   
   = f.fields_for :versions do |v|
     = v.hidden_field :user_id, :value => current_user.id
+    = v.hidden_field :rating, :value => current_user.rating
 
     - @indicators.each do |i|
       .form-group

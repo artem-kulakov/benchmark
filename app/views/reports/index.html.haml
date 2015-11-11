@@ -40,14 +40,14 @@
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
         %td.text-right= number_with_precision(report.indicator_value(indicator), precision: 0, delimiter: ',')
       
-      -# Author (highlighted if he is user)
+      -# Maker (highlighted if he is user)
       - if report.author_id == current_user.id
-        %td.text-primary= report.author_name
+        %td.text-primary= "#{report.author_name}, #{report.maker_rating}"
       - else
-        %td= report.author_name
+        %td= "#{report.author_name}, #{report.maker_rating}"
       
       -# Checker (highlighted if he is user)
-      - if report.approvals.any?
+      - unless report.best_version.checker.nil?
         - if report.checker_id == current_user.id
           %td.text-primary= report.checker_name
         - else
@@ -57,18 +57,18 @@
       
       
       -# 'Check' button
-      - path = rate_path(user: report.author_id, version: report.version_id, completeness: report.completeness)
+      - path = check_path(user: report.author_id, version: report.version_id, completeness: report.completeness)
       
-      -# Glyphicon 'check' if the report was confirmed by someone
-      - if report.approvals.any?
-        - glyphicon = 'glyphicon-check'
-      - else
+      -# 'Check' glyphicon
+      - if report.checker_id.nil?
         - glyphicon = 'glyphicon-unchecked'
+      - else
+        - glyphicon = 'glyphicon-check'
       
       -# td
       %td.text-center
-        -# Disabled link if user is maker or checker of report
-        - if report.author_id == current_user.id || (report.approvals.any? && report.checker_id == current_user.id)
+        -# Disabled link if user is maker/checker of report or checker's rating is not enough for check
+        - if report.author_id == current_user.id || (report.approvals.any? && report.checker_id == current_user.id) || (report.maker_rating + (1000 - report.maker_rating) * 0.1 * report.completeness.to_f > current_user.rating)
           %span{ class: "glyphicon #{glyphicon} text-muted" }
         - else
           = link_to path do
@@ -79,7 +79,7 @@
       - if report.author_id == current_user.id
         - path = edit_report_path(report)
       - else
-        - path = amend_report_path(report, maker: report.author_id)
+        - path = amend_report_path(report, maker: report.author_id, reward: report.maker_reward)
       
       %td.text-center
         =link_to path do
@@ -93,4 +93,4 @@
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
 
-= flash[:hi]
+= flash[:penalty]

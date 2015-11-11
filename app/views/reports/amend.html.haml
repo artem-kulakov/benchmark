@@ -10,8 +10,11 @@
         - @report.errors.full_messages.each do |msg|
           %li= msg
 
+  = hidden_field_tag :parent_version_id, @report.best_version.id
+  
   = f.fields_for :versions, @new_version do |v|
     = v.hidden_field :user_id, :value => current_user.id
+    = v.hidden_field :rating, :value => current_user.rating
 
     - @indicators.each do |i|
       .form-group
@@ -40,8 +43,12 @@
 - average = a.sum.to_f / a.size
 %p= "Average = #{average}%"
 
+%p= "Reward = #{params[:reward]}"
+
 - if average <= 10
-  - rating = 100 * (1 - average / 10)
+  - penalty = params[:reward].to_i * average ** 2 / 10 ** 2
 - else
-  - rating = 0
-%p= "Rating is #{rating}"
+  - penalty = 0
+%p= "Penalty is #{penalty}"
+
+- flash[:penalty] = penalty
