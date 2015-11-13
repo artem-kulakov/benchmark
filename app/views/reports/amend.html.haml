@@ -29,26 +29,3 @@
       %ul.list-inline
         %li= f.submit 'Save', class: "btn btn-success"
         %li= link_to 'Cancel', reports_path(industry: @industry.id, period: @period.id), class: "btn btn-default"
-
-%p= "Old is #{@old}"
-%p= "New is #{@new}"
-
-    
--# Comparing @old and @new
-- a = []
-- @old.each do |i, v|
-  - unless @new["#{i}"] == nil or v == nil
-    - a << (@new["#{i}"].to_f / v - 1).abs * 100
-
-- average = a.sum.to_f / a.size
-%p= "Average = #{average}%"
-
-%p= "Reward = #{params[:reward]}"
-
-- if average <= 10
-  - penalty = params[:reward].to_i * average ** 2 / 10 ** 2
-- else
-  - penalty = 0
-%p= "Penalty is #{penalty}"
-
-- flash[:penalty] = penalty

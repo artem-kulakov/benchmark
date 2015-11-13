@@ -83,16 +83,6 @@ class ReportsController < ApplicationController
     
     @industry = Industry.find(session[:industry])
     @period = Period.find(session[:period])
-    
-    # For maker's rating
-    i = @report.versions.find(@report.version_id).values.pluck(:indicator_id)
-    v = @report.versions.find(@report.version_id).values.pluck(:value)
-    @old = Hash[i.zip v]
-    flash[:maker] = @report.author_id
-    flash[:old] = @old
-    
-    # Test data
-    @new = {"1"=>"1700", "2"=>"170"}
   end
 
   # GET /reports/1/edit
@@ -186,6 +176,9 @@ class ReportsController < ApplicationController
       maker = User.find(flash[:maker])
       maker.rating -= penalty
       maker.save
+      
+      flash[:penalty] = "Average = #{average}. Penalty = #{penalty}"
+      
     end
   end
 
