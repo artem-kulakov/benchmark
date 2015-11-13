@@ -145,9 +145,6 @@ class ReportsController < ApplicationController
     
     # If report was amended
     if flash[:maker]
-      @user = User.find(flash[:maker])
-      @user.rating -= flash[:penalty].to_i
-      @user.save
       
       # New values
       val = []
@@ -164,7 +161,7 @@ class ReportsController < ApplicationController
       v = @report.versions.find(params[:parent_version_id]).values.pluck(:value)
       old = Hash[i.zip v]
       
-      # Comparing old and new values
+      # Differences between old and new values
       a = []
       old.each do |i, v|
         unless new_values["#{i}"] == nil or v == nil
@@ -174,6 +171,8 @@ class ReportsController < ApplicationController
 
       average = a.sum.to_f / a.size
       
+      
+      # Penalty for deviation
       reward = Version.find(params[:parent_version_id]).maker_reward
       
       if average <= 10
@@ -182,10 +181,11 @@ class ReportsController < ApplicationController
         penalty = 0
       end
       
-      А теперь отнять штраф из рейтинга
-      и сделать историю изменения рейтингов?
-
-      flash[:penalty] = "Average = #{average}. Penalty = #{penalty}"
+      
+      # Deduct penalty from maker's rating
+      maker = User.find(flash[:maker])
+      maker.rating -= penalty
+      maker.save
     end
   end
 
