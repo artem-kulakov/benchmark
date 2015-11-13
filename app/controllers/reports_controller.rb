@@ -134,7 +134,7 @@ class ReportsController < ApplicationController
     end
     
     # If report was amended
-    if flash[:maker]
+    if params[:parent_version_id]
       
       # New values
       val = []
@@ -173,12 +173,9 @@ class ReportsController < ApplicationController
       
       
       # Deduct penalty from maker's rating
-      maker = User.find(flash[:maker])
+      maker = User.find(Version.find(params[:parent_version_id]).user_id)
       maker.rating -= penalty
       maker.save
-      
-      flash[:penalty] = "Average = #{average}. Penalty = #{penalty}"
-      
     end
   end
 
