@@ -7,44 +7,10 @@
 
 Check:
 
-почему для чекера чек остался зеленым и активным?
 refactor this in index: allowed if maker's rating won't be higher than checker's rating
 удалить Approval отовсюду
 переименовать поля таблиц и прочее
 
-
-
-Amend:
-
-new not to be hardcoded
-
-previous maker rating =
-  rating got by checking less penalty for deviation
-  or
-  +10% less penatly for deviation
-
-# allowed if editor's rating is at least +10% higher than maker's rating
-
-
-
-
-получить новые данные
-
-@flashes={:hi=>{"0"=>{"indicator_id"=>"1", "value"=>"2110.0"}, "1"=>{"indicator_id"=>"3", "value"=>""}, "2"=>{"indicator_id"=>"2", "value"=>"211.0"}, "3"=>{"indicator_id"=>"4", "value"=>""}, "4"=>{"indicator_id"=>"5", "value"=>""}}}
-
-@flashes={:hi=>[{"indicator_id"=>"1", "value"=>"2310.0"}, {"indicator_id"=>"3", "value"=>""}, {"indicator_id"=>"2", "value"=>"231"}, {"indicator_id"=>"4", "value"=>""}, {"indicator_id"=>"5", "value"=>""}]}
-
-@flashes={:hi=>[["1", "2410.0"], ["3", ""], ["2", "241"], ["4", ""], ["5", ""]]}
-
-@flashes={:hi=>{"1"=>"2510.0", "3"=>"", "2"=>"251.0", "4"=>"", "5"=>""}}
-
-
-одобрение - правка
-правка
-
-
-
-rating based on edit
 
 
 кнопка reorder indicators в верхнее выпадающее меню

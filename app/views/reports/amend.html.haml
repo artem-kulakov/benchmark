@@ -11,6 +11,7 @@
           %li= msg
 
   = hidden_field_tag :parent_version_id, @report.best_version.id
+  = hidden_field_tag :completeness, params[:completeness]
   
   = f.fields_for :versions, @new_version do |v|
     = v.hidden_field :user_id, :value => current_user.id

@@ -138,19 +138,19 @@ class ReportsController < ApplicationController
       
       # New values
       val = []
-      
+    
       report_params['versions_attributes']['0']['values_attributes'].each do |i, v|
         val << v.values
       end
-      
+    
       new_values = Hash[val]
-      
-      
+    
+    
       # Old values
       i = @report.versions.find(params[:parent_version_id]).values.pluck(:indicator_id)
       v = @report.versions.find(params[:parent_version_id]).values.pluck(:value)
       old = Hash[i.zip v]
-      
+    
       # Differences between old and new values
       a = []
       old.each do |i, v|
@@ -159,23 +159,33 @@ class ReportsController < ApplicationController
         end
       end
 
-      average = a.sum.to_f / a.size
-      
-      
-      # Penalty for deviation
-      reward = Version.find(params[:parent_version_id]).maker_reward
-      
-      if average <= 10
-        penalty = reward.to_i * average ** 2 / 10 ** 2
+      deviation = a.sum.to_f / a.size
+    
+      if deviation <= 10
+        penalty = deviation ** 2 / 10 ** 2
       else
         penalty = 0
       end
+    
+      # If report was checked before
+      unless @report.versions.find(params[:parent_version_id]).checker.nil?
+        
+        reward = Version.find(params[:parent_version_id]).maker_reward
       
-      
-      # Deduct penalty from maker's rating
-      maker = User.find(Version.find(params[:parent_version_id]).user_id)
-      maker.rating -= penalty
-      maker.save
+        # Deduct penalty from maker's rating
+        maker = User.find(Version.find(params[:parent_version_id]).user_id)
+        maker.rating -= reward * penalty
+        maker.save
+        
+      else
+        
+        # Change maker's rating
+        maker = User.find(Version.find(params[:parent_version_id]).user_id)
+        maker_reward = (1000 - maker.rating) * 0.1 * params[:completeness].to_f
+        maker.rating += maker_reward * (1 - penalty)
+        maker.save
+        
+      end
     end
   end
 
