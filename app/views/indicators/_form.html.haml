@@ -1,28 +1,57 @@
-/ .page-header
-/   %h3 New indicator for #{Industry.find(session[:industry]).title} industry
+.page-header
+  %h3 New indicator
+  %p= Industry.find(session[:industry]).title
 
-= form_for @indicator do |f|
+
+= form_for @indicator, html: {class: "form-horizontal"} do |f|
+
+  - # Errors
   - if @indicator.errors.any?
     #error_explanation
       %h2= "#{pluralize(@indicator.errors.count, "error")} prohibited this indicator from being saved:"
       %ul
         - @indicator.errors.full_messages.each do |msg|
           %li= msg
-
-  .field
-    = f.label :title
-    = f.text_field :title
-  .field
-    = f.fields_for :formula do |ff|
-      = ff.label :formula
-      = ff.text_field :notation, class: :notation
-    
-    = f.hidden_field :industry_id, :value => session[:industry]
   
-  .actions
-    = f.submit 'Save'
-
-%ul
-  - @indicators.each do |indicator|
-    %li.badge{id: indicator.title, title: indicator.title}
-      = indicator.title
+  
+  - # Hidden field
+  = f.hidden_field :industry_id, :value => session[:industry]
+  
+  
+  - # Indicator title
+  .form-group
+    = f.label :title, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.text_field :title, class: "form-control"
+  
+  
+  - # Formula
+  - if params[:formula]
+    .form-group
+      = f.fields_for :formula do |ff|
+        = ff.label :formula, class: "col-sm-2 control-label"
+        .col-sm-2
+          = ff.text_field :notation, class: "form-control notation"
+        .col-sm-0
+          = link_to 'Hide formula', new_indicator_path(industry: 0), class: "btn btn-link"
+    
+    - # Indicators for formula
+    .form-group
+      .col-sm-offset-2.col-sm-2
+        %ul
+          - @indicators.each do |indicator|
+            %li.badge{id: indicator.title, title: indicator.title}
+              = indicator.title
+  
+  - else
+    .form-group
+      .col-sm-offset-2.col-sm-0
+        = link_to 'Add formula', new_indicator_path(industry: 0, formula: :yes), class: "btn btn-link"
+  
+  
+  - # Buttons
+  .form-group
+    .col-sm-offset-2.col-sm-2
+      %ul.list-inline
+        %li= f.submit 'Save', class: "btn btn-success"
+        %li= link_to 'Cancel', reports_path(industry: session[:industry], period: session[:period]), class: "btn btn-default"

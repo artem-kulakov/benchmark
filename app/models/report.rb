@@ -39,7 +39,7 @@ class Report < ActiveRecord::Base
   
   # Best (most rated) version
   def best_version
-    versions.order(:rating).last
+    versions.order(:rating, :updated_at).last
   end
   
   # Report version id
@@ -49,7 +49,7 @@ class Report < ActiveRecord::Base
   
   # Value of indicator
   def indicator_value(indicator)
-    values.where(indicator_id: indicator.id, version_id: self.version_id).pluck(:value).pop
+    values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:value).pop
   end
   
   # User's name
@@ -69,9 +69,9 @@ class Report < ActiveRecord::Base
   
   # Rate of report completeness
   def completeness
-    foo = values.where(version_id: self.version_id).pluck(:value)
-    not_nil = foo.count { |c| not c.nil? }
-    total = foo.count
+    val = values.where(version_id: self.version_id).pluck(:value)
+    not_nil = val.count { |c| not c.nil? }
+    total = val.count
     not_nil.to_f / total
   end
   

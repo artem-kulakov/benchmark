@@ -6,6 +6,11 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     
+    # Formula.delete_all
+    # Report.delete_all
+    # Value.delete_all
+    # Version.delete_all
+    
     # @foo = User.find(2)
     # @foo.rating = 1000
     # @foo.save
@@ -57,7 +62,8 @@ class ReportsController < ApplicationController
     version = @report.versions.new
     version.values.new
     
-    @companies = Company.where(industry_id: session[:industry]).order(:title)
+    foo = Report.joins(:company).where(companies: {industry_id: 1}, period_id: 1).pluck(:company_id)
+    @companies = Company.where(industry_id: session[:industry]).where.not(id: foo).order(:title)
     @periods = Period.order(:title)
 
     industry_id = session[:industry]

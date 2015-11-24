@@ -1,5 +1,6 @@
 .page-header
   %h3 New report
+  %p= "#{Industry.find(session[:industry]).title}, #{Period.find(session[:period]).title}"
 
 = form_for @report, html: {class: "form-horizontal"} do |f|
   - if @report.errors.any?
@@ -12,7 +13,6 @@
   .form-group
     = f.label :company, class: "col-sm-2 control-label"
     .col-sm-2
-      /= text_field_tag 'request', 5, class: 'form-control'
       = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id), {}, {class: "form-control"}
       = f.hidden_field :period_id, :value => session[:period]
   
