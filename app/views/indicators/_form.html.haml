@@ -22,7 +22,7 @@
   .form-group
     = f.label :title, class: "col-sm-2 control-label"
     .col-sm-2
-      = f.text_field :title, class: "form-control"
+      = f.text_field :title, :value => params[:title], class: "form-control title"
   
   
   - # Formula
@@ -33,20 +33,19 @@
         .col-sm-2
           = ff.text_field :notation, class: "form-control notation"
         .col-sm-0
-          = link_to 'Hide formula', new_indicator_path(industry: 0), class: "btn btn-link"
-    
+          .toggle-formula
+            = link_to 'Hide formula', new_indicator_path(industry: 0), class: "btn btn-link"
     - # Indicators for formula
     .form-group
       .col-sm-offset-2.col-sm-2
-        %ul
-          - @indicators.each do |indicator|
-            %li.badge{id: indicator.title, title: indicator.title}
-              = indicator.title
-  
+        - @indicators.each do |indicator|
+          .indicator-tag{id: indicator.title, title: indicator.title}
+            = indicator.title
   - else
     .form-group
       .col-sm-offset-2.col-sm-0
-        = link_to 'Add formula', new_indicator_path(industry: 0, formula: :yes), class: "btn btn-link"
+        .toggle-formula
+          = link_to 'Add formula', new_indicator_path(industry: 0, formula: :yes), class: "btn btn-link"
   
   
   - # Buttons

@@ -4,6 +4,8 @@
 
 ready = ->
   
+  # Action 'edit_all'
+  
   # Sortable
   $( ".sortable" ).sortable()
   $( ".sortable" ).disableSelection()
@@ -14,16 +16,20 @@ ready = ->
       do ->
         element.value = index
 
-  # Formula input
-  $('.badge').click ->
+  
+  # Action 'new'
+  
+  # Keep indicator title after formula added or hidden
+  $('.toggle-formula').click ->
+    value = $('.title').val()
+    _href = $('.toggle-formula a').attr('href')
+    $('.toggle-formula a').attr('href', _href + '&title=' + value)
+  
+  # Input indicators to formula
+  $('.indicator-tag').click ->
     value = $('.notation').val()
     $('.notation').val(value + '[' + $(this).attr('id') + ']')
     $('.notation').focus()
-    
-    # value = $('.human').text()
-    # $('.human').text(value + $(this).attr('title'))
-    
-    # $('.human').append("<span class='badge'>" + $(this).attr('title') + "</span>");
 
 
 # Fix turbolinks bug
