@@ -21,7 +21,7 @@
   - # Indicator title
   .form-group
     = f.label :title, class: "col-sm-2 control-label"
-    .col-sm-2
+    .col-sm-3
       = f.text_field :title, :value => params[:title], class: "form-control title"
   
   
@@ -30,14 +30,14 @@
     .form-group
       = f.fields_for :formula do |ff|
         = ff.label :formula, class: "col-sm-2 control-label"
-        .col-sm-2
+        .col-sm-3
           = ff.text_field :notation, class: "form-control notation"
         .col-sm-0
           .toggle-formula
             = link_to 'Hide formula', new_indicator_path(industry: 0), class: "btn btn-link"
     - # Indicators for formula
     .form-group
-      .col-sm-offset-2.col-sm-2
+      .col-sm-offset-2.col-sm-3
         - @indicators.each do |indicator|
           .indicator-tag{id: indicator.title, title: indicator.title}
             = indicator.title
@@ -50,7 +50,7 @@
   
   - # Buttons
   .form-group
-    .col-sm-offset-2.col-sm-2
+    .col-sm-offset-2.col-sm-3
       %ul.list-inline
         %li= f.submit 'Save', class: "btn btn-success"
         %li= link_to 'Cancel', reports_path(industry: session[:industry], period: session[:period]), class: "btn btn-default"
