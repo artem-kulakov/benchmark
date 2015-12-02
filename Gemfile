@@ -54,3 +54,6 @@ gem 'haml-rails'
 
 # Use Devise authentication
 gem 'devise'
+
+# Use localized countries list
+gem 'localized_country_select', '>= 0.9.11'

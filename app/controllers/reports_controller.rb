@@ -11,9 +11,10 @@ class ReportsController < ApplicationController
     # Value.delete_all
     # Version.delete_all
     
-    # @foo = User.find(2)
-    # @foo.rating = 1000
-    # @foo.save
+    # foo = User.find(1)
+    # foo.rating = 1000
+    # foo.name = 'Me'
+    # foo.save
     
     # Set industry id
     if params[:industry]
