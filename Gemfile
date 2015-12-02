@@ -56,4 +56,5 @@ gem 'haml-rails'
 gem 'devise'
 
 # Use localized countries list
-gem 'localized_country_select', '>= 0.9.11'
+# gem 'localized_country_select', '>= 0.9.11'
+gem 'country_select'

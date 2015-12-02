@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151107065129) do
+ActiveRecord::Schema.define(version: 20151202174034) do
 
   create_table "approvals", force: true do |t|
     t.integer  "version_id"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(version: 20151107065129) do
     t.integer  "industry_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "country"
   end
 
   add_index "companies", ["industry_id"], name: "index_companies_on_industry_id"
