@@ -10,6 +10,7 @@
     = f.label :title
     = f.text_field :title
     = f.hidden_field :industry_id, :value => session[:industry]
+    = f.localized_country_select(:country, [], {:include_blank => 'Please choose...'})
   
   .actions
     = f.submit 'Save'
