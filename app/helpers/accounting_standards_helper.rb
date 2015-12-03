@@ -1,0 +1,2 @@
+module AccountingStandardsHelper
+end

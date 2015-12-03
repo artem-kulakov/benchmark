@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151202174034) do
+ActiveRecord::Schema.define(version: 20151203134212) do
+
+  create_table "accounting_standards", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "approvals", force: true do |t|
     t.integer  "version_id"
@@ -69,8 +75,10 @@ ActiveRecord::Schema.define(version: 20151202174034) do
     t.integer  "period_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "accounting_standard_id"
   end
 
+  add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id"
   add_index "reports", ["company_id"], name: "index_reports_on_company_id"
   add_index "reports", ["period_id"], name: "index_reports_on_period_id"
 

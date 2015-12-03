@@ -11,6 +11,8 @@ class ReportsController < ApplicationController
     # Value.delete_all
     # Version.delete_all
     
+    # Report.find(2).delete
+    
     # foo = User.find(1)
     # foo.rating = 1000
     # foo.name = 'Me'
@@ -256,6 +258,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :period_id, :parent_version_id, versions_attributes: [:id, :user_id, :rating, values_attributes: [:id, :indicator_id, :value]])
+      params.require(:report).permit(:company_id, :accounting_standard_id, :period_id, :parent_version_id, versions_attributes: [:id, :user_id, :rating, values_attributes: [:id, :indicator_id, :value]])
     end
 end

@@ -23,6 +23,7 @@
       %th.text-right= indicator.title
     // %th Maker
     // %th Checker
+    %th.text-center Accounting standard
     %th.text-center Check
     %th.text-center Edit
 
@@ -54,6 +55,11 @@
       //     %td= report.checker_name
       // - else
       //   %td -
+      
+      
+      - # Accounting standard
+      %td.text-center
+        = report.accounting_standard_title
       
       
       -# 'Check' button

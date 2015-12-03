@@ -10,12 +10,21 @@
         - @report.errors.full_messages.each do |msg|
           %li= msg
 
+
+  -# Company
   .form-group
     = f.label :company, class: "col-sm-2 control-label"
     .col-sm-2
       = f.select :company_id, options_from_collection_for_select(@companies, :id, :title, @report.company_id), {}, {class: "form-control"}
       = f.hidden_field :period_id, :value => session[:period]
   
+  
+  -# Accounting standard
+  .form-group
+    = f.label :accounting_standard, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.select :accounting_standard_id, options_from_collection_for_select(AccountingStandard.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
+
   = f.fields_for :versions do |v|
     = v.hidden_field :user_id, :value => current_user.id
     = v.hidden_field :rating, :value => current_user.rating

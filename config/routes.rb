@@ -1,4 +1,6 @@
 Benchmark::Application.routes.draw do
+  resources :accounting_standards
+
   resources :approvals
 
   resources :versions
