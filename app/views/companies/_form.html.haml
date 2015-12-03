@@ -10,17 +10,11 @@
         - @company.errors.full_messages.each do |msg|
           %li= msg
 
-  / .field
-  /   = f.label :title
-  /   = f.text_field :title
-  /   = f.hidden_field :industry_id, :value => session[:industry]
-  /   = f.country_select :country
-  
   -# Select country
   .form-group
     = f.label :country, class: "col-sm-2 control-label"
     .col-sm-2
-      = f.country_select :country, {}, {class: "col-sm-2 form-control"}
+      = f.country_select :country, {priority_countries: [:ru, :us]}, {class: "col-sm-2 form-control"}
   
   -# Company title
   .form-group
@@ -31,5 +25,9 @@
   -# Industry
   = f.hidden_field :industry_id, :value => session[:industry]
 
-  .actions
-    = f.submit 'Save'
+  -# Buttons
+  .form-group
+    .col-sm-offset-2.col-sm-2
+      %ul.list-inline
+        %li= f.submit 'Save', class: "btn btn-success"
+        %li= link_to 'Cancel', reports_path(industry: session[:industry], period: session[:period]), class: "btn btn-default"

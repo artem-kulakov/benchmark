@@ -6,8 +6,8 @@
 = form_tag reports_path, method: 'get', class: 'selector' do
   %ul.list-inline
     %li= select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()', class: 'form-control'
-
     %li= select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()', class: 'form-control'
+    %li= select_tag :country, options_for_select(Company.pluck(:country).uniq), onchange: 'this.form.submit()', class: 'form-control'
 
   = submit_tag 'submit'
   = javascript_tag "$('.selector input').hide()"
@@ -92,6 +92,9 @@
 -# 'New indicator/industry/etc' buttons
 %ul.list-inline
   %li= link_to 'New industry', new_industry_path, class: 'btn btn-primary btn-sm'
-  %li= link_to 'New company', new_company_path, class: 'btn btn-primary btn-sm'
+  %li= link_to 'New company', new_company_path(industry: @industry.id), class: 'btn btn-primary btn-sm'
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
+
+-# List of available countries
+= Company.pluck(:country).uniq
