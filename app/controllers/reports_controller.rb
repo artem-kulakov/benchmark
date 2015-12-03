@@ -30,6 +30,7 @@ class ReportsController < ApplicationController
     @industries = Industry.order(:title)
     @industry = Industry.find(industry_id)
     
+    
     # Set period id
     if params[:period]
       period_id = params[:period]
@@ -40,11 +41,31 @@ class ReportsController < ApplicationController
     end
     
     session[:period] = period_id
-
+    
     @periods = Period.order(:title)
     @period = Period.find(period_id)
     
-    @reports = Report.joins(:company).where(companies: {industry_id: industry_id}, period_id: period_id)
+    
+    # Set country
+    if params[:country]
+      @country = params[:country]
+    elsif session[:country]
+      @country = session[:country]
+    else
+      @country = 'RU'
+    end
+    
+    session[:country] = @country
+    
+    
+    # Set reports and other
+    if @country == ''
+      # All countries
+      @reports = Report.joins(:company).where(companies: {industry_id: industry_id}, period_id: period_id)
+    else
+      # Certain country
+      @reports = Report.joins(:company).where(companies: {industry_id: industry_id, country: @country}, period_id: period_id)
+    end
     
     @indicators = Indicator.where(industry_id: [industry_id, 0]).order(:sequence)
     

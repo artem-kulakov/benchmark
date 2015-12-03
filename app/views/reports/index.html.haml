@@ -7,7 +7,7 @@
   %ul.list-inline
     %li= select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()', class: 'form-control'
-    %li= select_tag :country, options_for_select(Company.pluck(:country).uniq), onchange: 'this.form.submit()', class: 'form-control'
+    %li= country_select nil, :country, {only: Company.pluck(:country).uniq, include_blank: 'All countries', selected: @country}, onchange: 'this.form.submit()', class: 'form-control'
 
   = submit_tag 'submit'
   = javascript_tag "$('.selector input').hide()"
@@ -21,8 +21,8 @@
     %th Company
     - @indicators.each do |indicator|
       %th.text-right= indicator.title
-    %th Maker
-    %th Checker
+    // %th Maker
+    // %th Checker
     %th.text-center Check
     %th.text-center Edit
 
@@ -40,20 +40,20 @@
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
         %td.text-right= number_with_precision(report.indicator_value(indicator), precision: 0, delimiter: ',')
       
-      -# Maker (highlighted if he is user)
-      - if report.author_id == current_user.id
-        %td.text-primary= "#{report.author_name}, #{report.maker_rating}"
-      - else
-        %td= "#{report.author_name}, #{report.maker_rating}"
+      // -# Maker (highlighted if he is user)
+      // - if report.author_id == current_user.id
+      //   %td.text-primary= "#{report.author_name}, #{report.maker_rating}"
+      // - else
+      //   %td= "#{report.author_name}, #{report.maker_rating}"
       
-      -# Checker (highlighted if he is user)
-      - unless report.best_version.checker.nil?
-        - if report.checker_id == current_user.id
-          %td.text-primary= report.checker_name
-        - else
-          %td= report.checker_name
-      - else
-        %td -
+      // -# Checker (highlighted if he is user)
+      // - unless report.best_version.checker.nil?
+      //   - if report.checker_id == current_user.id
+      //     %td.text-primary= report.checker_name
+      //   - else
+      //     %td= report.checker_name
+      // - else
+      //   %td -
       
       
       -# 'Check' button
@@ -95,6 +95,3 @@
   %li= link_to 'New company', new_company_path(industry: @industry.id), class: 'btn btn-primary btn-sm'
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
-
--# List of available countries
-= Company.pluck(:country).uniq
