@@ -103,4 +103,4 @@
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
 
-%p= 1.in(:eur).to(:rub, :at => '2015-12-03').to_f
+%p= 1.in(:eur).to(@currency.downcase.to_sym, :at => "#{@period.title}-12-31").to_f

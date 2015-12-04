@@ -11,7 +11,7 @@ class ReportsController < ApplicationController
     # Value.delete_all
     # Version.delete_all
     
-    # Report.find(2).delete
+    # Period.find(2).delete
     
     # foo = User.find(1)
     # foo.rating = 1000
