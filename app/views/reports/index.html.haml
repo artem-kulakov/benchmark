@@ -8,6 +8,7 @@
     %li= select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= country_select nil, :country, {only: Company.pluck(:country).uniq, include_blank: 'All countries', selected: @country}, onchange: 'this.form.submit()', class: 'form-control'
+    %li= select_tag :currency, options_for_select(@currencies, @currency), onchange: 'this.form.submit()', class: 'form-control'
 
   = submit_tag 'submit'
   = javascript_tag "$('.selector input').hide()"
@@ -101,3 +102,5 @@
   %li= link_to 'New company', new_company_path(industry: @industry.id), class: 'btn btn-primary btn-sm'
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
+
+%p= 1.in(:eur).to(:rub, :at => '2015-12-03').to_f

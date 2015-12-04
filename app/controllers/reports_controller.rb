@@ -60,6 +60,28 @@ class ReportsController < ApplicationController
     session[:country] = @country
     
     
+    # Set currency
+    if params[:currency]
+      @currency = params[:currency]
+    elsif session[:currency]
+      @currency = session[:currency]
+    else
+      @currency = 'RUB'
+    end
+    
+    session[:currency] = @currency
+    
+    
+    # List of currencies
+    @currencies = []
+    
+    Money::Currency.table.values.each do |values|
+      # @currencies[values[:iso_code]] = values[:name]
+      @currencies << values[:iso_code]
+    end
+
+    
+    
     # Set reports and other
     if @country == ''
       # All countries

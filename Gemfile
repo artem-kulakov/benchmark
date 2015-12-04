@@ -56,5 +56,10 @@ gem 'haml-rails'
 gem 'devise'
 
 # Use localized countries list
-# gem 'localized_country_select', '>= 0.9.11'
 gem 'country_select'
+
+# Currency rates by date
+gem 'exchange', '~> 1.2.0'
+
+# List of currencies
+gem 'currency_select'
