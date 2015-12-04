@@ -44,8 +44,9 @@
         - original_value = report.indicator_value(indicator)
         - original_currency = report.original_currency(indicator)
         - target_currency = @currency.downcase.to_sym
-        - converted_value = original_value.in(original_currency).to(target_currency, :at => "#{@period.title}-12-31").to_f
-        %td.text-right= number_with_precision(converted_value, precision: 0, delimiter: ',')
+        /- converted_value = original_value.in(original_currency).to(target_currency, :at => "#{@period.title}-12-31").to_f
+        /%td.text-right= number_with_precision(converted_value, precision: 0, delimiter: ',')
+        %td.text-right xxx
       
       // -# Maker (highlighted if he is user)
       // - if report.author_id == current_user.id

@@ -135,13 +135,13 @@ class ReportsController < ApplicationController
     @period = Period.find(session[:period])
     
     
-    # List of currencies
-    @currencies = []
-    
-    Money::Currency.table.values.each do |values|
-      # @currencies[values[:iso_code]] = values[:name]
-      @currencies << values[:iso_code]
+    # Xavier (36 currencies)
+    @xavier = [:eur, :usd, :jpy, :gbp, :cyp, :czk, :dkk, :eek, :huf, :ltl, :mtl, :pln, :sek, :sit, :skk, :chf, :isk, :nok, :bgn, :hrk, :rol, :ron, :rub, :trl, :aud, :cad, :cny, :hkd, :idr, :krw, :myr, :nzd, :php, :sgd, :thb, :zar]
+    currencies = []
+    @xavier.each do |title|
+      currencies << title.upcase
     end
+    @currencies = currencies.sort
   end
 
   # GET /reports/1/amend

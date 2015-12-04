@@ -59,7 +59,7 @@ gem 'devise'
 gem 'country_select'
 
 # Currency rates by date
-gem 'exchange', '~> 1.2.0'
+# gem 'exchange', '~> 1.2.0'
 
 # List of currencies
-gem 'currency_select'
+# gem 'currency_select'
