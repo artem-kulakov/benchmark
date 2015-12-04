@@ -75,14 +75,27 @@ class ReportsController < ApplicationController
     
     
     # List of currencies
-    @currencies = []
+    # @currencies = []
     
-    Money::Currency.table.values.each do |values|
-      # @currencies[values[:iso_code]] = values[:name]
-      @currencies << values[:iso_code]
+    # 175 currencies
+    # Money::Currency.table.values.each do |values|
+    #   # @currencies[values[:iso_code]] = values[:name]
+    #   @currencies << values[:iso_code]
+    # end
+    # @money_length = @currencies.length
+    
+    # 159 currencies
+    # @open_exchange = [:xcd, :usd, :sar, :rub, :nio, :lak, :nok, :omr, :amd, :cdf, :kpw, :cny, :kes, :zwd, :khr, :pln, :mvr, :gtq, :clp, :inr, :bzd, :myr, :hkd, :sek, :cop, :dkk, :byr, :lyd, :ron, :dzd, :bif, :ars, :gip, :bob, :xof, :std, :ngn, :pgk, :aed, :mwk, :cup, :gmd, :zwl, :tzs, :cve, :btn, :xaf, :ugx, :syp, :mad, :mnt, :lsl, :top, :shp, :rsd, :htg, :mga, :mzn, :lvl, :fkp, :bwp, :hnl, :eur, :egp, :chf, :ils, :pyg, :lbp, :ang, :kzt, :wst, :gyd, :thb, :npr, :kmf, :irr, :uyu, :srd, :jpy, :brl, :szl, :mop, :bmd, :xpf, :etb, :jod, :idr, :mdl, :mro, :yer, :bam, :awg, :nzd, :pen, :vef, :try, :sll, :aoa, :tnd, :tjs, :sgd, :scr, :lkr, :mxn, :ltl, :huf, :djf, :bsd, :gnf, :isk, :vuv, :sdg, :gel, :fjd, :dop, :xdr, :mur, :php, :mmk, :krw, :lrd, :bbd, :zmk, :zar, :vnd, :uah, :tmt, :iqd, :bgn, :gbp, :kgs, :ttd, :hrk, :rwf, :clf, :bhd, :uzs, :twd, :crc, :aud, :mkd, :pkr, :afn, :nad, :bdt, :azn, :czk, :sos, :iep, :pab, :qar, :svc, :sbd, :all, :jmd, :bnd, :cad, :kwd, :ghs]
+    # @open_exchange_length = @open_exchange.length
+    
+    # Xavier (36 currencies)
+    @xavier = [:eur, :usd, :jpy, :gbp, :cyp, :czk, :dkk, :eek, :huf, :ltl, :mtl, :pln, :sek, :sit, :skk, :chf, :isk, :nok, :bgn, :hrk, :rol, :ron, :rub, :trl, :aud, :cad, :cny, :hkd, :idr, :krw, :myr, :nzd, :php, :sgd, :thb, :zar]
+    currencies = []
+    @xavier.each do |title|
+      currencies << title.upcase
     end
+    @currencies = currencies.sort
 
-    
     
     # Set reports and other
     if @country == ''

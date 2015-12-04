@@ -41,7 +41,7 @@
           .col-sm-2
             = val.text_field :value, class: "form-control"
             = val.hidden_field :indicator_id, :value => i.id
-          .col-sm-2
+          .col-sm-2.currency
             = val.select :unit, options_for_select(@currencies, 'RUB'), {prompt: 'Select'}, {class: "form-control"}
 
   - # Buttons
