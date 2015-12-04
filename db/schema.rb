@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151203134212) do
+ActiveRecord::Schema.define(version: 20151204125652) do
 
   create_table "accounting_standards", force: true do |t|
     t.string   "title"
@@ -108,6 +108,7 @@ ActiveRecord::Schema.define(version: 20151203134212) do
     t.float    "value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "unit"
   end
 
   add_index "values", ["indicator_id"], name: "index_values_on_indicator_id"

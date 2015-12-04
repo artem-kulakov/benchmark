@@ -1,7 +1,10 @@
+- # Header
 .page-header
   %h3 New report
   %p= "#{Industry.find(session[:industry]).title}, #{Period.find(session[:period]).title}"
 
+
+- # Form
 = form_for @report, html: {class: "form-horizontal"} do |f|
   - if @report.errors.any?
     #error_explanation
@@ -11,7 +14,7 @@
           %li= msg
 
 
-  -# Company
+  - # Choose company
   .form-group
     = f.label :company, class: "col-sm-2 control-label"
     .col-sm-2
@@ -19,12 +22,14 @@
       = f.hidden_field :period_id, :value => session[:period]
   
   
-  -# Accounting standard
+  - # Choose accounting standard
   .form-group
     = f.label :accounting_standard, class: "col-sm-2 control-label"
     .col-sm-2
       = f.select :accounting_standard_id, options_from_collection_for_select(AccountingStandard.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
 
+  
+  - # Indicators' values
   = f.fields_for :versions do |v|
     = v.hidden_field :user_id, :value => current_user.id
     = v.hidden_field :rating, :value => current_user.rating
@@ -36,7 +41,10 @@
           .col-sm-2
             = val.text_field :value, class: "form-control"
             = val.hidden_field :indicator_id, :value => i.id
+          .col-sm-2
+            = val.select :unit, options_for_select(@currencies, 'RUB'), {prompt: 'Select'}, {class: "form-control"}
 
+  - # Buttons
   .form-group
     .col-sm-offset-2.col-sm-2
       %ul.list-inline

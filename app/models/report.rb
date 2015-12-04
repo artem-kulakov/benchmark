@@ -57,6 +57,11 @@ class Report < ActiveRecord::Base
     values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:value).pop
   end
   
+  # Currency of the value
+  def original_currency(indicator)
+    values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:unit).pop.downcase.to_sym
+  end
+  
   # User's name
   def author_name
     users.last.name

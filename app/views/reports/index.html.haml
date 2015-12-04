@@ -40,7 +40,12 @@
         /   %td= eval(indicator.formula.notation.gsub(/(?<=\[)(\d+)(?=\])|(?:[\[\]])/, indicators_values))
         / - else
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
-        %td.text-right= number_with_precision(report.indicator_value(indicator), precision: 0, delimiter: ',')
+        
+        - original_value = report.indicator_value(indicator)
+        - original_currency = report.original_currency(indicator)
+        - target_currency = @currency.downcase.to_sym
+        - converted_value = original_value.in(original_currency).to(target_currency, :at => "#{@period.title}-12-31").to_f
+        %td.text-right= number_with_precision(converted_value, precision: 0, delimiter: ',')
       
       // -# Maker (highlighted if he is user)
       // - if report.author_id == current_user.id
@@ -102,5 +107,3 @@
   %li= link_to 'New company', new_company_path(industry: @industry.id), class: 'btn btn-primary btn-sm'
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
-
-%p= 1.in(:eur).to(@currency.downcase.to_sym, :at => "#{@period.title}-12-31").to_f
