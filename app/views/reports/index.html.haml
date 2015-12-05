@@ -108,3 +108,7 @@
   %li= link_to 'New company', new_company_path(industry: @industry.id), class: 'btn btn-primary btn-sm'
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
+
+- # Mock
+- fx = OpenExchangeRates::Rates.new
+%p= fx.convert(1, :from => "USD", :to => "RUB", :on => "2014-12-31")
