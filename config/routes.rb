@@ -1,4 +1,6 @@
 Benchmark::Application.routes.draw do
+  resources :days
+
   resources :accounting_standards
 
   resources :approvals

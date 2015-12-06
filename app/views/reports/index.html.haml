@@ -109,6 +109,12 @@
   %li= link_to "New indicator", new_indicator_path(industry: 0), class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
 
-- # Mock
-- fx = OpenExchangeRates::Rates.new
-%p= fx.convert(1, :from => "USD", :to => "RUB", :on => "2014-12-31")
+- # Mocks
+
+- # Open exchange rate gem
+/ - fx = OpenExchangeRates::Rates.new(:app_id => '5b50e8cb7f9346a885b00d1a274b2b89')
+/ %p= fx.convert(1, :from => "USD", :to => "RUB", :on => "2014-12-31")
+
+- # Date conversion
+- foo = Day.find(1).day
+%p= foo.inspect

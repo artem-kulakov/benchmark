@@ -20,6 +20,10 @@ class ReportsController < ApplicationController
     # foo.name = 'Me'
     # foo.save
     
+    # foo = Day.new
+    # foo.day = '2014-12-31'
+    # foo.save
+    
     # Set industry id
     if params[:industry]
       industry_id = params[:industry]
