@@ -1,0 +1,23 @@
+%h1 Listing fx_rates
+
+%table
+  %tr
+    %th Day
+    %th Currency
+    %th Rate
+    %th
+    %th
+    %th
+
+  - @fx_rates.each do |fx_rate|
+    %tr
+      %td= fx_rate.day
+      %td= fx_rate.currency
+      %td= fx_rate.rate
+      %td= link_to 'Show', fx_rate
+      %td= link_to 'Edit', edit_fx_rate_path(fx_rate)
+      %td= link_to 'Destroy', fx_rate, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Fx rate', new_fx_rate_path

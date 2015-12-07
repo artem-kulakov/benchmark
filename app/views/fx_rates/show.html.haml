@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Day:
+  = @fx_rate.day
+%p
+  %b Currency:
+  = @fx_rate.currency
+%p
+  %b Rate:
+  = @fx_rate.rate
+
+= link_to 'Edit', edit_fx_rate_path(@fx_rate)
+\|
+= link_to 'Back', fx_rates_path

@@ -1,4 +1,8 @@
 Benchmark::Application.routes.draw do
+  resources :fx_rates
+
+  resources :currencies
+
   resources :days
 
   resources :accounting_standards

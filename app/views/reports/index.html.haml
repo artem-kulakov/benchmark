@@ -116,13 +116,54 @@
 / - fx = OpenExchangeRates::Rates.new(:app_id => '5b50e8cb7f9346a885b00d1a274b2b89')
 / %p= fx.convert(1, :from => "USD", :to => "RUB", :on => "2014-12-31")
 
-- # URL of FX rates
+
+- # Insert list of currencies to DB
 /https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89
-- require 'open-uri'
-- page = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
-%p= page
+// - require 'open-uri'
+// - string = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+// - hash = JSON.parse string
+// - hash.each do |item|
+//   // %p= "#{item.first}, #{item.last}"
+//   - foo = Currency.new
+//   - foo.code = item.first
+//   - foo.title = item.last
+//   - foo.save
 
 
-- # Date conversion
-- foo = Day.find(1).day
-%p= foo.inspect
+- # Insert FX rates to DB
+// %p= Day.all.inspect
+- FxRate.all.each do |item|
+  %p= item.rate
+
+
+- # Save json to file
+// - string = open('https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+// - File.open("/home/rtmklkv/apps/benchmark/test.json", "w") { |file| file.write string }
+
+
+- # Read JSON
+// - ids = Hash[Currency.all.pluck(:code, :id)]
+
+// - # Read JSON
+// - string = open('/home/rtmklkv/apps/benchmark/test.json').read
+// - json = JSON.parse string
+
+// - # Save date
+// - day = '2014-12-31'
+// - bar = Day.new
+// - bar.day = day
+// - bar.save
+// - day_id = bar.id
+
+// - # Save rates
+// - json['rates'].each do |code, rate|
+//   - foo = FxRate.new
+//   - foo.day_id = day_id
+//   - foo.currency_id = ids[code]
+//   - foo.rate = rate
+//   - foo.save
+
+
+- # Date
+// - foo = Day.find(1).day
+// %p= foo.inspect

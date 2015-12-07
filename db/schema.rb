@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151206060200) do
+ActiveRecord::Schema.define(version: 20151207131125) do
 
   create_table "accounting_standards", force: true do |t|
     t.string   "title"
@@ -39,6 +39,13 @@ ActiveRecord::Schema.define(version: 20151206060200) do
 
   add_index "companies", ["industry_id"], name: "index_companies_on_industry_id"
 
+  create_table "currencies", force: true do |t|
+    t.string   "code"
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "days", force: true do |t|
     t.date     "day"
     t.datetime "created_at"
@@ -53,6 +60,17 @@ ActiveRecord::Schema.define(version: 20151206060200) do
   end
 
   add_index "formulas", ["indicator_id"], name: "index_formulas_on_indicator_id"
+
+  create_table "fx_rates", force: true do |t|
+    t.integer  "day_id"
+    t.integer  "currency_id"
+    t.decimal  "rate"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "fx_rates", ["currency_id"], name: "index_fx_rates_on_currency_id"
+  add_index "fx_rates", ["day_id"], name: "index_fx_rates_on_day_id"
 
   create_table "indicators", force: true do |t|
     t.string   "title"

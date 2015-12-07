@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  day_id: 
+  currency_id: 
+  rate: 9.99
+
+two:
+  day_id: 
+  currency_id: 
+  rate: 9.99
