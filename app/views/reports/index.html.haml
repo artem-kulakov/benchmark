@@ -118,10 +118,8 @@
 
 - # URL of FX rates
 /https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89
-
-- # Open URL
 - require 'open-uri'
-- page = open('https://openexchangerates.org/api/currencies.json').read
+- page = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
 %p= page
 
 
