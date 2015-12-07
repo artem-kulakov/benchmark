@@ -132,8 +132,14 @@
 
 - # Insert FX rates to DB
 // %p= Day.all.inspect
-- FxRate.all.each do |item|
-  %p= item.rate
+
+/ - FxRate.all.each do |item|
+/   %p= item.rate
+
+/ %p= FxRate.all.length
+
+/ - Day.delete_all
+/ - FxRate.delete_all
 
 
 - # Save json to file
@@ -141,29 +147,32 @@
 // - File.open("/home/rtmklkv/apps/benchmark/test.json", "w") { |file| file.write string }
 
 
-- # Read JSON
-// - ids = Hash[Currency.all.pluck(:code, :id)]
-
-// - # Read JSON
-// - string = open('/home/rtmklkv/apps/benchmark/test.json').read
-// - json = JSON.parse string
-
-// - # Save date
-// - day = '2014-12-31'
-// - bar = Day.new
-// - bar.day = day
-// - bar.save
-// - day_id = bar.id
-
-// - # Save rates
-// - json['rates'].each do |code, rate|
-//   - foo = FxRate.new
-//   - foo.day_id = day_id
-//   - foo.currency_id = ids[code]
-//   - foo.rate = rate
-//   - foo.save
+- # Get currencies' IDs
+/ - ids = Hash[Currency.all.pluck(:code, :id)]
+/
+/ - # Read JSON
+/ - string = open(Rails.root + 'test.json').read
+/ - json = JSON.parse string
+/
+/ - # Create day
+/ - day = '2014-12-31'
+/ - bar = Day.new
+/ - bar.day = day
+/
+/ - # Create rates
+/ - json['rates'].each do |code, rate|
+/   - foo = bar.fx_rates.new
+/   - foo.currency_id = ids[code]
+/   - foo.rate = rate
+/
+/ - # Save day and rates
+/ - bar.save
 
 
 - # Date
 // - foo = Day.find(1).day
 // %p= foo.inspect
+
+
+- # Rails root
+/ %p= Rails.root
