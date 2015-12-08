@@ -103,13 +103,9 @@ class ReportsController < ApplicationController
     @period = Period.find(session[:period])
     
     
-    # Xavier (36 currencies)
-    @xavier = [:eur, :usd, :jpy, :gbp, :cyp, :czk, :dkk, :eek, :huf, :ltl, :mtl, :pln, :sek, :sit, :skk, :chf, :isk, :nok, :bgn, :hrk, :rol, :ron, :rub, :trl, :aud, :cad, :cny, :hkd, :idr, :krw, :myr, :nzd, :php, :sgd, :thb, :zar]
-    currencies = []
-    @xavier.each do |title|
-      currencies << title.upcase
-    end
-    @currencies = currencies.sort
+    # List of currencies
+    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+    @currencies = Currency.where(id: available_currencies).order(:title)
   end
 
   # GET /reports/1/amend
@@ -272,6 +268,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :accounting_standard_id, :period_id, :parent_version_id, versions_attributes: [:id, :user_id, :rating, values_attributes: [:id, :indicator_id, :value, :unit]])
+      params.require(:report).permit(:company_id, :accounting_standard_id, :period_id, :parent_version_id, versions_attributes: [:id, :user_id, :rating, values_attributes: [:id, :indicator_id, :value, :currency_id]])
     end
 end
