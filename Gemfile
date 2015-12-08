@@ -57,10 +57,3 @@ gem 'devise'
 
 # Use localized countries list
 gem 'country_select'
-
-# Currency rates by date
-# gem 'exchange', '~> 1.2.0'
-gem 'open_exchange_rates'
-
-# List of currencies
-# gem 'currency_select'

@@ -6,24 +6,6 @@ class ReportsController < ApplicationController
   # GET /reports.json
   def index
     
-    # Formula.delete_all
-    # Report.delete_all
-    # Value.delete_all
-    # Version.delete_all
-    
-    # Period.find(2).delete
-    
-    # Report.where(id: 4..7).destroy_all
-    
-    # foo = User.find(1)
-    # foo.rating = 1000
-    # foo.name = 'Me'
-    # foo.save
-    
-    # foo = Day.new
-    # foo.day = '2014-12-31'
-    # foo.save
-    
     # Set industry id
     if params[:industry]
       industry_id = params[:industry]
@@ -72,33 +54,15 @@ class ReportsController < ApplicationController
     elsif session[:currency]
       @currency = session[:currency]
     else
-      @currency = 'RUB'
+      @currency = 125
     end
     
     session[:currency] = @currency
     
     
     # List of currencies
-    # @currencies = []
-    
-    # 175 currencies
-    # Money::Currency.table.values.each do |values|
-    #   # @currencies[values[:iso_code]] = values[:name]
-    #   @currencies << values[:iso_code]
-    # end
-    # @money_length = @currencies.length
-    
-    # 159 currencies
-    # @open_exchange = [:xcd, :usd, :sar, :rub, :nio, :lak, :nok, :omr, :amd, :cdf, :kpw, :cny, :kes, :zwd, :khr, :pln, :mvr, :gtq, :clp, :inr, :bzd, :myr, :hkd, :sek, :cop, :dkk, :byr, :lyd, :ron, :dzd, :bif, :ars, :gip, :bob, :xof, :std, :ngn, :pgk, :aed, :mwk, :cup, :gmd, :zwl, :tzs, :cve, :btn, :xaf, :ugx, :syp, :mad, :mnt, :lsl, :top, :shp, :rsd, :htg, :mga, :mzn, :lvl, :fkp, :bwp, :hnl, :eur, :egp, :chf, :ils, :pyg, :lbp, :ang, :kzt, :wst, :gyd, :thb, :npr, :kmf, :irr, :uyu, :srd, :jpy, :brl, :szl, :mop, :bmd, :xpf, :etb, :jod, :idr, :mdl, :mro, :yer, :bam, :awg, :nzd, :pen, :vef, :try, :sll, :aoa, :tnd, :tjs, :sgd, :scr, :lkr, :mxn, :ltl, :huf, :djf, :bsd, :gnf, :isk, :vuv, :sdg, :gel, :fjd, :dop, :xdr, :mur, :php, :mmk, :krw, :lrd, :bbd, :zmk, :zar, :vnd, :uah, :tmt, :iqd, :bgn, :gbp, :kgs, :ttd, :hrk, :rwf, :clf, :bhd, :uzs, :twd, :crc, :aud, :mkd, :pkr, :afn, :nad, :bdt, :azn, :czk, :sos, :iep, :pab, :qar, :svc, :sbd, :all, :jmd, :bnd, :cad, :kwd, :ghs]
-    # @open_exchange_length = @open_exchange.length
-    
-    # Xavier (36 currencies)
-    @xavier = [:eur, :usd, :jpy, :gbp, :cyp, :czk, :dkk, :eek, :huf, :ltl, :mtl, :pln, :sek, :sit, :skk, :chf, :isk, :nok, :bgn, :hrk, :rol, :ron, :rub, :trl, :aud, :cad, :cny, :hkd, :idr, :krw, :myr, :nzd, :php, :sgd, :thb, :zar]
-    currencies = []
-    @xavier.each do |title|
-      currencies << title.upcase
-    end
-    @currencies = currencies.sort
+    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+    @currencies = Currency.where(id: available_currencies).order(:title)
 
     
     # Set reports and other

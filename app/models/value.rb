@@ -6,4 +6,6 @@ class Value < ActiveRecord::Base
   has_one :period, through: :report
   
   belongs_to :user
+  
+  belongs_to :currency
 end

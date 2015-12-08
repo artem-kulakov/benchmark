@@ -59,7 +59,7 @@ class Report < ActiveRecord::Base
   
   # Currency of the value
   def original_currency(indicator)
-    values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:unit).pop.downcase.to_sym
+    values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:currency_id).pop
   end
   
   # User's name

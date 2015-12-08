@@ -8,7 +8,7 @@
     %li= select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= country_select nil, :country, {only: Company.pluck(:country).uniq, include_blank: 'All countries', selected: @country}, onchange: 'this.form.submit()', class: 'form-control'
-    %li= select_tag :currency, options_for_select(@currencies, @currency), onchange: 'this.form.submit()', class: 'form-control'
+    %li= select_tag :currency, options_from_collection_for_select(@currencies, :id, :title, @currency), onchange: 'this.form.submit()', class: 'form-control'
 
   = submit_tag 'submit'
   = javascript_tag "$('.selector input').hide()"
@@ -41,12 +41,13 @@
         / - else
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
         
+        - # FX conversion
         - original_value = report.indicator_value(indicator)
         - original_currency = report.original_currency(indicator)
-        - target_currency = @currency.downcase.to_sym
-        /- converted_value = original_value.in(original_currency).to(target_currency, :at => "#{@period.title}-12-31").to_f
-        /%td.text-right= number_with_precision(converted_value, precision: 0, delimiter: ',')
-        %td.text-right xxx
+        - original_to_usd_rate = FxRate.where(day_id: @period.day.id, currency_id: original_currency).pluck(:rate).pop
+        - usd_to_target_rate = FxRate.where(day_id: @period.day.id, currency_id: @currency).pluck(:rate).pop
+        - result = original_value / original_to_usd_rate * usd_to_target_rate
+        %td.text-right= number_with_precision(result, precision: 0, delimiter: ',')
       
       // -# Maker (highlighted if he is user)
       // - if report.author_id == current_user.id
@@ -65,8 +66,7 @@
       
       
       - # Accounting standard
-      %td.text-center
-        = report.accounting_standard_title
+      %td.text-center= report.accounting_standard_title
       
       
       -# 'Check' button
@@ -169,10 +169,6 @@
 / - bar.save
 
 
-- # Date
-// - foo = Day.find(1).day
-// %p= foo.inspect
-
-
-- # Rails root
-/ %p= Rails.root
+- # Temp
+// - Value.all.each do |item|
+//   %p= item.inspect

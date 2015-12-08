@@ -76,8 +76,6 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.11.2)
-    open_exchange_rates (0.4.1)
-      yajl-ruby
     orm_adapter (0.5.0)
     polyglot (0.3.5)
     rack (1.5.5)
@@ -137,7 +135,6 @@ GEM
     unicode_utils (1.4.0)
     warden (1.2.3)
       rack (>= 1.0)
-    yajl-ruby (1.2.1)
 
 PLATFORMS
   ruby
@@ -151,7 +148,6 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
-  open_exchange_rates
   rails (= 4.0.0)
   sass-rails (~> 4.0.0)
   sdoc
