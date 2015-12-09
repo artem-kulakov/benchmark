@@ -42,12 +42,15 @@
         /   %td= report.values.where(indicator_id: indicator.id).pluck(:value).pop
         
         - # FX conversion
-        - original_value = report.indicator_value(indicator)
-        - original_currency = report.original_currency(indicator)
-        - original_to_usd_rate = FxRate.where(day_id: @period.day.id, currency_id: original_currency).pluck(:rate).pop
-        - usd_to_target_rate = FxRate.where(day_id: @period.day.id, currency_id: @currency).pluck(:rate).pop
-        - result = original_value / original_to_usd_rate * usd_to_target_rate
-        %td.text-right= number_with_precision(result, precision: 0, delimiter: ',')
+        - if report.indicator_value(indicator)
+          - original_value = report.indicator_value(indicator)
+          - original_currency = report.original_currency(indicator)
+          - original_to_usd_rate = FxRate.where(day_id: @period.day.id, currency_id: original_currency).pluck(:rate).pop
+          - usd_to_target_rate = FxRate.where(day_id: @period.day.id, currency_id: @currency).pluck(:rate).pop
+          - result = original_value / original_to_usd_rate * usd_to_target_rate
+          %td.text-right= number_with_precision(result, precision: 0, delimiter: ',')
+        - else
+          %td
       
       // -# Maker (highlighted if he is user)
       // - if report.author_id == current_user.id
@@ -110,11 +113,6 @@
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
 
 
-- # Mocks
-
-- # Open exchange rate gem
-/ - fx = OpenExchangeRates::Rates.new(:app_id => '5b50e8cb7f9346a885b00d1a274b2b89')
-/ %p= fx.convert(1, :from => "USD", :to => "RUB", :on => "2014-12-31")
 
 
 - # Insert list of currencies to DB
@@ -170,5 +168,10 @@
 
 
 - # Temp
-// - Value.all.each do |item|
-//   %p= item.inspect
+- Indicator.all.each do |item|
+  %p= item.inspect
+
+
+- # Save css to file
+// - string = open('https://bootswatch.com/cyborg/bootstrap.min.css', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+/- File.open(Rails.root + 'bootstrap.min.css', "w") { |file| file.write string }

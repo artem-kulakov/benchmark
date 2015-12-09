@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151208130953) do
+ActiveRecord::Schema.define(version: 20151209085537) do
 
   create_table "accounting_standards", force: true do |t|
     t.string   "title"
@@ -78,9 +78,11 @@ ActiveRecord::Schema.define(version: 20151208130953) do
     t.datetime "updated_at"
     t.integer  "industry_id"
     t.integer  "sequence"
+    t.integer  "unit_id"
   end
 
   add_index "indicators", ["industry_id"], name: "index_indicators_on_industry_id"
+  add_index "indicators", ["unit_id"], name: "index_indicators_on_unit_id"
 
   create_table "industries", force: true do |t|
     t.datetime "created_at"
@@ -108,6 +110,12 @@ ActiveRecord::Schema.define(version: 20151208130953) do
   add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id"
   add_index "reports", ["company_id"], name: "index_reports_on_company_id"
   add_index "reports", ["period_id"], name: "index_reports_on_period_id"
+
+  create_table "units", force: true do |t|
+    t.string   "title"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
