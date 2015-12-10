@@ -19,16 +19,6 @@ ActiveRecord::Schema.define(version: 20151209085537) do
     t.datetime "updated_at"
   end
 
-  create_table "approvals", force: true do |t|
-    t.integer  "version_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id"
-  add_index "approvals", ["version_id"], name: "index_approvals_on_version_id"
-
   create_table "companies", force: true do |t|
     t.string   "title"
     t.integer  "industry_id"
