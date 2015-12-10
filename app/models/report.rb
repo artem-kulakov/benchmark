@@ -52,12 +52,12 @@ class Report < ActiveRecord::Base
   
   # Value of indicator
   def indicator_value(indicator)
-    values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:value).pop
+    values.where(indicator_id: indicator.id).pluck(:value).pop
   end
   
   # Currency of the value
   def original_currency(indicator)
-    values.where(indicator_id: indicator.id, version_id: self.best_version).pluck(:currency_id).pop
+    values.where(indicator_id: indicator.id).pluck(:currency_id).pop
   end
   
   # User's name
@@ -71,20 +71,20 @@ class Report < ActiveRecord::Base
   end
   
   # Maker's reward
-  def maker_reward
-    best_version.maker_reward
-  end
+  # def maker_reward
+  #   best_version.maker_reward
+  # end
   
   # Rate of report completeness
   def completeness
-    val = values.where(version_id: self.version_id).pluck(:value)
+    val = values.pluck(:value)
     not_nil = val.count { |c| not c.nil? }
     total = val.count
     not_nil.to_f / total
   end
   
   # Checker's id
-  def checker_id
-    versions.order(:rating).last.checker
-  end
+  # def checker_id
+  #   versions.order(:rating).last.checker
+  # end
 end

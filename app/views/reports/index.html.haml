@@ -73,7 +73,7 @@
       
       
       -# 'Check' button
-      - path = check_path(user: report.author_id, version: report.version_id, completeness: report.completeness)
+      - path = check_path(user: report.maker_id, completeness: report.completeness)
       
       -# 'Check' glyphicon
       - if report.checker_id.nil?
@@ -84,7 +84,7 @@
       -# td
       %td.text-center
         -# Disabled link if user is maker/checker of report or checker's rating is not enough for check
-        - if report.author_id == current_user.id || (report.approvals.any? && report.checker_id == current_user.id) || (report.maker_rating + (1000 - report.maker_rating) * 0.1 * report.completeness.to_f > current_user.rating)
+        - if 1 == 1 #report.maker_id == current_user.id || (report.approvals.any? && report.checker_id == current_user.id) || (report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f > current_user.rating)
           %span{ class: "glyphicon #{glyphicon} text-muted" }
         - else
           = link_to path do
@@ -92,13 +92,13 @@
       
       
       -# 'Edit' button
-      - if report.author_id == current_user.id
+      - if report.maker_id == current_user.id
         - path = edit_report_path(report)
       - else
-        - path = amend_report_path(report, maker: report.author_id, reward: report.maker_reward, completeness: report.completeness)
+        - path = amend_report_path(report, maker: report.maker_id, reward: report.maker_reward, completeness: report.completeness)
       
       %td.text-center
-        - if report.maker_rating + (1000 - report.maker_rating) * 0.1 * report.completeness.to_f < current_user.rating
+        - if 1 == 1 # report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
           =link_to path do
             %span.glyphicon.glyphicon-edit
         - else
