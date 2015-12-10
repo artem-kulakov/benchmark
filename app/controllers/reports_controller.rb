@@ -86,10 +86,9 @@ class ReportsController < ApplicationController
 
   # GET /reports/new
   def new
-    # Create new report, version and values
+    # Create new report and values
     @report = Report.new
-    version = @report.versions.new
-    version.values.new
+    @report.values.new
     
     foo = Report.joins(:company).where(companies: {industry_id: 1}, period_id: 1).pluck(:company_id)
     @companies = Company.where(industry_id: session[:industry]).where.not(id: foo).order(:title)
@@ -268,6 +267,6 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :accounting_standard_id, :period_id, :parent_version_id, versions_attributes: [:id, :user_id, :rating, values_attributes: [:id, :indicator_id, :value, :currency_id]])
+      params.require(:report).permit(:company_id, :period_id, :accounting_standard_id, :rating, :maker_id, :maker_reward, :checker_id, values_attributes: [:id, :indicator_id, :value, :currency_id])
     end
 end

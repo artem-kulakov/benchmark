@@ -30,27 +30,31 @@
 
   
   - # Indicators' values
-  = f.fields_for :versions do |v|
-    = v.hidden_field :user_id, :value => current_user.id
-    = v.hidden_field :rating, :value => current_user.rating
+  = f.hidden_field :maker_id, :value => current_user.id
+  = f.hidden_field :rating, :value => current_user.rating
+  
+  = f.fields_for :formula do |ff|
+    = ff.label :formula, class: "col-sm-2 control-label"
+    .col-sm-3
+      = ff.text_field :notation, class: "form-control notation"
 
-    - @indicators.each do |i|
-      .form-group
-        = v.label "", i.title, class: "col-sm-2 control-label"
-        = v.fields_for :values do |val|
-          = val.hidden_field :indicator_id, :value => i.id
-          
-          - if i.unit.title == 'Currency'
-            .col-sm-2
-              = val.text_field :value, class: "form-control"
-            .col-sm-2.currency
-              = val.select :currency_id, options_from_collection_for_select(@currencies, :id, :title), {prompt: 'Select currency'}, {class: "form-control"}
-          - else
-            .col-sm-2
-              .input-group
-                = val.text_field :value, class: "form-control"
-                .input-group-addon.small
-                  .small= i.unit.title
+  - @indicators.each do |i|
+    .form-group
+      = f.label "", i.title, class: "col-sm-2 control-label"
+      = f.fields_for :values do |v|
+        = v.hidden_field :indicator_id, :value => i.id
+        
+        - if i.unit.title == 'Currency'
+          .col-sm-2
+            = v.text_field :value, class: "form-control"
+          .col-sm-2.currency
+            = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :title), {prompt: 'Select currency'}, {class: "form-control"}
+        - else
+          .col-sm-2
+            .input-group
+              = v.text_field :value, class: "form-control"
+              .input-group-addon.small
+                .small= i.unit.title
 
 
   - # Buttons
@@ -59,3 +63,9 @@
       %ul.list-inline
         %li= f.submit 'Save', class: "btn btn-success"
         %li= link_to 'Cancel', reports_path(industry: @industry.id, period: @period.id), class: "btn btn-default"
+
+
+- # Temp
+- Report.all.each do |report|
+  %p= report.inspect
+%p= Value.all.inspect

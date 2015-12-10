@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151209085537) do
+ActiveRecord::Schema.define(version: 20151210111928) do
 
   create_table "accounting_standards", force: true do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "approvals", force: true do |t|
+    t.integer  "version_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id"
+  add_index "approvals", ["version_id"], name: "index_approvals_on_version_id"
 
   create_table "companies", force: true do |t|
     t.string   "title"
@@ -95,6 +105,10 @@ ActiveRecord::Schema.define(version: 20151209085537) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "accounting_standard_id"
+    t.integer  "rating"
+    t.integer  "maker_id"
+    t.integer  "maker_reward"
+    t.integer  "checker_id"
   end
 
   add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id"
