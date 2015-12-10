@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210111928) do
+ActiveRecord::Schema.define(version: 20151210141405) do
 
   create_table "accounting_standards", force: true do |t|
     t.string   "title"
@@ -143,7 +143,7 @@ ActiveRecord::Schema.define(version: 20151210111928) do
 
   create_table "values", force: true do |t|
     t.integer  "indicator_id"
-    t.integer  "version_id"
+    t.integer  "report_id"
     t.float    "value"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -153,7 +153,7 @@ ActiveRecord::Schema.define(version: 20151210111928) do
 
   add_index "values", ["currency_id"], name: "index_values_on_currency_id"
   add_index "values", ["indicator_id"], name: "index_values_on_indicator_id"
-  add_index "values", ["version_id"], name: "index_values_on_version_id"
+  add_index "values", ["report_id"], name: "index_values_on_report_id"
 
   create_table "versions", force: true do |t|
     t.integer  "report_id"

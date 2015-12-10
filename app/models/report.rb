@@ -3,13 +3,11 @@ class Report < ActiveRecord::Base
   belongs_to :period
   belongs_to :accounting_standard
   
-  has_many :versions
-  accepts_nested_attributes_for :versions
+  has_many :values
+  accepts_nested_attributes_for :values
   
   has_many :users, through: :versions
 
-  has_many :values, through: :versions
-  
   has_many :approvals, through: :versions
   
   has_one :industry, through: :company
