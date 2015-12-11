@@ -27,6 +27,7 @@
     %th.text-center Accounting standard
     %th.text-center Check
     %th.text-center Edit
+    %th.text-center Delete
 
   -# Reports list
   - @reports.each do |report|
@@ -83,12 +84,13 @@
       
       -# td
       %td.text-center
-        -# Disabled link if user is maker/checker of report or checker's rating is not enough for check
-        - if 1 == 1 #report.maker_id == current_user.id || (report.approvals.any? && report.checker_id == current_user.id) || (report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f > current_user.rating)
+        -# Disabled link if current user is maker or checker of report or checker's rating is not high enough for check
+        - if report.maker_id == current_user.id || report.checker_id == current_user.id || (report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f > current_user.rating)
           %span{ class: "glyphicon #{glyphicon} text-muted" }
         - else
           = link_to path do
             %span{ class: "glyphicon #{glyphicon}" }
+            %span= 5
       
       
       -# 'Edit' button
@@ -98,11 +100,15 @@
         - path = amend_report_path(report, maker: report.maker_id, reward: report.maker_reward, completeness: report.completeness)
       
       %td.text-center
-        - if 1 == 1 # report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
+        - if report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
           =link_to path do
             %span.glyphicon.glyphicon-edit
         - else
           %span.glyphicon.glyphicon-edit.text-muted
+      
+      
+      - # 'Delete' button
+      %td.text-center= link_to 'Delete', report, :method => :delete, :data => { :confirm => 'Are you sure?' }
       
       
 -# 'New indicator/industry/etc' buttons
@@ -168,7 +174,10 @@
 
 
 - # Temp
-- Unit.all.each do |item|
+- Report.all.each do |item|
+  %p= item.inspect
+
+- Value.all.each do |item|
   %p= item.inspect
 
 
