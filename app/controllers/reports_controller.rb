@@ -141,6 +141,10 @@ class ReportsController < ApplicationController
     end
     
     @period = @report.period
+    
+    # List of currencies
+    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+    @currencies = Currency.where(id: available_currencies).order(:title)
   end
 
   # POST /reports

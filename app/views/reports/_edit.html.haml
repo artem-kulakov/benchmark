@@ -1,4 +1,11 @@
-= form_for @report do |f|
+- # Header
+.page-header
+  %h3 Editing report
+  %p= "#{@report.company.title}, #{@period.title}"
+
+
+- # Form
+= form_for @report, html: {class: "form-horizontal"} do |f|
   - if @report.errors.any?
     #error_explanation
       %h2= "#{pluralize(@report.errors.count, "error")} prohibited this report from being saved:"
@@ -6,18 +13,42 @@
         - @report.errors.full_messages.each do |msg|
           %li= msg
 
-  %h2
-    = @report.company.title + ', ' + @period.title
 
+  - # Maker and rating
+  = f.hidden_field :maker_id, :value => current_user.id
+  = f.hidden_field :rating, :value => current_user.rating
+  
+  
+  //     = f.fields_for :values do |v|
+  //       - if i.id == v.object.indicator_id
+  //         = v.text_field :value
+  //         = v.hidden_field :indicator_id, :value => i.id
+
+  - # Indicators' values
   - @indicators.each do |i|
-    .field
-      = i.title
+    .form-group
+      = f.label "", i.title, class: "col-sm-2 control-label"
       = f.fields_for :values do |v|
         - if i.id == v.object.indicator_id
-          = v.text_field :value
           = v.hidden_field :indicator_id, :value => i.id
+          
+          - if i.unit.title == 'Currency'
+            .col-sm-2
+              = v.text_field :value, class: "form-control"
+            .col-sm-2.currency
+              // = v.select :currency_id, {class: "form-control"}
+              = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :title, v.object.currency_id), {prompt: 'Select currency'}, {class: "form-control"}
+          - else
+            .col-sm-2
+              .input-group
+                = v.text_field :value, class: "form-control"
+                .input-group-addon.small
+                  .small= i.unit.title
 
-  .actions
-    = f.submit 'Save'
 
-= @report.users.id
+  - # Buttons
+  .form-group
+    .col-sm-offset-2.col-sm-3
+      %ul.list-inline
+        %li= f.submit 'Save', class: "btn btn-success"
+        %li= link_to 'Cancel', reports_path(industry: @industry.id, period: @period.id), class: "btn btn-default"

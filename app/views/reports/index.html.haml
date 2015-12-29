@@ -100,7 +100,7 @@
         - path = amend_report_path(report, maker: report.maker_id, reward: report.maker_reward, completeness: report.completeness)
       
       %td.text-center
-        - if report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
+        - if report.maker_id == current_user.id || report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
           =link_to path do
             %span.glyphicon.glyphicon-edit
         - else
@@ -178,6 +178,9 @@
   %p= item.inspect
 
 - Value.all.each do |item|
+  %p= item.inspect
+
+- Unit.all.each do |item|
   %p= item.inspect
 
 
