@@ -18,6 +18,7 @@ group :doc do
 end
 
 group :development, :test do
+	gem 'pg'
   gem 'sqlite3'
   # gem 'byebug'
   # gem 'web-console'
