@@ -54,7 +54,7 @@ class ReportsController < ApplicationController
     elsif session[:currency]
       @currency = session[:currency]
     else
-      @currency = 125
+      @currency = 124
     end
     
     session[:currency] = @currency

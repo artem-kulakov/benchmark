@@ -123,15 +123,14 @@
 
 - # Insert list of currencies to DB
 /https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89
-// - require 'open-uri'
-// - string = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
-// - hash = JSON.parse string
-// - hash.each do |item|
-//   // %p= "#{item.first}, #{item.last}"
-//   - foo = Currency.new
-//   - foo.code = item.first
-//   - foo.title = item.last
-//   - foo.save
+/ - require 'open-uri'
+/ - string = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+/ - hash = JSON.parse string
+/ - hash.each do |item|
+/   - foo = Currency.new
+/   - foo.code = item.first
+/   - foo.title = item.last
+/   - foo.save
 
 
 - # Insert FX rates to DB
@@ -153,35 +152,35 @@
 
 - # Get currencies' IDs
 / - ids = Hash[Currency.all.pluck(:code, :id)]
-/
+
 / - # Read JSON
 / - string = open(Rails.root + 'test.json').read
 / - json = JSON.parse string
-/
+
 / - # Create day
 / - day = '2014-12-31'
 / - bar = Day.new
 / - bar.day = day
-/
+
 / - # Create rates
 / - json['rates'].each do |code, rate|
 /   - foo = bar.fx_rates.new
 /   - foo.currency_id = ids[code]
 /   - foo.rate = rate
-/
+
 / - # Save day and rates
 / - bar.save
 
 
 - # Temp
-/ - Report.all.each do |item|
+/ - FxRate.all.each do |item|
 /   %p= item.inspect
 
-/ - Value.all.each do |item|
-/   %p= item.inspect
+- Day.all.each do |item|
+  %p= item.inspect
 
-/ - Unit.all.each do |item|
-/   %p= item.inspect
+- Period.all.each do |item|
+  %p= item.inspect
 
 
 - # Save css to file
