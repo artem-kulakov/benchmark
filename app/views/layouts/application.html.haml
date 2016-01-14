@@ -20,14 +20,14 @@
           %li= link_to 'Periods', periods_path
     
         %ul.nav.navbar-nav.navbar-right
-          - if user_signed_in?
-            %li= link_to "#{current_user.name} #{current_user.rating}", '#'
-            %li
-              = link_to destroy_user_session_path, :method => :delete do
-                %span.glyphicon.glyphicon-log-out
-          - else
-            %li= link_to 'Sign in', new_user_session_path
-            %li= link_to 'Sign up', new_user_registration_path
+          // - if user_signed_in?
+          //   %li= link_to "#{current_user.name} #{current_user.rating}", '#'
+          //   %li
+          //     = link_to destroy_user_session_path, :method => :delete do
+          //       %span.glyphicon.glyphicon-log-out
+          // - else
+          //   %li= link_to 'Sign in', new_user_session_path
+          //   %li= link_to 'Sign up', new_user_registration_path
     
   .container-fluid
   

@@ -11,25 +11,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151210141405) do
+ActiveRecord::Schema.define(version: 20160114083154) do
 
-  create_table "accounting_standards", force: true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "accounting_standards", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "approvals", force: true do |t|
+  create_table "approvals", force: :cascade do |t|
     t.integer  "version_id"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id"
-  add_index "approvals", ["version_id"], name: "index_approvals_on_version_id"
+  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id", using: :btree
+  add_index "approvals", ["version_id"], name: "index_approvals_on_version_id", using: :btree
 
-  create_table "companies", force: true do |t|
+  create_table "companies", force: :cascade do |t|
     t.string   "title"
     t.integer  "industry_id"
     t.datetime "created_at"
@@ -37,31 +40,31 @@ ActiveRecord::Schema.define(version: 20151210141405) do
     t.string   "country"
   end
 
-  add_index "companies", ["industry_id"], name: "index_companies_on_industry_id"
+  add_index "companies", ["industry_id"], name: "index_companies_on_industry_id", using: :btree
 
-  create_table "currencies", force: true do |t|
+  create_table "currencies", force: :cascade do |t|
     t.string   "code"
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "days", force: true do |t|
+  create_table "days", force: :cascade do |t|
     t.date     "day"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "formulas", force: true do |t|
+  create_table "formulas", force: :cascade do |t|
     t.integer  "indicator_id"
     t.string   "notation"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "formulas", ["indicator_id"], name: "index_formulas_on_indicator_id"
+  add_index "formulas", ["indicator_id"], name: "index_formulas_on_indicator_id", using: :btree
 
-  create_table "fx_rates", force: true do |t|
+  create_table "fx_rates", force: :cascade do |t|
     t.integer  "day_id"
     t.integer  "currency_id"
     t.decimal  "rate"
@@ -69,10 +72,10 @@ ActiveRecord::Schema.define(version: 20151210141405) do
     t.datetime "updated_at"
   end
 
-  add_index "fx_rates", ["currency_id"], name: "index_fx_rates_on_currency_id"
-  add_index "fx_rates", ["day_id"], name: "index_fx_rates_on_day_id"
+  add_index "fx_rates", ["currency_id"], name: "index_fx_rates_on_currency_id", using: :btree
+  add_index "fx_rates", ["day_id"], name: "index_fx_rates_on_day_id", using: :btree
 
-  create_table "indicators", force: true do |t|
+  create_table "indicators", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -81,25 +84,25 @@ ActiveRecord::Schema.define(version: 20151210141405) do
     t.integer  "unit_id"
   end
 
-  add_index "indicators", ["industry_id"], name: "index_indicators_on_industry_id"
-  add_index "indicators", ["unit_id"], name: "index_indicators_on_unit_id"
+  add_index "indicators", ["industry_id"], name: "index_indicators_on_industry_id", using: :btree
+  add_index "indicators", ["unit_id"], name: "index_indicators_on_unit_id", using: :btree
 
-  create_table "industries", force: true do |t|
+  create_table "industries", force: :cascade do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "title"
   end
 
-  create_table "periods", force: true do |t|
+  create_table "periods", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "day_id"
   end
 
-  add_index "periods", ["day_id"], name: "index_periods_on_day_id"
+  add_index "periods", ["day_id"], name: "index_periods_on_day_id", using: :btree
 
-  create_table "reports", force: true do |t|
+  create_table "reports", force: :cascade do |t|
     t.integer  "company_id"
     t.integer  "period_id"
     t.datetime "created_at"
@@ -111,37 +114,17 @@ ActiveRecord::Schema.define(version: 20151210141405) do
     t.integer  "checker_id"
   end
 
-  add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id"
-  add_index "reports", ["company_id"], name: "index_reports_on_company_id"
-  add_index "reports", ["period_id"], name: "index_reports_on_period_id"
+  add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id", using: :btree
+  add_index "reports", ["company_id"], name: "index_reports_on_company_id", using: :btree
+  add_index "reports", ["period_id"], name: "index_reports_on_period_id", using: :btree
 
-  create_table "units", force: true do |t|
+  create_table "units", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "users", force: true do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "rating"
-    t.string   "name"
-  end
-
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
-
-  create_table "values", force: true do |t|
+  create_table "values", force: :cascade do |t|
     t.integer  "indicator_id"
     t.integer  "report_id"
     t.float    "value"
@@ -151,11 +134,11 @@ ActiveRecord::Schema.define(version: 20151210141405) do
     t.integer  "currency_id"
   end
 
-  add_index "values", ["currency_id"], name: "index_values_on_currency_id"
-  add_index "values", ["indicator_id"], name: "index_values_on_indicator_id"
-  add_index "values", ["report_id"], name: "index_values_on_report_id"
+  add_index "values", ["currency_id"], name: "index_values_on_currency_id", using: :btree
+  add_index "values", ["indicator_id"], name: "index_values_on_indicator_id", using: :btree
+  add_index "values", ["report_id"], name: "index_values_on_report_id", using: :btree
 
-  create_table "versions", force: true do |t|
+  create_table "versions", force: :cascade do |t|
     t.integer  "report_id"
     t.integer  "user_id"
     t.datetime "created_at"
@@ -165,7 +148,7 @@ ActiveRecord::Schema.define(version: 20151210141405) do
     t.integer  "maker_reward"
   end
 
-  add_index "versions", ["report_id"], name: "index_versions_on_report_id"
-  add_index "versions", ["user_id"], name: "index_versions_on_user_id"
+  add_index "versions", ["report_id"], name: "index_versions_on_report_id", using: :btree
+  add_index "versions", ["user_id"], name: "index_versions_on_user_id", using: :btree
 
 end

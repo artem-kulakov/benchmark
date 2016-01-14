@@ -13,7 +13,6 @@ Benchmark::Application.routes.draw do
 
   resources :versions
 
-  devise_for :users
   resources :formulas
 
   resources :values

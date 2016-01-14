@@ -85,26 +85,21 @@
       -# td
       %td.text-center
         -# Disabled link if current user is maker or checker of report or checker's rating is not high enough for check
-        - if report.maker_id == current_user.id || report.checker_id == current_user.id || (report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f > current_user.rating)
-          %span{ class: "glyphicon #{glyphicon} text-muted" }
-        - else
-          = link_to path do
-            %span{ class: "glyphicon #{glyphicon}" }
-            %span= 5
-      
+        // - if report.maker_id == current_user.id || report.checker_id == current_user.id || (report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f > current_user.rating)
+        %span{ class: "glyphicon #{glyphicon} text-muted" }
+        // - else
+        //   = link_to path do
+        //     %span{ class: "glyphicon #{glyphicon}" }
+
       
       -# 'Edit' button
-      - if report.maker_id == current_user.id
-        - path = edit_report_path(report)
-      - else
-        - path = amend_report_path(report, maker: report.maker_id, reward: report.maker_reward, completeness: report.completeness)
-      
+      - path = edit_report_path(report)
       %td.text-center
-        - if report.maker_id == current_user.id || report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
-          =link_to path do
-            %span.glyphicon.glyphicon-edit
-        - else
-          %span.glyphicon.glyphicon-edit.text-muted
+        // - if report.maker_id == current_user.id || report.rating + (1000 - report.rating) * 0.1 * report.completeness.to_f < current_user.rating
+        =link_to path do
+          %span.glyphicon.glyphicon-edit
+        // - else
+        //   %span.glyphicon.glyphicon-edit.text-muted
       
       
       - # 'Delete' button

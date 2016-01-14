@@ -10,7 +10,6 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'haml'
 gem 'haml-rails'
-gem 'devise'
 gem 'country_select'
 
 group :doc do
