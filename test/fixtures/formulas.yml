@@ -2,8 +2,8 @@
 
 one:
   indicator_id: 
-  formula: MyString
+  notation: MyString
 
 two:
   indicator_id: 
-  formula: MyString
+  notation: MyString
