@@ -1,4 +1,6 @@
 Benchmark::Application.routes.draw do
+  get 'users/new'
+
   resources :units
 
   resources :fx_rates

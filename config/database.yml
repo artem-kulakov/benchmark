@@ -21,7 +21,8 @@ test:
   encoding: unicode
   database: myapp_test
   pool: 5
-  username: artem
+  # username: artem
+  username: rtmklkv
   password:
   timeout: 5000
 
