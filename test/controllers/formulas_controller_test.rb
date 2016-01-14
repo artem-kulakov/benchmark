@@ -18,7 +18,7 @@ class FormulasControllerTest < ActionController::TestCase
 
   test "should create formula" do
     assert_difference('Formula.count') do
-      post :create, formula: { formula: @formula.formula, indicator_id: @formula.indicator_id }
+      post :create, formula: { notation: @formula.notation, indicator_id: @formula.indicator_id }
     end
 
     assert_redirected_to formula_path(assigns(:formula))
@@ -35,7 +35,7 @@ class FormulasControllerTest < ActionController::TestCase
   end
 
   test "should update formula" do
-    patch :update, id: @formula, formula: { formula: @formula.formula, indicator_id: @formula.indicator_id }
+    patch :update, id: @formula, formula: { notation: @formula.notation, indicator_id: @formula.indicator_id }
     assert_redirected_to formula_path(assigns(:formula))
   end
 

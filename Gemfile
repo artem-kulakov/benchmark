@@ -16,12 +16,15 @@ group :doc do
   gem 'sdoc', require: false
 end
 
-group :development, :test do
+group :development do
 	gem 'pg'
-  # gem 'sqlite3'
   # gem 'byebug'
   # gem 'web-console'
   # gem 'spring'
+end
+
+group :test do
+  gem 'sqlite3'
 end
 
 group :production do
