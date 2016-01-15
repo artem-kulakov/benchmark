@@ -1,7 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  title: MyString
-
-two:
-  title: MyString
+  id: 1
+  title: Oil and gas

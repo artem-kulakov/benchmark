@@ -1,7 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  day: 2015-12-06
-
-two:
-  day: 2015-12-06
+  id: 1
+  day: 2014-12-31

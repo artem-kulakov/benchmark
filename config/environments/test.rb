@@ -33,4 +33,9 @@ Benchmark::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+  
+  # Test order
+  Rails.application.configure do
+    config.active_support.test_order = :random
+  end
 end
