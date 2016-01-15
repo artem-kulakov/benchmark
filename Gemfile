@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
+gem 'bcrypt'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
