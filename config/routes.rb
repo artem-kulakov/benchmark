@@ -3,22 +3,18 @@ Benchmark::Application.routes.draw do
   
   get 'signup' => 'users#new'
 
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+
   resources :units
-
   resources :fx_rates
-
   resources :currencies
-
   resources :days
-
   resources :accounting_standards
-
   resources :approvals
-
   resources :versions
-
   resources :formulas
-
   resources :values
 
   get 'reports/:id/amend' => 'reports#amend', as: :amend_report
@@ -30,13 +26,9 @@ Benchmark::Application.routes.draw do
   match 'indicators/all' => 'indicators#update_all', :as => :update_all, :via => :put
 
   resources :indicators
-
   resources :periods
-
   resources :companies
-
   resources :industries
-  
   resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.

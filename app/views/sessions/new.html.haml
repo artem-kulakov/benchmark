@@ -1,0 +1,22 @@
+.page-header
+  %h3 Log in
+
+= form_for :session, url: login_path, html: {class: "form-horizontal"} do |f|
+
+  .form-group
+    = f.label :email, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.email_field :email, class: "form-control"
+  
+  .form-group
+    = f.label :password, class: "col-sm-2 control-label"
+    .col-sm-2
+      = f.password_field :password, class: "form-control"
+  
+  .form-group
+    .col-sm-offset-2.col-sm-3
+      = f.submit 'Log in', class: 'btn btn-success'
+
+%p
+  New user?
+  = link_to 'Sign up now!', signup_path
