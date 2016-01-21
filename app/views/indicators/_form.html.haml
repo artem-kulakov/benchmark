@@ -1,6 +1,5 @@
 .page-header
   %h3 New indicator
-  %p= Industry.find(session[:industry]).title
 
 
 = form_for @indicator, html: {class: "form-horizontal"} do |f|
@@ -14,10 +13,6 @@
           %li= msg
   
   
-  - # Hidden field
-  = f.hidden_field :industry_id, :value => session[:industry]
-  
-  
   - # Indicator title
   .form-group
     = f.label :title, class: "col-sm-2 control-label"
@@ -26,7 +21,7 @@
   
   
   - # Formula
-  - if params[:formula]
+  - if params[:formula] == 'yes'
     .form-group
       = f.fields_for :formula do |ff|
         = ff.label :formula, class: "col-sm-2 control-label"
@@ -34,8 +29,9 @@
           = ff.text_field :notation, class: "form-control notation"
         .col-sm-0
           .toggle-formula
-            = link_to 'Hide formula', new_indicator_path(industry: 0), class: "btn btn-link"
-    - # Show indicators for formula composition
+            = link_to 'Hide formula', new_indicator_path(formula: :no), class: "btn btn-link"
+    
+    - # List of indicators available for formula composition
     .form-group
       .col-sm-offset-2.col-sm-3
         - @indicators.each do |indicator|
@@ -45,7 +41,7 @@
     .form-group
       .col-sm-offset-2.col-sm-0
         .toggle-formula
-          = link_to 'Add formula', new_indicator_path(industry: 0, formula: :yes), class: "btn btn-link"
+          = link_to 'Add formula', new_indicator_path(formula: :yes), class: "btn btn-link"
   
   
   - # Unit of measure

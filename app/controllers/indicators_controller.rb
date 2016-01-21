@@ -18,7 +18,7 @@ class IndicatorsController < ApplicationController
   def new
     @indicator = Indicator.new
     @indicator.build_formula
-    @indicators = Indicator.where(industry_id: session[:industry])
+    @indicators = Indicator.where(industry_id: 0) #session[:industry])
   end
 
   # GET /indicators/1/edit
