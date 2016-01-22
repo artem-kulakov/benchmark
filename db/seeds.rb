@@ -1,5 +1,5 @@
 Industry.create([{ title: 'Oil and gas' },
-                 { title: 'Metals and mining' }])
+                { title: 'Metals and mining' }])
 
 Company.create([{ title: 'Gazprom', industry_id: 1, country: 'RU' },
                 { title: 'Novatek', industry_id: 1, country: 'RU' },
@@ -18,8 +18,49 @@ Indicator.create([{ title: 'Revenues', industry_id: 0 },
                   { title: 'Net income', industry_id: 0 }])
 
 AccountingStandard.create([{ title: 'IFRS' },
-                           { title: 'US GAAP' },
-                           { title: 'Local GAAP' }])
+                          { title: 'US GAAP' },
+                          { title: 'Local GAAP' }])
+
+
+# # List of currencies
+require 'open-uri'
+string = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+hash = JSON.parse string
+hash.each do |item|
+foo = Currency.new
+foo.code = item.first
+foo.title = item.last
+foo.save
+end
+
+
+# Save json with FX rates to file
+# string = open('https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
+# File.open("/home/rtmklkv/apps/benchmark/test.json", "w") { |file| file.write string }
+
+
+# Get currencies' IDs
+ids = Hash[Currency.all.pluck(:code, :id)]
+
+# Read JSON
+string = open(Rails.root + 'test.json').read
+json = JSON.parse string
+
+# Get day
+bar = Day.find(1)
+
+# Create rates
+json['rates'].each do |code, rate|
+  foo = bar.fx_rates.new
+  foo.currency_id = ids[code]
+  foo.rate = rate
+end
+
+# Save day and rates
+bar.save
+
+
+
 
 # cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 # Mayor.create(name: 'Emanuel', city: cities.first)

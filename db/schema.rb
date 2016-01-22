@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160120122937) do
+ActiveRecord::Schema.define(version: 20160122070252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,16 +21,6 @@ ActiveRecord::Schema.define(version: 20160120122937) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "approvals", force: :cascade do |t|
-    t.integer  "version_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "approvals", ["user_id"], name: "index_approvals_on_user_id", using: :btree
-  add_index "approvals", ["version_id"], name: "index_approvals_on_version_id", using: :btree
 
   create_table "companies", force: :cascade do |t|
     t.string   "title"
@@ -81,11 +71,9 @@ ActiveRecord::Schema.define(version: 20160120122937) do
     t.datetime "updated_at"
     t.integer  "industry_id"
     t.integer  "sequence"
-    t.integer  "unit_id"
   end
 
   add_index "indicators", ["industry_id"], name: "index_indicators_on_industry_id", using: :btree
-  add_index "indicators", ["unit_id"], name: "index_indicators_on_unit_id", using: :btree
 
   create_table "industries", force: :cascade do |t|
     t.datetime "created_at"
@@ -118,12 +106,6 @@ ActiveRecord::Schema.define(version: 20160120122937) do
   add_index "reports", ["company_id"], name: "index_reports_on_company_id", using: :btree
   add_index "reports", ["period_id"], name: "index_reports_on_period_id", using: :btree
 
-  create_table "units", force: :cascade do |t|
-    t.string   "title"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -141,25 +123,11 @@ ActiveRecord::Schema.define(version: 20160120122937) do
     t.float    "value"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "unit"
     t.integer  "currency_id"
   end
 
   add_index "values", ["currency_id"], name: "index_values_on_currency_id", using: :btree
   add_index "values", ["indicator_id"], name: "index_values_on_indicator_id", using: :btree
   add_index "values", ["report_id"], name: "index_values_on_report_id", using: :btree
-
-  create_table "versions", force: :cascade do |t|
-    t.integer  "report_id"
-    t.integer  "user_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "rating"
-    t.string   "checker"
-    t.integer  "maker_reward"
-  end
-
-  add_index "versions", ["report_id"], name: "index_versions_on_report_id", using: :btree
-  add_index "versions", ["user_id"], name: "index_versions_on_user_id", using: :btree
 
 end

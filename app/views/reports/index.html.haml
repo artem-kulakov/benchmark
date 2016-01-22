@@ -8,8 +8,7 @@
     %li= select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= country_select nil, :country, {only: Company.pluck(:country).uniq, include_blank: 'All countries', selected: @country}, onchange: 'this.form.submit()', class: 'form-control'
-    - if FxRate.any?
-      %li= select_tag :currency, options_from_collection_for_select(@currencies, :id, :title, @currency), onchange: 'this.form.submit()', class: 'form-control'
+    %li= select_tag :currency, options_from_collection_for_select(@currencies, :id, :title, @currency), onchange: 'this.form.submit()', class: 'form-control'
 
   = submit_tag 'submit'
   = javascript_tag "$('.selector input').hide()"
@@ -113,72 +112,3 @@
   %li= link_to 'New company', new_company_path(industry: @industry.id), class: 'btn btn-primary btn-sm'
   %li= link_to "New indicator", new_indicator_path, class: 'btn btn-primary btn-sm'
   %li= link_to 'New period', new_period_path, class: 'btn btn-primary btn-sm'
-
-
-
-
-- # Insert list of currencies to DB
-/https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89
-/ - require 'open-uri'
-/ - string = open('https://openexchangerates.org/api/currencies.json', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
-/ - hash = JSON.parse string
-/ - hash.each do |item|
-/   - foo = Currency.new
-/   - foo.code = item.first
-/   - foo.title = item.last
-/   - foo.save
-
-
-- # Insert FX rates to DB
-// %p= Day.all.inspect
-
-/ - FxRate.all.each do |item|
-/   %p= item.rate
-
-/ %p= FxRate.all.length
-
-/ - Day.delete_all
-/ - FxRate.delete_all
-
-
-- # Save json to file
-// - string = open('https://openexchangerates.org/api/historical/2014-12-31.json?app_id=5b50e8cb7f9346a885b00d1a274b2b89', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
-// - File.open("/home/rtmklkv/apps/benchmark/test.json", "w") { |file| file.write string }
-
-
-- # Get currencies' IDs
-/ - ids = Hash[Currency.all.pluck(:code, :id)]
-
-/ - # Read JSON
-/ - string = open(Rails.root + 'test.json').read
-/ - json = JSON.parse string
-
-/ - # Create day
-/ - day = '2014-12-31'
-/ - bar = Day.new
-/ - bar.day = day
-
-/ - # Create rates
-/ - json['rates'].each do |code, rate|
-/   - foo = bar.fx_rates.new
-/   - foo.currency_id = ids[code]
-/   - foo.rate = rate
-
-/ - # Save day and rates
-/ - bar.save
-
-
-- # Temp
-/ - FxRate.all.each do |item|
-/   %p= item.inspect
-
-/ - Day.all.each do |item|
-/   %p= item.inspect
-
-/ - Period.all.each do |item|
-/   %p= item.inspect
-
-
-- # Save css to file
-// - string = open('https://bootswatch.com/cyborg/bootstrap.min.css', {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE}).read
-/- File.open(Rails.root + 'bootstrap.min.css', "w") { |file| file.write string }

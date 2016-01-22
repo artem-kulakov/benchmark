@@ -60,10 +60,8 @@ class ReportsController < ApplicationController
     
     
     # List of currencies
-    if FxRate.any?
-      available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
-      @currencies = Currency.where(id: available_currencies).order(:title)
-    end
+    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+    @currencies = Currency.where(id: available_currencies).order(:title)
 
     
     # Set reports and other
@@ -104,10 +102,8 @@ class ReportsController < ApplicationController
     
     
     # List of currencies
-    if FxRate.any?
-      available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
-      @currencies = Currency.where(id: available_currencies).order(:title)
-    end
+    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+    @currencies = Currency.where(id: available_currencies).order(:title)
   end
 
   # GET /reports/1/amend

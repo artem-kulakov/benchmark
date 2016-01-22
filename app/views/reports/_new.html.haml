@@ -41,17 +41,10 @@
       = f.fields_for :values do |v|
         = v.hidden_field :indicator_id, :value => i.id
         
-        - if i.unit.title == 'Currency'
-          .col-sm-2
-            = v.text_field :value, class: "form-control"
-          .col-sm-2.currency
-            = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :title), {prompt: 'Select currency'}, {class: "form-control"}
-        - else
-          .col-sm-2
-            .input-group
-              = v.text_field :value, class: "form-control"
-              .input-group-addon.small
-                .small= i.unit.title
+        .col-sm-2
+          = v.text_field :value, class: "form-control"
+        .col-sm-2.currency
+          = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :title), {prompt: 'Select currency'}, {class: "form-control"}
 
 
   - # Buttons

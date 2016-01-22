@@ -44,14 +44,6 @@
           = link_to 'Add formula', new_indicator_path(formula: :yes), class: "btn btn-link"
   
   
-  - # Unit of measure
-  .form-group
-    = f.label :unit_of_measure, class: "col-sm-2 control-label"
-    .col-sm-3
-      // = fu.text_field :title, class: "form-control title"
-      = f.select :unit_id, options_from_collection_for_select(Unit.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
-  
-  
   - # Buttons
   .form-group
     .col-sm-offset-2.col-sm-3
