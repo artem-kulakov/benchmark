@@ -173,6 +173,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   coffee-rails
+  countries
   country_select
   haml
   haml-rails

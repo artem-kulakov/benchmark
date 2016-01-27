@@ -129,7 +129,6 @@ new indicator
 Indicator
   0, 2 or corp, bank?
 reports: merge _new and _edit (back to default scheme)
-new company: move flash.keep to controller
 
 
 
@@ -141,37 +140,6 @@ new company: move flash.keep to controller
 
 --------------------------------------------------------------------
 
-postgres
-
 принцип:
 	очень быстрая разработка (мгновенная реакция на запросы аудитории)
 	очень простой дизайн
-
---------------------------------------------------------------------
-
-git reset --hard HEAD
-git clean -fd
-
-# Discard the last commit
-git reset HEAD~
-
-# After deletion of few files
-git add -u
---------------------------------------------------------------------
-
-# Rails
-
-# Add new column to an existing table
-rails generate migration add_industry_to_indicator industry:belongs_to
-
-http://gistflow.com/posts/79-how-to-safely-delete-migration-in-rails
-
----------------------
-
-# PG
-
-user
-user
-
-8-9 сентября 2015 года установил PG в /Library/... и все
-См. почту от 9-10 сентября

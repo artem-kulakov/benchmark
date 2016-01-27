@@ -34,6 +34,18 @@
   // = f.hidden_field :rating, :value => current_user.rating
   
   
+  - # Choose currency
+  .form-group
+    = f.label :currency, class: "col-sm-2 control-label"
+    .col-sm-2.general-currency
+      = select_tag :currency_id, options_from_collection_for_select(@currencies, :id, :code, @currency_id), {class: "form-control"}
+
+
+  - # Maker and rating
+  // = f.hidden_field :maker_id, :value => current_user.id
+  // = f.hidden_field :rating, :value => current_user.rating
+  
+  
   - # Indicators' values
   - @indicators.each do |i|
     .form-group
@@ -44,7 +56,7 @@
         .col-sm-2
           = v.text_field :value, class: "form-control"
         .col-sm-2.currency
-          = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :title), {prompt: 'Select currency'}, {class: "form-control"}
+          = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :code, @currency_id), {}, {class: "form-control"}
 
 
   - # Buttons

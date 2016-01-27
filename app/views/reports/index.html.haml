@@ -1,5 +1,5 @@
 -# 'New report' button
-= link_to 'New report', new_report_path(industry: @industry.id, period: @period.id), class: "btn btn-success pull-right"
+= link_to 'New report', new_report_path(industry: @industry.id, period: @period.id, country: @country), class: "btn btn-success pull-right"
 
 
 -# Industry and period selectors
@@ -8,7 +8,7 @@
     %li= select_tag :industry, options_from_collection_for_select(@industries, :id, :title, @industry.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= select_tag :period, options_from_collection_for_select(@periods, :id, :title, @period.id), onchange: 'this.form.submit()', class: 'form-control'
     %li= country_select nil, :country, {only: Company.pluck(:country).uniq, include_blank: 'All countries', selected: @country}, onchange: 'this.form.submit()', class: 'form-control'
-    %li= select_tag :currency, options_from_collection_for_select(@currencies, :id, :title, @currency), onchange: 'this.form.submit()', class: 'form-control'
+    %li= select_tag :currency, options_from_collection_for_select(@currencies, :id, :code, @currency), onchange: 'this.form.submit()', class: 'form-control'
 
   = submit_tag 'submit'
   = javascript_tag "$('.selector input').hide()"

@@ -1,6 +1,12 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :amend, :edit, :update, :destroy]
 
+  # List of currencies
+  def list_of_currencies
+    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+    Currency.where(id: available_currencies).order(:code)
+  end
+
   # GET /reports
   # GET /reports.json
   def index
@@ -60,9 +66,8 @@ class ReportsController < ApplicationController
     
     
     # List of currencies
-    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
-    @currencies = Currency.where(id: available_currencies).order(:title)
-
+    @currencies = list_of_currencies
+    
     
     # Set reports and other
     if @country == ''
@@ -100,10 +105,12 @@ class ReportsController < ApplicationController
     @industry = Industry.find(session[:industry])
     @period = Period.find(session[:period])
     
-    
     # List of currencies
-    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
-    @currencies = Currency.where(id: available_currencies).order(:title)
+    @currencies = list_of_currencies
+    
+    # Currency of the country chosen by the user in reports#index
+    currency_code = ISO3166::Country.find_country_by_alpha2(params[:country]).currency['code']
+    @currency_id = Currency.where(code: currency_code).pluck(:id)
   end
 
   # GET /reports/1/amend

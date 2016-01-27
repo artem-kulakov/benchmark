@@ -12,6 +12,7 @@ gem 'jbuilder'
 gem 'haml'
 gem 'haml-rails'
 gem 'country_select'
+gem 'countries'
 
 group :doc do
   gem 'sdoc', require: false
