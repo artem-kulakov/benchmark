@@ -10,6 +10,13 @@ ready = ->
   $('.general-currency select').change ->
     currency_id = $('.general-currency select option:selected').val()
     $(".currency select option[value=#{currency_id}]").attr("selected","selected")
+  
+  # Math values
+  $('.value').focusout (e) ->
+    value = e.target.value
+    result = eval( value )
+    $('input', this).val(result)
+
 
 
 # Fix turbolinks bug

@@ -46,6 +46,12 @@
   // = f.hidden_field :rating, :value => current_user.rating
   
   
+  - # Help text
+  .form-group
+    .col-sm-offset-2.col-sm-4
+      %p.help-block You may input number as formula, e.g. '2+2' or '(234+567)/9*12'
+  
+  
   - # Indicators' values
   - @indicators.each do |i|
     .form-group
@@ -53,7 +59,7 @@
       = f.fields_for :values do |v|
         = v.hidden_field :indicator_id, :value => i.id
         
-        .col-sm-2
+        .col-sm-2.value
           = v.text_field :value, class: "form-control"
         .col-sm-2.currency
           = v.select :currency_id, options_from_collection_for_select(@currencies, :id, :code, @currency_id), {}, {class: "form-control"}
