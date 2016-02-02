@@ -1,12 +1,6 @@
 class ReportsController < ApplicationController
   before_action :set_report, only: [:show, :amend, :edit, :update, :destroy]
 
-  # List of currencies
-  def list_of_currencies
-    available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
-    Currency.where(id: available_currencies).order(:code)
-  end
-
   # GET /reports
   # GET /reports.json
   def index
@@ -278,5 +272,11 @@ class ReportsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
       params.require(:report).permit(:company_id, :period_id, :accounting_standard_id, :rating, :maker_id, :maker_reward, :checker_id, values_attributes: [:id, :indicator_id, :value, :currency_id])
+    end
+    
+    # List of currencies
+    def list_of_currencies
+      available_currencies = FxRate.where(day_id: @period.day.id).pluck(:currency_id)
+      Currency.where(id: available_currencies).order(:code)
     end
 end

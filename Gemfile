@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 gem 'bcrypt'
+gem 'faker'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'coffee-rails'
@@ -13,6 +14,8 @@ gem 'haml'
 gem 'haml-rails'
 gem 'country_select'
 gem 'countries'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
 
 group :doc do
   gem 'sdoc', require: false

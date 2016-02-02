@@ -1,3 +1,20 @@
+User.create!(name: "Artem Kulakov",
+            email: "artem.kulakov@gmail.com",
+            password: "has1any2one3",
+            password_confirmation: "has1any2one3",
+            admin: true)
+
+# Fake users
+99.times do |n|
+  name  = Faker::Name.name
+  email = "example-#{n+1}@railstutorial.org"
+  password = "password"
+  User.create!(name:  name,
+               email: email,
+               password:              password,
+               password_confirmation: password)
+end
+
 Industry.create([{ title: 'Oil and gas' },
                 { title: 'Metals and mining' }])
 
