@@ -1,8 +1,10 @@
 User.create!(name: "Artem Kulakov",
-            email: "artem.kulakov@gmail.com",
-            password: "has1any2one3",
-            password_confirmation: "has1any2one3",
-            admin: true)
+             email: "artem.kulakov@gmail.com",
+             password: "has1any2one3",
+             password_confirmation: "has1any2one3",
+             admin:     true,
+             activated: true,
+             activated_at: Time.zone.now)
 
 # Fake users
 99.times do |n|
@@ -12,7 +14,9 @@ User.create!(name: "Artem Kulakov",
   User.create!(name:  name,
                email: email,
                password:              password,
-               password_confirmation: password)
+               password_confirmation: password,
+               activated: true,
+               activated_at: Time.zone.now)
 end
 
 Industry.create([{ title: 'Oil and gas' },
