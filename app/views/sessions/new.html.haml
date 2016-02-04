@@ -10,6 +10,7 @@
   
   .form-group
     = f.label :password, class: "col-sm-2 control-label"
+    = link_to "(forgot password)", new_password_reset_path
     .col-sm-2
       = f.password_field :password, class: "form-control"
 
