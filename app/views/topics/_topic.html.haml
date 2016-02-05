@@ -1,9 +1,9 @@
-//%tr
-//  %td= topic.content
-//  %td
-//    = link_to topic.user.name, topic.user
-//    = time_ago_in_words(topic.created_at) + ' ago'
-%div
-  = topic.content
-  = link_to topic.user.name, topic.user
-  = time_ago_in_words(topic.created_at) + ' ago'
+%tr
+  %td= topic.content
+  %td
+    .author= link_to topic.user.name, topic.user
+    .date= time_ago_in_words(topic.created_at) + ' ago'
+//%div
+//  = topic.content
+//  = link_to topic.user.name, topic.user
+//  = time_ago_in_words(topic.created_at) + ' ago'

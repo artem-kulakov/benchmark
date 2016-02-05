@@ -5,7 +5,11 @@
 
 - if @topics.any?
   #my-topics
-    = render @topics
+    %table.table
+      %tr
+        %th Topic
+        %th Started by
+      = render @topics
 
 #infinite-scrolling
   = will_paginate
