@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160203123254) do
+ActiveRecord::Schema.define(version: 20160204123121) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -106,6 +106,15 @@ ActiveRecord::Schema.define(version: 20160203123254) do
   add_index "reports", ["company_id"], name: "index_reports_on_company_id", using: :btree
   add_index "reports", ["period_id"], name: "index_reports_on_period_id", using: :btree
 
+  create_table "topics", force: :cascade do |t|
+    t.text     "content"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "topics", ["user_id"], name: "index_topics_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
@@ -136,4 +145,5 @@ ActiveRecord::Schema.define(version: 20160203123254) do
   add_index "values", ["indicator_id"], name: "index_values_on_indicator_id", using: :btree
   add_index "values", ["report_id"], name: "index_values_on_report_id", using: :btree
 
+  add_foreign_key "topics", "users"
 end

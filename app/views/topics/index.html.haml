@@ -1,0 +1,11 @@
+.page-header
+  %h3 All topics
+
+// = will_paginate
+
+- if @topics.any?
+  #my-topics
+    = render @topics
+
+#infinite-scrolling
+  = will_paginate
