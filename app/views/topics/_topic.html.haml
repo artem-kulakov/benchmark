@@ -1,5 +1,5 @@
 %tr
-  %td= topic.content
+  %td= topic.title
   %td
     .author= link_to topic.user.name, topic.user
     .date= time_ago_in_words(topic.created_at) + ' ago'

@@ -1,6 +1,9 @@
 .page-header
   %h3 All topics
 
+- # 'New topic' button
+= link_to 'New topic', new_topic_path, class: "btn btn-success pull-right"
+
 // = will_paginate
 
 - if @topics.any?

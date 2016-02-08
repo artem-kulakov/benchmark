@@ -23,7 +23,7 @@ end
 users = User.order(:created_at).take(6)
 50.times do
   # content = Faker::Lorem.sentence(5)
-  users.each { |user| user.topics.create!(content: Faker::Lorem.sentence(20)) }
+  users.each { |user| user.topics.create!(title: Faker::Lorem.sentence(5), content: Faker::Lorem.sentence(20)) }
 end
 
 Industry.create([{ title: 'Oil and gas' },
