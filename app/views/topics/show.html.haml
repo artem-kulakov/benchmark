@@ -1,0 +1,6 @@
+.page-header
+  %h3= @topic.title
+  
+%p= @topic.content
+%p.author= @topic.user.name
+%p.date= time_ago_in_words(@topic.created_at) + ' ago'

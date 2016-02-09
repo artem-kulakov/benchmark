@@ -36,7 +36,7 @@ Benchmark::Application.routes.draw do
   resources :users
   resources :account_activations, only: [:edit]
   resources :password_resets,     only: [:new, :create, :edit, :update]
-  resources :topics,              only: [:index, :new, :create, :destroy]
+  resources :topics,              only: [:index, :new, :create, :show, :destroy]
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
