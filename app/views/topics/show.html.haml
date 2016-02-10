@@ -1,6 +1,22 @@
 .page-header
   %h3= @topic.title
   
-%p= @topic.content
-%p.author= @topic.user.name
-%p.date= time_ago_in_words(@topic.created_at) + ' ago'
+%table.table
+
+  = render :partial => 'post', :object => @topic
+
+  - @posts.each do |post|
+    = render :partial => 'post', :object => post
+
+//  // Parent post
+//  %tr
+//    %td= @topic.content
+//    %td.author= @topic.user.name
+//    %td.date= time_ago_in_words(@topic.created_at) + ' ago'
+//
+//  // Child posts
+//  - @posts.each do |post|
+//    %tr
+//      %td= post.content
+//      %td.author= post.user.name
+//      %td.date= time_ago_in_words(post.created_at) + ' ago'

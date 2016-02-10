@@ -6,6 +6,7 @@ User.create!(name: "Artem Kulakov",
              activated: true,
              activated_at: Time.zone.now)
 
+
 # Sample users
 99.times do |n|
   name  = Faker::Name.name
@@ -19,6 +20,7 @@ User.create!(name: "Artem Kulakov",
                activated_at: Time.zone.now)
 end
 
+
 # Sample topics
 users = User.order(:created_at).take(6)
 50.times do
@@ -26,8 +28,21 @@ users = User.order(:created_at).take(6)
   users.each { |user| user.topics.create!(title: Faker::Lorem.sentence(5), content: Faker::Lorem.sentence(20)) }
 end
 
+
+# Sample posts
+topics = Topic.all
+3.times do
+  topics.each do |topic|
+    users.each do |user|
+      topic.posts.create!(content: Faker::Lorem.sentence(20), user_id: user.id)
+    end
+  end
+end
+
+
 Industry.create([{ title: 'Oil and gas' },
                 { title: 'Metals and mining' }])
+
 
 Company.create([{ title: 'Gazprom', industry_id: 1, country: 'RU' },
                 { title: 'Novatek', industry_id: 1, country: 'RU' },
@@ -36,14 +51,18 @@ Company.create([{ title: 'Gazprom', industry_id: 1, country: 'RU' },
                 { title: 'Exxon Mobil', industry_id: 1, country: 'US' },
                 { title: 'Alcoa', industry_id: 2, country: 'US' }])
 
+
 Period.create([{ title: '2014', day_id: 1 },
                 { title: '2013', day_id: 2 }])
+
 
 Day.create([{ day: '2014-12-31' },
             { day: '2013-12-31' }])
 
+
 Indicator.create([{ title: 'Revenues', industry_id: 0 },
                   { title: 'Net income', industry_id: 0 }])
+
 
 AccountingStandard.create([{ title: 'IFRS' },
                           { title: 'US GAAP' },
@@ -70,12 +89,15 @@ end
 # Get currencies' IDs
 ids = Hash[Currency.all.pluck(:code, :id)]
 
+
 # Read JSON
 string = open(Rails.root + 'test.json').read
 json = JSON.parse string
 
+
 # Get day
 bar = Day.find(1)
+
 
 # Create rates
 json['rates'].each do |code, rate|
@@ -84,11 +106,6 @@ json['rates'].each do |code, rate|
   foo.rate = rate
 end
 
+
 # Save day and rates
 bar.save
-
-
-
-
-# cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
-# Mayor.create(name: 'Emanuel', city: cities.first)

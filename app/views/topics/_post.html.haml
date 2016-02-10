@@ -1,0 +1,5 @@
+%tr
+  %td= post.content
+  %td
+    .author= post.user.name
+    .date= time_ago_in_words(post.created_at) + ' ago'

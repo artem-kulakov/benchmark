@@ -1,9 +1,6 @@
 %tr
   %td= link_to topic.title, topic
+  %td.text-center= topic.posts.count
   %td
     .author= link_to topic.user.name, topic.user
     .date= time_ago_in_words(topic.created_at) + ' ago'
-//%div
-//  = topic.content
-//  = link_to topic.user.name, topic.user
-//  = time_ago_in_words(topic.created_at) + ' ago'
