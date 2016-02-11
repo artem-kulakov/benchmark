@@ -1,16 +1,18 @@
 .page-header
-  %h3 New topic
+  %h3 Sign up
 
-= form_for @topic, html: {class: "form-horizontal"} do |f|
+= form_for @user, html: {class: "form-horizontal"} do |f|
   = render 'shared/error_messages', object: f.object
   
   .form-group
+    = f.label :name, class: "col-sm-2 control-label"
     .col-sm-2
-      = f.text_field :title, placeholder: 'Compose new topic...', class: "form-control"
+      = f.text_field :name, class: "form-control"
   
   .form-group
+    = f.label :email, class: "col-sm-2 control-label"
     .col-sm-2
-      = f.text_area :content, placeholder: 'Compose new topic...', class: "form-control"
+      = f.email_field :email, class: "form-control"
   
   .form-group
     = f.label :password, class: "col-sm-2 control-label"

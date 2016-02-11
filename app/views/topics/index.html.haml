@@ -1,19 +1,13 @@
 .page-header
+  = link_to 'New topic', new_topic_path, class: "btn btn-success pull-right"
   %h3 All topics
-
-- # 'New topic' button
-= link_to 'New topic', new_topic_path, class: "btn btn-success pull-right"
-
-// = will_paginate
 
 - if @topics.any?
   #my-topics
     %table.table
       %tr
         %th Topic
-        %th Answers
+        %th
+        %th.text-center Answers
         %th Started by
       = render @topics
-
-#infinite-scrolling
-  = will_paginate

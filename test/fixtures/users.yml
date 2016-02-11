@@ -1,4 +1,5 @@
 artem:
+  id: 1
   name: Artem Kulakov
   email: artem.kulakov@gmail.com
   password_digest: <%= User.digest('password') %>

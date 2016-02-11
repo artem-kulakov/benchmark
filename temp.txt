@@ -1,6 +1,19 @@
-log/development.log:70910:    5:   = render 'shared/error_messages'
-log/development.log:70932:    5:   = render 'shared/error_messages'
-app/views/users/edit.haml:7:      = render 'shared/error_messages'
-app/views/users/new.html.haml:5:  = render 'shared/error_messages'
-app/views/topics/new.html.haml:5:  = render 'shared/error_messages', object: f.object
-app/views/password_resets/edit.html.haml:6:  = render 'shared/error_messages'
+tmp/cache/sprockets/v3.0/rLpFfEglnKu_VUaa0RAMYWlajhP35zMxRAPgb9t1FUY.cache:2:.author, .date {
+log/development.log:119467:    3:   %td.author= post.user.name
+log/development.log:123097:    6:     .author= link_to topic.user.name, topic.user
+log/development.log:123124:    6:     .author= link_to topic.user.name, topic.user
+log/development.log:123978:    8: #     .author= link_to topic.user.name, topic.user
+log/development.log:124001:    8:     # .author= link_to topic.user.name, topic.user
+app/assets/stylesheets/topics.sass:3:.author, .date
+app/views/topics/_post.html.haml:4:    .author= post.user.name
+app/views/topics/_topic.html.haml:8:    .author= link_to topic.user.name, topic.user
+app/views/topics/show.html.haml:14://    %td.author= @topic.user.name
+app/views/topics/show.html.haml:21://      %td.author= post.user.name
+app/views/reports/index.html.haml:57:      // - if report.author_id == current_user.id
+app/views/reports/index.html.haml:58:      //   %td.text-primary= "#{report.author_name}, #{report.maker_rating}"
+app/views/reports/index.html.haml:60:      //   %td= "#{report.author_name}, #{report.maker_rating}"
+app/models/report.rb:33:  # The most rated author of this report
+app/models/report.rb:34:  def author_id
+app/models/report.rb:50:    versions.where(user_id: self.author_id).pluck(:id).pop
+app/models/report.rb:64:  def author_name
+db/schema.rb:6:# Note that this schema.rb definition is the authoritative source for your

@@ -1,6 +1,10 @@
 %tr
   %td= link_to topic.title, topic
-  %td.text-center= topic.posts.count
   %td
-    .author= link_to topic.user.name, topic.user
-    .date= time_ago_in_words(topic.created_at) + ' ago'
+    - if current_user?(topic.user) && ! topic.with_posts?
+      = link_to 'Edit', edit_topic_path(topic), class: 'btn btn-primary btn-xs'
+      = link_to 'Delete', topic, :method => :delete, :data => { :confirm => 'Are you sure?' }, class: 'btn btn-primary btn-xs'
+  %td.text-center.small= topic.posts.count
+  %td
+    .small= link_to topic.user.name, topic.user
+    .small= time_ago_in_words(topic.created_at) + ' ago'

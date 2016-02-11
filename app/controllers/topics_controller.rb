@@ -1,16 +1,16 @@
 class TopicsController < ApplicationController
   before_action :logged_in_user, only: [:new, :create, :destroy]
+  before_action :set_topic, only: [:show, :edit, :update, :destroy]
   
   def index
-    @topics = Topic.paginate(page: params[:page], per_page: 15)
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @topics = Topic.take(10) # paginate(page: params[:page], per_page: 15)
+#     respond_to do |format|
+#       format.html
+#       format.js
+#     end
   end
   
   def show
-    @topic = Topic.find(params[:id])
     @posts = @topic.posts
   end
 
@@ -18,20 +18,38 @@ class TopicsController < ApplicationController
     @topic = Topic.new
   end
 
+  def edit
+  end
+
   def create
     @topic = current_user.topics.build(topic_params)
     if @topic.save
       flash[:success] = "Topic created!"
-      redirect_to root_url
+      redirect_to topics_url
     else
-      render 'reports/index'
+      render 'topics/index'
+    end
+  end
+
+  def update
+    if @topic.update_attributes(topic_params)
+      flash[:success] = "Topic updated"
+      redirect_to @topic
+    else
+      render 'edit'
     end
   end
 
   def destroy
+    @topic.destroy
+    redirect_to topics_url
   end
 
   private
+
+    def set_topic
+      @topic = Topic.find(params[:id])
+    end
 
     def topic_params
       params.require(:topic).permit(:title, :content)

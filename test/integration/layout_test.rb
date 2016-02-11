@@ -10,6 +10,7 @@ class LayoutTest < ActionDispatch::IntegrationTest
     assert_select 'a[href=?]', companies_path
     assert_select 'a[href=?]', indicators_path
     assert_select 'a[href=?]', periods_path
+    assert_select 'a[href=?]', topics_path
     assert_select 'a[href=?]', signup_path
     
     get signup_path

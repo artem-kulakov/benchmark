@@ -1,0 +1,19 @@
+.page-header
+  %h3 Edit topic
+
+= form_for @topic, html: {class: "form-horizontal"} do |f|
+  = render 'shared/error_messages', object: f.object
+  
+  .form-group
+    .col-sm-6
+      = f.text_field :title, class: "form-control"
+  
+  .form-group
+    .col-sm-6
+      = f.text_area :content, class: "form-control"
+  
+  .form-group
+    .col-sm-3
+      %ul.list-inline
+        %li= f.submit 'Save changes', class: 'btn btn-success'
+        %li= link_to 'Cancel', topics_path, class: "btn btn-default"
