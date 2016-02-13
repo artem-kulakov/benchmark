@@ -3,7 +3,7 @@ class TopicsController < ApplicationController
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
   
   def index
-    @topics = Topic.take(10) # paginate(page: params[:page], per_page: 15)
+    @topics = Topic.all # paginate(page: params[:page], per_page: 15)
 #     respond_to do |format|
 #       format.html
 #       format.js

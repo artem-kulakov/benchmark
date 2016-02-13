@@ -38,6 +38,8 @@ Benchmark::Application.routes.draw do
   resources :password_resets,     only: [:new, :create, :edit, :update]
   resources :topics
   resources :posts
+
+  get 'chart' => 'reports#chart'
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

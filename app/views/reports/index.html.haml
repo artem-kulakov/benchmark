@@ -15,13 +15,27 @@
 
 
 -# Reports table
+
+- zoo = Hash.new { |h,k| h[k] = {} }
+- @reports.each do |report|
+  - @indicators.each do |indicator|
+    - if report.indicator_value(indicator)
+      - original_value = report.indicator_value(indicator)
+      - original_currency = report.original_currency(indicator)
+      - original_to_usd_rate = FxRate.where(day_id: @period.day.id, currency_id: original_currency).pluck(:rate).pop
+      - usd_to_target_rate = FxRate.where(day_id: @period.day.id, currency_id: @currency).pluck(:rate).pop
+      - result = original_value / original_to_usd_rate * usd_to_target_rate
+      - zoo[indicator.id][report.company_id] = result
+
 %table.table
 
   -# Table header
   %tr
     %th Company
     - @indicators.each do |indicator|
-      %th.text-right= indicator.title
+      %th.text-right
+        = indicator.title
+        = link_to '*', chart_path, :zoo => zoo
     // %th Maker
     // %th Checker
     %th.text-center Accounting standard
@@ -30,6 +44,7 @@
     %th.text-center Delete
 
   -# Reports list
+
   - @reports.each do |report|
     %tr
       %td= report.company_title
@@ -44,12 +59,7 @@
         
         - # FX conversion
         - if report.indicator_value(indicator)
-          - original_value = report.indicator_value(indicator)
-          - original_currency = report.original_currency(indicator)
-          - original_to_usd_rate = FxRate.where(day_id: @period.day.id, currency_id: original_currency).pluck(:rate).pop
-          - usd_to_target_rate = FxRate.where(day_id: @period.day.id, currency_id: @currency).pluck(:rate).pop
-          - result = original_value / original_to_usd_rate * usd_to_target_rate
-          %td.text-right= number_with_precision(result, precision: 0, delimiter: ',')
+          %td.text-right= number_with_precision(zoo[indicator.id][report.company_id], precision: 0, delimiter: ',')
         - else
           %td
       

@@ -16,6 +16,7 @@ gem 'country_select'
 gem 'countries'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+gem 'chartkick'
 
 group :doc do
   gem 'sdoc', require: false
