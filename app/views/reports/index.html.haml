@@ -17,6 +17,7 @@
 -# Reports table
 
 - zoo = Hash.new { |h,k| h[k] = {} }
+- woo = Hash.new { |h,k| h[k] = {} }
 - @reports.each do |report|
   - @indicators.each do |indicator|
     - if report.indicator_value(indicator)
@@ -25,7 +26,8 @@
       - original_to_usd_rate = FxRate.where(day_id: @period.day.id, currency_id: original_currency).pluck(:rate).pop
       - usd_to_target_rate = FxRate.where(day_id: @period.day.id, currency_id: @currency).pluck(:rate).pop
       - result = original_value / original_to_usd_rate * usd_to_target_rate
-      - zoo[indicator.id][report.company_id] = result
+      - zoo[indicator.id][report.company_id] = result.round
+      - woo[indicator.id][report.company.title] = result.round
 
 %table.table
 
@@ -35,7 +37,7 @@
     - @indicators.each do |indicator|
       %th.text-right
         = indicator.title
-        = link_to '*', chart_path, :zoo => zoo
+        = link_to '*', chart_path(:woo => woo[indicator.id])
     // %th Maker
     // %th Checker
     %th.text-center Accounting standard

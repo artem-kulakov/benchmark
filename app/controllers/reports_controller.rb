@@ -264,6 +264,7 @@ class ReportsController < ApplicationController
   end
 
   def chart
+    @woo = params[:woo]
   end
 
   private

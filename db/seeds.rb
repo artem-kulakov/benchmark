@@ -40,30 +40,51 @@ topics = Topic.all
 end
 
 
-Industry.create([{ title: 'Oil and gas' },
-                { title: 'Metals and mining' }])
+# Industries
+industries = ['Oil and gas',
+             'Metails and mining',
+             'Retail']
+industries.each do |industry|
+  Industry.create(title: industry)
+end
 
 
-Company.create([{ title: 'Gazprom', industry_id: 1, country: 'RU' },
-                { title: 'Novatek', industry_id: 1, country: 'RU' },
-                { title: 'MMK', industry_id: 2, country: 'RU' },
-                { title: 'Severstal', industry_id: 2, country: 'RU' },
-                { title: 'Exxon Mobil', industry_id: 1, country: 'US' },
-                { title: 'Alcoa', industry_id: 2, country: 'US' }])
+# Companies
+10.times do
+  (1..3).each do |industry|
+    ['RU', 'US'].each do |country|
+      Company.create(title: Faker::Company.name, industry_id: industry, country: country)
+    end
+  end
+end
 
 
+# Reports
+(1..60).each do |company|
+  (1..2).each do |period|
+    report = Report.create(company_id: company, period_id: period, accounting_standard_id: 1, maker_id: 1)
+    report.values.create(indicator_id: 1, value: rand(1000..2000), currency_id: 152) 
+    report.values.create(indicator_id: 2, value: rand(100..200), currency_id: 152) 
+  end
+end
+
+
+# Periods
 Period.create([{ title: '2014', day_id: 1 },
                 { title: '2013', day_id: 2 }])
 
 
+# Days
 Day.create([{ day: '2014-12-31' },
             { day: '2013-12-31' }])
 
 
+# Indicators
 Indicator.create([{ title: 'Revenues', industry_id: 0 },
                   { title: 'Net income', industry_id: 0 }])
 
 
+# GAAPs
 AccountingStandard.create([{ title: 'IFRS' },
                           { title: 'US GAAP' },
                           { title: 'Local GAAP' }])
