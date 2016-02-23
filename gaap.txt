@@ -1,0 +1,54 @@
+app/views/accounting_standards/show.json.jbuilder:1:json.extract! @accounting_standard, :id, :title, :created_at, :updated_at
+app/views/accounting_standards/show.html.haml:5:  = @accounting_standard.title
+app/views/accounting_standards/show.html.haml:7:= link_to 'Edit', edit_accounting_standard_path(@accounting_standard)
+app/views/accounting_standards/show.html.haml:9:= link_to 'Back', accounting_standards_path
+app/views/accounting_standards/index.html.haml:1:%h1 Listing accounting_standards
+app/views/accounting_standards/index.html.haml:10:  - @accounting_standards.each do |accounting_standard|
+app/views/accounting_standards/index.html.haml:12:      %td= accounting_standard.title
+app/views/accounting_standards/index.html.haml:13:      %td= link_to 'Show', accounting_standard
+app/views/accounting_standards/index.html.haml:14:      %td= link_to 'Edit', edit_accounting_standard_path(accounting_standard)
+app/views/accounting_standards/index.html.haml:15:      %td= link_to 'Destroy', accounting_standard, :method => :delete, :data => { :confirm => 'Are you sure?' }
+app/views/accounting_standards/index.html.haml:19:= link_to 'New Accounting standard', new_accounting_standard_path
+app/views/accounting_standards/new.html.haml:1:%h1 New accounting_standard
+app/views/accounting_standards/new.html.haml:5:= link_to 'Back', accounting_standards_path
+app/views/accounting_standards/index.json.jbuilder:1:json.array!(@accounting_standards) do |accounting_standard|
+app/views/accounting_standards/index.json.jbuilder:2:  json.extract! accounting_standard, :id, :title
+app/views/accounting_standards/index.json.jbuilder:3:  json.url accounting_standard_url(accounting_standard, format: :json)
+app/views/accounting_standards/_form.html.haml:1:= form_for @accounting_standard do |f|
+app/views/accounting_standards/_form.html.haml:2:  - if @accounting_standard.errors.any?
+app/views/accounting_standards/_form.html.haml:4:      %h2= "#{pluralize(@accounting_standard.errors.count, "error")} prohibited this accounting_standard from being saved:"
+app/views/accounting_standards/_form.html.haml:6:        - @accounting_standard.errors.full_messages.each do |msg|
+app/views/accounting_standards/edit.html.haml:1:%h1 Editing accounting_standard
+app/views/accounting_standards/edit.html.haml:5:= link_to 'Show', @accounting_standard
+app/views/accounting_standards/edit.html.haml:7:= link_to 'Back', accounting_standards_path
+app/views/reports/index.html.haml:85:      %td.text-center= report.accounting_standard_title
+app/views/reports/_new.html.haml:27:    = f.label :accounting_standard, class: "col-sm-2 control-label"
+app/views/reports/_new.html.haml:29:      = f.select :accounting_standard_id, options_from_collection_for_select(AccountingStandard.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
+app/controllers/accounting_standards_controller.rb:2:  before_action :set_accounting_standard, only: [:show, :edit, :update, :destroy]
+app/controllers/accounting_standards_controller.rb:7:    @accounting_standards = AccountingStandard.all
+app/controllers/accounting_standards_controller.rb:8:    respond_with(@accounting_standards)
+app/controllers/accounting_standards_controller.rb:12:    respond_with(@accounting_standard)
+app/controllers/accounting_standards_controller.rb:16:    @accounting_standard = AccountingStandard.new
+app/controllers/accounting_standards_controller.rb:17:    respond_with(@accounting_standard)
+app/controllers/accounting_standards_controller.rb:24:    @accounting_standard = AccountingStandard.new(accounting_standard_params)
+app/controllers/accounting_standards_controller.rb:25:    @accounting_standard.save
+app/controllers/accounting_standards_controller.rb:26:    respond_with(@accounting_standard)
+app/controllers/accounting_standards_controller.rb:30:    @accounting_standard.update(accounting_standard_params)
+app/controllers/accounting_standards_controller.rb:31:    respond_with(@accounting_standard)
+app/controllers/accounting_standards_controller.rb:35:    @accounting_standard.destroy
+app/controllers/accounting_standards_controller.rb:36:    respond_with(@accounting_standard)
+app/controllers/accounting_standards_controller.rb:40:    def set_accounting_standard
+app/controllers/accounting_standards_controller.rb:41:      @accounting_standard = AccountingStandard.find(params[:id])
+app/controllers/accounting_standards_controller.rb:44:    def accounting_standard_params
+app/controllers/accounting_standards_controller.rb:45:      params.require(:accounting_standard).permit(:title)
+app/controllers/reports_controller.rb:278:      params.require(:report).permit(:company_id, :period_id, :accounting_standard_id, :rating, :maker_id, :maker_reward, :checker_id, values_attributes: [:id, :indicator_id, :value, :currency_id])
+app/models/report.rb:4:  belongs_to :accounting_standard
+app/models/report.rb:29:  def accounting_standard_title
+app/models/report.rb:30:    accounting_standard.title
+config/routes.rb:18:  resources :accounting_standards
+db/schema.rb:19:  create_table "accounting_standards", force: :cascade do |t|
+db/schema.rb:109:    t.integer  "accounting_standard_id"
+db/schema.rb:116:  add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id", using: :btree
+db/migrate/20151203134212_add_accountingstandard_to_report.rb:3:    add_reference :reports, :accounting_standard, index: true
+db/migrate/20151203132631_create_accounting_standards.rb:3:    create_table :accounting_standards do |t|
+db/seeds.rb:65:    report = Report.create(company_id: company, period_id: period, accounting_standard_id: 1, maker_id: 1)
