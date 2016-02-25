@@ -1,4 +1,4 @@
-json.array!(@accounting_standards) do |accounting_standard|
-  json.extract! accounting_standard, :id, :title
-  json.url accounting_standard_url(accounting_standard, format: :json)
+json.array!(@gaaps) do |gaap|
+  json.extract! gaap, :id, :title
+  json.url gaap_url(gaap, format: :json)
 end

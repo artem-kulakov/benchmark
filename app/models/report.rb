@@ -1,7 +1,7 @@
 class Report < ActiveRecord::Base
   belongs_to :company
   belongs_to :period
-  belongs_to :accounting_standard
+  belongs_to :gaap
   
   has_many :values, dependent: :destroy
   accepts_nested_attributes_for :values
@@ -26,8 +26,8 @@ class Report < ActiveRecord::Base
     period.title
   end
   
-  def accounting_standard_title
-    accounting_standard.title
+  def gaap_title
+    gaap.title
   end
   
   # The most rated author of this report

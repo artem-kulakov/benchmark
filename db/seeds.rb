@@ -62,7 +62,7 @@ end
 # Reports
 (1..60).each do |company|
   (1..2).each do |period|
-    report = Report.create(company_id: company, period_id: period, accounting_standard_id: 1, maker_id: 1)
+    report = Report.create(company_id: company, period_id: period, gaap_id: 1, maker_id: 1)
     report.values.create(indicator_id: 1, value: rand(1000..2000), currency_id: 152) 
     report.values.create(indicator_id: 2, value: rand(100..200), currency_id: 152) 
   end

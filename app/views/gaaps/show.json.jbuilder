@@ -1,1 +1,1 @@
-json.extract! @accounting_standard, :id, :title, :created_at, :updated_at
+json.extract! @gaap, :id, :title, :created_at, :updated_at

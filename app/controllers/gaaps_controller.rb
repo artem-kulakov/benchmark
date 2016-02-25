@@ -1,47 +1,47 @@
 class AccountingStandardsController < ApplicationController
-  before_action :set_accounting_standard, only: [:show, :edit, :update, :destroy]
+  before_action :set_gaap, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @accounting_standards = AccountingStandard.all
-    respond_with(@accounting_standards)
+    @gaaps = AccountingStandard.all
+    respond_with(@gaaps)
   end
 
   def show
-    respond_with(@accounting_standard)
+    respond_with(@gaap)
   end
 
   def new
-    @accounting_standard = AccountingStandard.new
-    respond_with(@accounting_standard)
+    @gaap = AccountingStandard.new
+    respond_with(@gaap)
   end
 
   def edit
   end
 
   def create
-    @accounting_standard = AccountingStandard.new(accounting_standard_params)
-    @accounting_standard.save
-    respond_with(@accounting_standard)
+    @gaap = AccountingStandard.new(gaap_params)
+    @gaap.save
+    respond_with(@gaap)
   end
 
   def update
-    @accounting_standard.update(accounting_standard_params)
-    respond_with(@accounting_standard)
+    @gaap.update(gaap_params)
+    respond_with(@gaap)
   end
 
   def destroy
-    @accounting_standard.destroy
-    respond_with(@accounting_standard)
+    @gaap.destroy
+    respond_with(@gaap)
   end
 
   private
-    def set_accounting_standard
-      @accounting_standard = AccountingStandard.find(params[:id])
+    def set_gaap
+      @gaap = AccountingStandard.find(params[:id])
     end
 
-    def accounting_standard_params
-      params.require(:accounting_standard).permit(:title)
+    def gaap_params
+      params.require(:gaap).permit(:title)
     end
 end

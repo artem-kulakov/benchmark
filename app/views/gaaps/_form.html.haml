@@ -1,9 +1,9 @@
-= form_for @accounting_standard do |f|
-  - if @accounting_standard.errors.any?
+= form_for @gaap do |f|
+  - if @gaap.errors.any?
     #error_explanation
-      %h2= "#{pluralize(@accounting_standard.errors.count, "error")} prohibited this accounting_standard from being saved:"
+      %h2= "#{pluralize(@gaap.errors.count, "error")} prohibited this gaap from being saved:"
       %ul
-        - @accounting_standard.errors.full_messages.each do |msg|
+        - @gaap.errors.full_messages.each do |msg|
           %li= msg
 
   .field

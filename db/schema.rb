@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160210063440) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "accounting_standards", force: :cascade do |t|
+  create_table "gaaps", force: :cascade do |t|
     t.string   "title"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -106,14 +106,14 @@ ActiveRecord::Schema.define(version: 20160210063440) do
     t.integer  "period_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "accounting_standard_id"
+    t.integer  "gaap_id"
     t.integer  "rating"
     t.integer  "maker_id"
     t.integer  "maker_reward"
     t.integer  "checker_id"
   end
 
-  add_index "reports", ["accounting_standard_id"], name: "index_reports_on_accounting_standard_id", using: :btree
+  add_index "reports", ["gaap_id"], name: "index_reports_on_gaap_id", using: :btree
   add_index "reports", ["company_id"], name: "index_reports_on_company_id", using: :btree
   add_index "reports", ["period_id"], name: "index_reports_on_period_id", using: :btree
 

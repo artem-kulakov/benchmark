@@ -1,4 +1,4 @@
-%h1 Listing accounting_standards
+%h1 Listing gaaps
 
 %table
   %tr
@@ -7,13 +7,13 @@
     %th
     %th
 
-  - @accounting_standards.each do |accounting_standard|
+  - @gaaps.each do |gaap|
     %tr
-      %td= accounting_standard.title
-      %td= link_to 'Show', accounting_standard
-      %td= link_to 'Edit', edit_accounting_standard_path(accounting_standard)
-      %td= link_to 'Destroy', accounting_standard, :method => :delete, :data => { :confirm => 'Are you sure?' }
+      %td= gaap.title
+      %td= link_to 'Show', gaap
+      %td= link_to 'Edit', edit_gaap_path(gaap)
+      %td= link_to 'Destroy', gaap, :method => :delete, :data => { :confirm => 'Are you sure?' }
 
 %br
 
-= link_to 'New Accounting standard', new_accounting_standard_path
+= link_to 'New Accounting standard', new_gaap_path

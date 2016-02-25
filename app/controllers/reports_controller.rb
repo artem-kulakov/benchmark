@@ -275,7 +275,7 @@ class ReportsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def report_params
-      params.require(:report).permit(:company_id, :period_id, :accounting_standard_id, :rating, :maker_id, :maker_reward, :checker_id, values_attributes: [:id, :indicator_id, :value, :currency_id])
+      params.require(:report).permit(:company_id, :period_id, :gaap_id, :rating, :maker_id, :maker_reward, :checker_id, values_attributes: [:id, :indicator_id, :value, :currency_id])
     end
     
     # List of currencies
