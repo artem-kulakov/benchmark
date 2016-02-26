@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class AccountingStandardTest < ActiveSupport::TestCase
+class GaapTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

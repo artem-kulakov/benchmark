@@ -85,7 +85,7 @@ Indicator.create([{ title: 'Revenues', industry_id: 0 },
 
 
 # GAAPs
-AccountingStandard.create([{ title: 'IFRS' },
+Gaap.create([{ title: 'IFRS' },
                           { title: 'US GAAP' },
                           { title: 'Local GAAP' }])
 

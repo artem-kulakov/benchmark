@@ -1,10 +1,10 @@
-class AccountingStandardsController < ApplicationController
+class GaapsController < ApplicationController
   before_action :set_gaap, only: [:show, :edit, :update, :destroy]
 
   respond_to :html
 
   def index
-    @gaaps = AccountingStandard.all
+    @gaaps = Gaap.all
     respond_with(@gaaps)
   end
 
@@ -13,7 +13,7 @@ class AccountingStandardsController < ApplicationController
   end
 
   def new
-    @gaap = AccountingStandard.new
+    @gaap = Gaap.new
     respond_with(@gaap)
   end
 
@@ -21,7 +21,7 @@ class AccountingStandardsController < ApplicationController
   end
 
   def create
-    @gaap = AccountingStandard.new(gaap_params)
+    @gaap = Gaap.new(gaap_params)
     @gaap.save
     respond_with(@gaap)
   end
@@ -38,7 +38,7 @@ class AccountingStandardsController < ApplicationController
 
   private
     def set_gaap
-      @gaap = AccountingStandard.find(params[:id])
+      @gaap = Gaap.find(params[:id])
     end
 
     def gaap_params

@@ -1,4 +1,4 @@
-class CreateAccountingStandards < ActiveRecord::Migration
+class CreateGaaps < ActiveRecord::Migration
   def change
     create_table :gaaps do |t|
       t.string :title

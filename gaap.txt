@@ -23,14 +23,14 @@ app/views/gaaps/edit.html.haml:5:= link_to 'Show', @gaap
 app/views/gaaps/edit.html.haml:7:= link_to 'Back', gaaps_path
 app/views/reports/index.html.haml:85:      %td.text-center= report.gaap_title
 app/views/reports/_new.html.haml:27:    = f.label :gaap, class: "col-sm-2 control-label"
-app/views/reports/_new.html.haml:29:      = f.select :gaap_id, options_from_collection_for_select(AccountingStandard.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
+app/views/reports/_new.html.haml:29:      = f.select :gaap_id, options_from_collection_for_select(Gaap.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
 app/controllers/gaaps_controller.rb:2:  before_action :set_gaap, only: [:show, :edit, :update, :destroy]
-app/controllers/gaaps_controller.rb:7:    @gaaps = AccountingStandard.all
+app/controllers/gaaps_controller.rb:7:    @gaaps = Gaap.all
 app/controllers/gaaps_controller.rb:8:    respond_with(@gaaps)
 app/controllers/gaaps_controller.rb:12:    respond_with(@gaap)
-app/controllers/gaaps_controller.rb:16:    @gaap = AccountingStandard.new
+app/controllers/gaaps_controller.rb:16:    @gaap = Gaap.new
 app/controllers/gaaps_controller.rb:17:    respond_with(@gaap)
-app/controllers/gaaps_controller.rb:24:    @gaap = AccountingStandard.new(gaap_params)
+app/controllers/gaaps_controller.rb:24:    @gaap = Gaap.new(gaap_params)
 app/controllers/gaaps_controller.rb:25:    @gaap.save
 app/controllers/gaaps_controller.rb:26:    respond_with(@gaap)
 app/controllers/gaaps_controller.rb:30:    @gaap.update(gaap_params)
@@ -38,7 +38,7 @@ app/controllers/gaaps_controller.rb:31:    respond_with(@gaap)
 app/controllers/gaaps_controller.rb:35:    @gaap.destroy
 app/controllers/gaaps_controller.rb:36:    respond_with(@gaap)
 app/controllers/gaaps_controller.rb:40:    def set_gaap
-app/controllers/gaaps_controller.rb:41:      @gaap = AccountingStandard.find(params[:id])
+app/controllers/gaaps_controller.rb:41:      @gaap = Gaap.find(params[:id])
 app/controllers/gaaps_controller.rb:44:    def gaap_params
 app/controllers/gaaps_controller.rb:45:      params.require(:gaap).permit(:title)
 app/controllers/reports_controller.rb:278:      params.require(:report).permit(:company_id, :period_id, :gaap_id, :rating, :maker_id, :maker_reward, :checker_id, values_attributes: [:id, :indicator_id, :value, :currency_id])

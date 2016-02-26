@@ -1,2 +1,2 @@
-module AccountingStandardsHelper
+module GaapsHelper
 end

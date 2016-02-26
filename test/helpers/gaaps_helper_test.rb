@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class AccountingStandardsHelperTest < ActionView::TestCase
+class GaapsHelperTest < ActionView::TestCase
 end

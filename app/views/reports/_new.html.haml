@@ -26,7 +26,7 @@
   .form-group
     = f.label :gaap, class: "col-sm-2 control-label"
     .col-sm-2
-      = f.select :gaap_id, options_from_collection_for_select(AccountingStandard.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
+      = f.select :gaap_id, options_from_collection_for_select(Gaap.all, :id, :title), {prompt: 'Select'}, {class: "form-control"}
 
 
   - # Maker and rating
