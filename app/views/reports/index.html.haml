@@ -37,7 +37,8 @@
     - @indicators.each do |indicator|
       %th.text-right
         = indicator.title
-        = link_to '*', chart_path(:woo => woo[indicator.id], :title => "#{indicator.title}, in #{Currency.find(@currency).code} mln")
+        = link_to chart_path(:woo => woo[indicator.id], :title => indicator.title, :units => Currency.find(@currency).code + ' mln') do
+          %span.glyphicon.glyphicon-stats.foo
     // %th Maker
     // %th Checker
     %th.text-center Accounting standard

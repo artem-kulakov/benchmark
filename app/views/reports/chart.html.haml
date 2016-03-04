@@ -1,1 +1,3 @@
-= column_chart (@woo), library: {title: @title}
+= column_chart (@woo.sort_by{ |k,v| v }), library: { title: { text: @title },
+  yAxis: { title: { text: "RUB mln" } },
+  plotOptions: { column: { dataLabels: { enabled: true } } } }
