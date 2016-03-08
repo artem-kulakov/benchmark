@@ -8,8 +8,8 @@ development:
   encoding: unicode
   database: myapp_development
   pool: 5
-  # username: artem
-  username: rtmklkv
+  username: artem
+  # username: rtmklkv
   password:
   timeout: 5000
 
