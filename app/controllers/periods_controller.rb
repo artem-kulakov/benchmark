@@ -5,6 +5,10 @@ class PeriodsController < ApplicationController
   # GET /periods.json
   def index
     @periods = Period.all
+    respond_to do |format|
+      format.html # don't forget if you pass html
+      format.xls { send_data(@periods.to_xls) }
+   end
   end
 
   # GET /periods/1

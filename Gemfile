@@ -17,6 +17,7 @@ gem 'countries'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
 gem 'chartkick'
+gem 'to_xls-rails'
 
 group :doc do
   gem 'sdoc', require: false
